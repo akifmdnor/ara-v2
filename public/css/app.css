@@ -578,6 +578,9 @@ video {
 .m-0 {
   margin: 0px;
 }
+.m-5 {
+  margin: 1.25rem;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -970,6 +973,9 @@ video {
 .p-0 {
   padding: 0px;
 }
+.p-5 {
+  padding: 1.25rem;
+}
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1295,6 +1301,10 @@ video {
     z-index: 0;
   }
 
+  .md\:m-5 {
+    margin: 1.25rem;
+  }
+
   .md\:inline {
     display: inline;
   }
@@ -1322,6 +1332,10 @@ video {
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:rounded-lg {
+    border-radius: 0.5rem;
   }
 
   .md\:border-l {

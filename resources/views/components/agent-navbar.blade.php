@@ -1,4 +1,4 @@
-@props(['user' => null])
+@props(['user' => null, 'headerText' => null])
 
 <div class="flex relative h-screen bg-gray-100">
     <!-- Sidebar and overlay for mobile -->
@@ -9,7 +9,7 @@
         </div>
         <!-- Sidebar -->
         <aside id="sidebar"
-            class="fixed inset-y-0 left-0 z-30 w-60 bg-[#EC2028] text-white flex flex-col items-center py-4 transform transition-transform duration-200 ease-in-out h-screen -translate-x-full md:translate-x-0 md:relative md:z-0 md:flex md:w-60 md:static md:inset-0 md:h-screen">
+            class="fixed inset-y-0 left-0 z-30 w-60 bg-[#EC2028] text-white flex flex-col items-center py-4 transform transition-transform duration-200 ease-in-out h-screen -translate-x-full md:translate-x-0 md:relative md:z-0 md:flex md:w-60 md:inset-0 md:h-screen">
             <!-- Logo -->
             <div class="mb-4">
                 <img src="/images/ara-logo.png" alt="ARA Logo"
@@ -48,7 +48,7 @@
         </aside>
     </div>
     <!-- Main Content -->
-    <main class="overflow-y-auto flex-1">
+    <main class="overflow-y-auto flex-1 md:m-5 md:rounded-lg">
         <!-- Mobile Topbar -->
         <header
             class="flex items-center justify-between px-4 py-3 bg-[#EC2028] text-white md:hidden">
@@ -65,8 +65,15 @@
                 <img src="{{ $user && $user->profile_photo ? asset($user->profile_photo) : '/avatar.jpg' }}"
                     alt="Avatar"
                     class="object-cover w-8 h-8 rounded-full border-2 border-white" />
-                <img src="{{ asset('icons/bell.svg') }}" alt="Notifications"
-                    class="w-7 h-7" />
+                <button title="Notifications" class="bg-transparent">
+                    <svg class="w-6 h-6 text-gray-400" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29A1 1 0 0 0 6 20h12a1 1 0 0 0 .71-1.71L18 16z" />
+                    </svg>
+                </button>
             </div>
         </header>
         <!-- Desktop Topbar -->
@@ -74,14 +81,19 @@
             class="hidden justify-between items-center px-6 py-4 text-gray-800 bg-white shadow md:flex">
             <div class="flex flex-col gap-1">
                 <span class="text-base font-semibold">
-                    Welcome back, {{ $user ? $user->full_name : 'Admin' }}!
+                    {{ $headerText ?? 'Welcome back, ' . ($user ? $user->full_name : 'Admin') . '!' }}
                 </span>
             </div>
             <div class="flex gap-4 items-center">
                 <span class="text-lg font-semibold">Ara Car Rental - HQ</span>
                 <button title="Notifications" class="bg-transparent">
-                    <img src="{{ asset('icons/bell.svg') }}" alt="Notifications"
-                        class="w-6 h-6 text-gray-400" />
+                    <svg class="w-6 h-6 text-gray-400" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29A1 1 0 0 0 6 20h12a1 1 0 0 0 .71-1.71L18 16z" />
+                    </svg>
                 </button>
                 <img src="{{ $user && $user->profile_photo ? asset($user->profile_photo) : asset('images/avatar.png') }}"
                     alt="Avatar"
