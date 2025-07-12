@@ -12,6 +12,7 @@ class BookingRepository
     public function getBookingsForAgent($agentId)
     {
         return Booking::where('sales_agent_id', $agentId)
+            ->with('car_model', 'car_model.branch')
             ->orderByDesc('created_at')
             ->get();
     }

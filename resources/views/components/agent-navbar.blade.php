@@ -1,79 +1,91 @@
 @props(['user' => null])
 
-<div class="flex h-screen bg-gray-100">
-    <!-- Sidebar -->
-    <aside class="w-60 bg-[#EC2028] text-white flex flex-col items-center py-4">
-        <!-- Logo -->
-        <div class="mb-4">
-            <img src="/ara-logo.png" alt="ARA Logo" class="h-16 w-16 object-contain" />
+<div class="flex relative h-screen bg-gray-100">
+    <!-- Sidebar and overlay for mobile -->
+    <div>
+        <!-- Overlay for mobile -->
+        <div id="sidebar-overlay"
+            class="hidden fixed inset-0 z-20 bg-black bg-opacity-30 md:hidden">
         </div>
-        <!-- Affiliates Button -->
-        <button class="w-48 py-2 mb-6 rounded bg-white text-[#EC2028] font-bold text-lg shadow">
-            AFFILIATES
-        </button>
-        <!-- Nav Links -->
-        <nav class="flex-1 w-full px-4 space-y-2">
-            <a href="{{ route('agent.dashboard') }}"
-                class="flex items-center gap-2 py-2 px-3 rounded hover:bg-white hover:text-[#EC2028] font-semibold {{ request()->routeIs('agent.dashboard') ? 'bg-white text-[#EC2028]' : '' }}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0H7m6 0v6m0 0H7m6 0h6" />
-                </svg>
-                Dashboard
-            </a>
-            <a href="#"
-                class="flex items-center gap-2 py-2 px-3 rounded hover:bg-white hover:text-[#EC2028] font-semibold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6 0h6" />
-                </svg>
-                Bookings
-            </a>
-        </nav>
-    </aside>
-
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed inset-y-0 left-0 z-30 w-60 bg-[#EC2028] text-white flex flex-col items-center py-4 transform transition-transform duration-200 ease-in-out h-screen -translate-x-full md:translate-x-0 md:relative md:z-0 md:flex md:w-60 md:static md:inset-0 md:h-screen">
+            <!-- Logo -->
+            <div class="mb-4">
+                <img src="/images/ara-logo.png" alt="ARA Logo"
+                    class="object-contain w-16 h-16" />
+            </div>
+            <!-- Affiliates Button -->
+            <button
+                class="w-48 py-2 mb-6 rounded bg-white text-[#EC2028] font-bold text-lg shadow">
+                AFFILIATES
+            </button>
+            <!-- Nav Links -->
+            <nav class="flex-1 px-4 space-y-2 w-full">
+                <a href="{{ route('agent.dashboard') }}"
+                    class="flex items-center gap-2 py-2 px-3 rounded hover:bg-white hover:text-[#EC2028] font-semibold {{ request()->routeIs('agent.dashboard') ? 'bg-white text-[#EC2028]' : '' }}">
+                    <!-- Material Design clipboard/assignment icon -->
+                    <svg class="w-5 h-5 {{ request()->routeIs('agent.dashboard') ? 'fill-[#EC2028]' : 'fill-white' }}"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V5h2v2h10V5h2v16z" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#"
+                    class="flex items-center gap-2 py-2 px-3 rounded hover:bg-white hover:text-[#EC2028] font-semibold {{ request()->routeIs('agent.bookings') ? 'bg-white text-[#EC2028]' : '' }}">
+                    <!-- Material Design event_available icon -->
+                    <svg class="w-5 h-5 {{ request()->routeIs('agent.bookings') ? 'fill-[#EC2028]' : 'fill-white' }}"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16.53 11.06l-4.24 4.24-2.12-2.12-1.06 1.06 3.18 3.18 5.3-5.3z" />
+                        <path
+                            d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z" />
+                    </svg>
+                    Bookings
+                </a>
+            </nav>
+        </aside>
+    </div>
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto">
-        <!-- Top Bar -->
-        <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
+    <main class="overflow-y-auto flex-1">
+        <!-- Mobile Topbar -->
+        <header
+            class="flex items-center justify-between px-4 py-3 bg-[#EC2028] text-white md:hidden">
+            <div class="flex gap-3 items-center">
+                <button id="burger-btn" class="p-0 m-0 bg-transparent">
+                    <img src="{{ asset('icons/hamburger.svg') }}" alt="Menu"
+                        class="w-7 h-7" />
+                </button>
+                <img src="/ara-logo.png" alt="ARA Logo"
+                    class="object-contain w-8 h-8" />
+                <span class="ml-2 text-lg font-bold">Bookings</span>
+            </div>
+            <div class="flex gap-3 items-center">
+                <img src="{{ $user && $user->profile_photo ? asset($user->profile_photo) : '/avatar.jpg' }}"
+                    alt="Avatar"
+                    class="object-cover w-8 h-8 rounded-full border-2 border-white" />
+                <img src="{{ asset('icons/bell.svg') }}" alt="Notifications"
+                    class="w-7 h-7" />
+            </div>
+        </header>
+        <!-- Desktop Topbar -->
+        <header
+            class="hidden justify-between items-center px-6 py-4 text-gray-800 bg-white shadow md:flex">
             <div class="flex flex-col gap-1">
-                <span class="text-base font-semibold text-gray-800">
-                    Welcome back, {{ $user ? $user->name : 'Admin' }}!
+                <span class="text-base font-semibold">
+                    Welcome back, {{ $user ? $user->full_name : 'Admin' }}!
                 </span>
             </div>
-            <div class="flex items-center gap-6">
-                <span class="text-lg font-semibold text-gray-800">Ara Car Rental - HQ</span>
-                <!-- Unique Code Box -->
-                <div class="bg-gray-100 px-4 py-2 rounded flex items-center gap-2">
-                    <span class="text-xs text-gray-500">Your Unique Code</span>
-                    <span class="font-mono text-base font-bold text-[#4B5563]">A1B2C3D4</span>
-                    <button title="Copy" onclick="copyToClipboard('A1B2C3D4')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 16h8M8 12h8m-6 8h6a2 2 0 002-2V8a2 2 0 00-2-2h-2.586a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 0012.586 3H6a2 2 0 00-2 2v12a2 2 0 002 2h2" />
-                        </svg>
-                    </button>
-                    <button title="Share">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 8a3 3 0 11-6 0 3 3 0 016 0zm6 8a6 6 0 00-12 0v1a2 2 0 002 2h8a2 2 0 002-2v-1z" />
-                        </svg>
-                    </button>
-                </div>
-                <!-- Bell Icon -->
-                <button title="Notifications">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                    </svg>
+            <div class="flex gap-4 items-center">
+                <span class="text-lg font-semibold">Ara Car Rental - HQ</span>
+                <button title="Notifications" class="bg-transparent">
+                    <img src="{{ asset('icons/bell.svg') }}" alt="Notifications"
+                        class="w-6 h-6 text-gray-400" />
                 </button>
-                <!-- Avatar -->
-                <img src="/avatar.jpg" alt="Avatar" class="h-8 w-8 rounded-full border-2 border-gray-200" />
+                <img src="{{ $user && $user->profile_photo ? asset($user->profile_photo) : asset('images/avatar.png') }}"
+                    alt="Avatar"
+                    class="object-cover w-8 h-8 rounded-full border-2 border-gray-200" />
             </div>
         </header>
         <div class="p-6">
@@ -83,6 +95,22 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const burgerBtn = document.getElementById('burger-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        burgerBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+    });
+
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(function() {
             // You could add a toast notification here
