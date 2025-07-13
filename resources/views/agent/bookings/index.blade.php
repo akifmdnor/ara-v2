@@ -39,7 +39,8 @@
                 <button id="open-filter-modal" class="p-2 ml-2 bg-white rounded-full border border-gray-200 shadow">
                     <svg class="w-6 h-6 text-[#EC2028]" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                     </svg>
                 </button>
             </div>
@@ -193,15 +194,6 @@
                 </div>
             </div>
         </div>
-        <!-- Add filter icon button for mobile only -->
-        <div class="flex justify-end mb-2 md:hidden">
-            <button id="open-filter-modal" class="p-2 bg-white rounded-full border border-gray-200 shadow">
-                <svg class="w-6 h-6 text-[#EC2028]" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
-        </div>
 
         <!-- Filter Modal (mobile only) -->
         <div id="filter-modal"
@@ -270,6 +262,8 @@
                 @endif
             </div>
         </div>
+        <div id="agent-bookings-list">
+            <agent-bookings-list></agent-bookings-list>
         </div>
     </x-agent-navbar>
 @endsection

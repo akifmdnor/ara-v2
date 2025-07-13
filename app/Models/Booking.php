@@ -63,6 +63,16 @@ class Booking extends Model
         return 'BK' . str_pad($this->id, 4, '0', STR_PAD_LEFT);
     }
 
+    public function getCommissionAttribute()
+    {
+        $agent = $this->sales_agent;
+        if (!$agent || !$this->amount) {
+            return 0;
+        }
+        $rate = $agent->commission_normal ?? 0;
+        return round($this->amount * ($rate / 100), 2);
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Models\Branch')->withTrashed();

@@ -25,12 +25,34 @@ class BookingController extends Controller
             'total_bookings_growth' => '36%',
             'total_sales' => $bookings->sum('amount'),
             'total_sales_growth' => '36%',
-            'total_commission' => $bookings->sum('commission'),
+            'total_commission' => 1270,
             'total_commission_growth' => '36%',
         ];
         return view('agent.bookings.index', [
             'bookings' => $bookings,
             'stats' => $stats,
+        ]);
+    }
+
+    /**
+     * API endpoint: Get bookings for the authenticated agent (paginated, JSON)
+     */
+    public function apiIndex()
+    {
+        $agent = Auth::guard('agent');
+        dd($agent);
+        $perPage = request('per_page', 10);
+        $bookings = $this->bookingService->getAllBookingsForAgent($agent->id)
+            ->paginate($perPage);
+        // Optionally, add statistics here if needed
+        return response()->json([
+            'data' => $bookings->items(),
+            'meta' => [
+                'current_page' => $bookings->currentPage(),
+                'last_page' => $bookings->lastPage(),
+                'per_page' => $bookings->perPage(),
+                'total' => $bookings->total(),
+            ],
         ]);
     }
 }
