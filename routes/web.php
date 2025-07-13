@@ -45,5 +45,8 @@ Route::prefix('agent')->middleware(['auth:agent'])->name('agent.')->group(functi
 
     Route::get('/dashboard', [\App\Http\Controllers\Agent\DashboardController::class, 'index'])->name('dashboard');
 
+    // Bookings module
+    Route::get('/bookings', [\App\Http\Controllers\Agent\BookingController::class, 'index'])->name('bookings.index');
+
     // Add more agent-specific routes here
 });

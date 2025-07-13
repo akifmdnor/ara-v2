@@ -28,4 +28,9 @@ class BookingService
             'processed' => $processed,
         ];
     }
+
+    public function getAllBookingsForAgent($agentId)
+    {
+        return $this->bookingRepository->getBookingsForAgent($agentId);
+    }
 }
