@@ -14,7 +14,7 @@
                 class="p-4 w-full bg-white rounded-2xl border border-gray-100 shadow transition-all duration-200 md:p-6">
                 <div class="flex flex-row gap-6">
                     <!-- Left: Car Image -->
-                    <div class="flex flex-col flex-shrink-0 justify-center items-center w-32">
+                    <div class="flex hidden flex-col flex-shrink-0 justify-center items-center w-32 md:flex">
                         <div class="relative">
                             <div
                                 class="absolute -bottom-2 left-1/2 z-0 w-24 h-6 bg-red-100 rounded-full blur-sm -translate-x-1/2">
@@ -23,13 +23,15 @@
                                 class='object-contain relative z-10 w-28 h-20' />
                         </div>
                     </div>
-                    <!-- Right: Info -->
+
                     <div class="flex flex-col flex-1 gap-1">
+                        <!-- Right: Info -->
+
                         <!-- Row 1: Booking ID (left), Commission (right) -->
                         <div class="flex flex-row justify-between items-start">
                             <span class="text-[#EC2028] font-bold text-base md:text-lg"
                                 x-text="booking.bk_id ?? ('BK' + String(booking.id).padStart(4, '0'))"></span>
-                            <div class="flex gap-2 items-center">
+                            <div class="flex hidden gap-2 items-center md:flex">
                                 <span class="text-xs text-gray-400">Commission (RM)</span>
                                 <span class="text-base font-semibold text-gray-800"
                                     x-text="Number(booking.commission).toFixed(2)"></span>
@@ -38,6 +40,16 @@
                                     x-text="booking.commission_status ?? 'Pending'"></span>
                             </div>
                         </div>
+                        <div class="flex flex-row justify-between items-start">
+                            <div class="flex flex-col justify-center items-center w-full md:hidden">
+
+
+                                <img :src="booking.car_model?.model_specification?.picture_url" alt='Car'
+                                    class='object-contain relative z-10 w-full' />
+
+                            </div>
+                        </div>
+
                         <!-- Row 2: Client Name -->
                         <div class="flex flex-col">
                             <span class="text-sm font-medium text-gray-800">Client’s Name</span>
@@ -68,10 +80,18 @@
                                 <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-[#F3EFFF] text-[#A259FF]"
                                     x-text="booking.booking_status"></span>
                             </div>
-                            <div>
+                            <div class="hidden md:block">
                                 <span class="block text-xs text-gray-400">Payment Status</span>
                                 <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-[#FFEAEA] text-[#EC2028]"
                                     x-text="booking.payment_status"></span>
+                            </div>
+                            <div class="block md:hidden">
+                                <span class="block text-xs text-gray-400">Commission (RM)</span>
+                                <span class="text-base font-semibold text-gray-800"
+                                    x-text="Number(booking.commission).toFixed(2)"></span>
+                                <span
+                                    class="ml-2 px-3 py-1 rounded-lg text-xs font-semibold bg-[#FFF4E0] text-[#FFB800]"
+                                    x-text="booking.commission_status ?? 'Pending'"></span>
                             </div>
                         </div>
                         <!-- Expand Button centered below -->
