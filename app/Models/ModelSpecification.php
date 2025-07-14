@@ -9,6 +9,7 @@ class ModelSpecification extends Model
 {
     //
     use SoftDeletes;
+
     protected $fillable = [
         'model_name',
         'doors',
@@ -22,8 +23,9 @@ class ModelSpecification extends Model
         'brand_logo',
         'brand',
         'model_code',
-
     ];
+
+    protected $appends = ['picture_url'];
 
     public function pictures()
     {
