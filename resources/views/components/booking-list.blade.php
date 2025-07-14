@@ -19,8 +19,8 @@
                             <div
                                 class="absolute -bottom-2 left-1/2 z-0 w-24 h-6 bg-red-100 rounded-full blur-sm -translate-x-1/2">
                             </div>
-                            <img :src="booking.car_model?.model_specification?.picture_url || '/images/agent.svg'"
-                                alt='Car' class='object-contain relative z-10 w-28 h-20' />
+                            <img :src="booking.car_model?.model_specification?.picture_url" alt='Car'
+                                class='object-contain relative z-10 w-28 h-20' />
                         </div>
                     </div>
                     <!-- Right: Info -->
