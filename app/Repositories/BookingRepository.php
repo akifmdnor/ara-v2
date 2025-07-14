@@ -58,30 +58,75 @@ class BookingRepository
      */
     public function getAgentStats($agentId, $month = 'all')
     {
-        $query = Booking::where('sales_agent_id', $agentId)
-            ->with('sales_agent');
+        // Get current period stats
+        $currentQuery = Booking::where('sales_agent_id', $agentId);
 
-        // Month filtering
         if ($month !== 'all') {
             $year = substr($month, 0, 4);
             $monthNum = substr($month, 5, 2);
-            $query->whereYear('created_at', $year)
+            $currentQuery->whereYear('created_at', $year)
                 ->whereMonth('created_at', $monthNum);
+        } else {
+            // For 'all' time, compare current month with previous month
+            $currentQuery->whereYear('created_at', date('Y'))
+                ->whereMonth('created_at', date('n'));
         }
 
-        $bookings = $query->get();
+        $currentBookings = $currentQuery->get();
+        $currentTotalBookings = $currentBookings->count();
+        $currentTotalSales = $currentBookings->sum('amount');
+        $currentTotalCommission = $currentBookings->sum('commission');
 
-        $totalBookings = $bookings->count();
-        $totalSales = $bookings->sum('amount');
-        $totalCommission = $bookings->sum('commission'); // Uses the accessor
+                // Get previous period stats for comparison
+        $previousQuery = Booking::where('sales_agent_id', $agentId);
+
+        if ($month !== 'all') {
+            $year = substr($month, 0, 4);
+            $monthNum = substr($month, 5, 2);
+
+            // Calculate previous month
+            $previousDate = \Carbon\Carbon::createFromDate($year, $monthNum, 1)->subMonth();
+            $previousQuery->whereYear('created_at', $previousDate->year)
+                ->whereMonth('created_at', $previousDate->month);
+        } else {
+            // For 'all' time, compare current month with previous month
+            $previousDate = \Carbon\Carbon::now()->subMonth();
+            $previousQuery->whereYear('created_at', $previousDate->year)
+                ->whereMonth('created_at', $previousDate->month);
+        }
+
+        $previousBookings = $previousQuery->get();
+        $previousTotalBookings = $previousBookings->count();
+        $previousTotalSales = $previousBookings->sum('amount');
+        $previousTotalCommission = $previousBookings->sum('commission');
+
+        // Calculate growth percentages
+        $bookingsGrowth = $this->calculateGrowthPercentage($currentTotalBookings, $previousTotalBookings);
+        $salesGrowth = $this->calculateGrowthPercentage($currentTotalSales, $previousTotalSales);
+        $commissionGrowth = $this->calculateGrowthPercentage($currentTotalCommission, $previousTotalCommission);
 
         return [
-            'total_bookings' => (string) $totalBookings,
-            'total_bookings_growth' => '36%', // Placeholder - could calculate from previous period
-            'total_sales' => number_format($totalSales, 2),
-            'total_sales_growth' => '36%', // Placeholder - could calculate from previous period
-            'total_commission' => number_format($totalCommission, 2),
-            'total_commission_growth' => '36%', // Placeholder - could calculate from previous period
+            'total_bookings' => (string) $currentTotalBookings,
+            'total_bookings_growth' => $bookingsGrowth,
+            'total_sales' => number_format($currentTotalSales, 2),
+            'total_sales_growth' => $salesGrowth,
+            'total_commission' => number_format($currentTotalCommission, 2),
+            'total_commission_growth' => $commissionGrowth,
         ];
+    }
+
+    /**
+     * Calculate growth percentage between two values
+     */
+    private function calculateGrowthPercentage($current, $previous)
+    {
+        if ($previous == 0) {
+            return $current > 0 ? '100%' : '0%';
+        }
+
+        $growth = (($current - $previous) / $previous) * 100;
+        $sign = $growth >= 0 ? '+' : '';
+
+        return $sign . number_format($growth, 1) . '%';
     }
 }

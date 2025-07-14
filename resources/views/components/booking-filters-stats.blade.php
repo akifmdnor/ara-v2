@@ -49,11 +49,20 @@
                 <div class="text-xs leading-tight text-gray-500">Total Bookings</div>
                 <div class="flex justify-between items-end pt-2 mt-auto">
                     <div class="text-base font-bold" x-text="statsDisplay.total_bookings"></div>
-                    <div class="flex gap-1 items-center text-xs font-semibold text-green-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                    <div class="flex gap-1 items-center text-xs font-semibold"
+                        :class="statsDisplay.total_bookings_growth && statsDisplay.total_bookings_growth.includes('-') ?
+                            'text-red-500' : 'text-green-500'">
+                        <svg x-show="!statsDisplay.total_bookings_growth || !statsDisplay.total_bookings_growth.includes('-')"
+                            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                        <svg x-show="statsDisplay.total_bookings_growth && statsDisplay.total_bookings_growth.includes('-')"
+                            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                         </svg>
                         <span x-text="statsDisplay.total_bookings_growth"></span>
                     </div>
@@ -63,11 +72,20 @@
                 <div class="text-xs leading-tight text-gray-500">Total Sales</div>
                 <div class="flex justify-between items-end pt-2 mt-auto">
                     <div class="text-base font-bold" x-text="'RM' + statsDisplay.total_sales"></div>
-                    <div class="flex gap-1 items-center text-xs font-semibold text-green-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                    <div class="flex gap-1 items-center text-xs font-semibold"
+                        :class="statsDisplay.total_sales_growth && statsDisplay.total_sales_growth.includes('-') ?
+                            'text-red-500' : 'text-green-500'">
+                        <svg x-show="!statsDisplay.total_sales_growth || !statsDisplay.total_sales_growth.includes('-')"
+                            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                        <svg x-show="statsDisplay.total_sales_growth && statsDisplay.total_sales_growth.includes('-')"
+                            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                         </svg>
                         <span x-text="statsDisplay.total_sales_growth"></span>
                     </div>
@@ -77,11 +95,20 @@
                 <div class="text-xs leading-tight text-gray-500">Total Commission</div>
                 <div class="flex justify-between items-end pt-2 mt-auto">
                     <div class="text-base font-bold" x-text="'RM' + statsDisplay.total_commission"></div>
-                    <div class="flex gap-1 items-center text-xs font-semibold text-green-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                    <div class="flex gap-1 items-center text-xs font-semibold"
+                        :class="statsDisplay.total_commission_growth && statsDisplay.total_commission_growth.includes('-') ?
+                            'text-red-500' : 'text-green-500'">
+                        <svg x-show="!statsDisplay.total_commission_growth || !statsDisplay.total_commission_growth.includes('-')"
+                            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                        <svg x-show="statsDisplay.total_commission_growth && statsDisplay.total_commission_growth.includes('-')"
+                            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                         </svg>
                         <span x-text="statsDisplay.total_commission_growth"></span>
                     </div>
@@ -117,11 +144,20 @@
                             <span x-text="statsDisplay.total_bookings"></span>
                             <span class="text-base font-normal">Cars</span>
                         </div>
-                        <div class="flex gap-1 items-center text-xs font-semibold text-green-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                        <div class="flex gap-1 items-center text-xs font-semibold"
+                            :class="statsDisplay.total_bookings_growth && statsDisplay.total_bookings_growth.includes('-') ?
+                                'text-red-500' : 'text-green-500'">
+                            <svg x-show="!statsDisplay.total_bookings_growth || !statsDisplay.total_bookings_growth.includes('-')"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                            </svg>
+                            <svg x-show="statsDisplay.total_bookings_growth && statsDisplay.total_bookings_growth.includes('-')"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                             </svg>
                             <span x-text="statsDisplay.total_bookings_growth"></span>
                         </div>
@@ -134,11 +170,20 @@
                             <span x-text="'RM' + statsDisplay.total_sales"></span>
                             <span class="text-base font-normal">RM</span>
                         </div>
-                        <div class="flex gap-1 items-center text-xs font-semibold text-green-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                        <div class="flex gap-1 items-center text-xs font-semibold"
+                            :class="statsDisplay.total_sales_growth && statsDisplay.total_sales_growth.includes('-') ?
+                                'text-red-500' : 'text-green-500'">
+                            <svg x-show="!statsDisplay.total_sales_growth || !statsDisplay.total_sales_growth.includes('-')"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                            </svg>
+                            <svg x-show="statsDisplay.total_sales_growth && statsDisplay.total_sales_growth.includes('-')"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                             </svg>
                             <span x-text="statsDisplay.total_sales_growth"></span>
                         </div>
@@ -151,11 +196,20 @@
                             <span x-text="'RM' + statsDisplay.total_commission"></span>
                             <span class="text-base font-normal">RM</span>
                         </div>
-                        <div class="flex gap-1 items-center text-xs font-semibold text-green-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                        <div class="flex gap-1 items-center text-xs font-semibold"
+                            :class="statsDisplay.total_commission_growth && statsDisplay.total_commission_growth.includes('-') ?
+                                'text-red-500' : 'text-green-500'">
+                            <svg x-show="!statsDisplay.total_commission_growth || !statsDisplay.total_commission_growth.includes('-')"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                            </svg>
+                            <svg x-show="statsDisplay.total_commission_growth && statsDisplay.total_commission_growth.includes('-')"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                             </svg>
                             <span x-text="statsDisplay.total_commission_growth"></span>
                         </div>

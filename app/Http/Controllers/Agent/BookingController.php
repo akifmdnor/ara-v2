@@ -32,26 +32,6 @@ class BookingController extends Controller
         ]);
     }
 
-    /**
-     * API endpoint: Get bookings for the authenticated agent (paginated, JSON)
-     */
-    public function apiIndex()
-    {
-        $agent = Auth::guard('agent')->user();
-        $perPage = request('per_page', 10);
-        $bookings = $this->bookingService->getAllBookingsForAgent($agent->id)
-            ->paginate($perPage);
-        // Optionally, add statistics here if needed
-        return response()->json([
-            'data' => $bookings->items(),
-            'meta' => [
-                'current_page' => $bookings->currentPage(),
-                'last_page' => $bookings->lastPage(),
-                'per_page' => $bookings->perPage(),
-                'total' => $bookings->total(),
-            ],
-        ]);
-    }
 
     /**
      * API endpoint: Get bookings for the authenticated agent (paginated, filterable, sortable, JSON)
