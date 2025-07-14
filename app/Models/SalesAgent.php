@@ -38,4 +38,14 @@ class SalesAgent extends Authenticatable
     {
         return $this->hasMany('App\Models\Booking');
     }
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        if ($this->profile_photo) {
+            // Remove 'public/' or 'public\' from the start if present
+            $photo = preg_replace('#^public[\/]+#', '', $this->profile_photo);
+            return config('app.v1_url') . '/storage/agent/' . ltrim($photo, '/');
+        }
+        return asset('images/avatar.png');
+    }
 }
