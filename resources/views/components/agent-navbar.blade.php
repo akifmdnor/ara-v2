@@ -55,8 +55,8 @@
                 <span class="ml-2 text-lg font-bold">Bookings</span>
             </div>
             <div class="flex gap-3 items-center">
-                <img src="{{ $user && $user->profile_photo ? asset($user->profile_photo) : asset('images/avatar.png') }}"
-                    alt="Avatar" class="object-cover w-8 h-8 rounded-full border-2 border-white" />
+                <img src="{{ $user ? $user->profile_photo_url : asset('images/avatar.png') }}" alt="Avatar"
+                    class="object-cover w-8 h-8 rounded-full border-2 border-white" />
                 <button title="Notifications" class="bg-transparent">
                     <svg class="w-6 h-6 text-gray-400 md:stroke-black" viewBox="0 0 24 24" fill="none"
                         stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -84,8 +84,8 @@
                             d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29A1 1 0 0 0 6 20h12a1 1 0 0 0 .71-1.71L18 16z" />
                     </svg>
                 </button>
-                <img src="{{ $user && $user->profile_photo ? asset($user->profile_photo) : asset('images/avatar.png') }}"
-                    alt="Avatar" class="object-cover w-8 h-8 rounded-full border-2 border-gray-200" />
+                <img src="{{ $user ? $user->profile_photo_url : asset('images/avatar.png') }}" alt="Avatar"
+                    class="object-cover w-8 h-8 rounded-full border-2 border-gray-200" />
             </div>
         </header>
         <div class="p-2 pt-5">

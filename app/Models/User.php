@@ -70,4 +70,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Booking');
     }
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        if ($this->profile_photo) {
+            // Remove 'public/' or 'public\' from the start if present
+            return config('app.v1_url') . '/storage/agent/' . ltrim($this->profile_photo, '/');
+        }
+        return asset('images/avatar.png');
+    }
 }
