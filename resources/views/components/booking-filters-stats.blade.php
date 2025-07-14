@@ -35,7 +35,7 @@
                 </div>
             </div>
             <!-- Filter Icon -->
-            <button id="open-filter-modal" class="p-2 ml-2 bg-white rounded-full border border-gray-200 shadow">
+            <button @click="openFilterModal" class="p-2 ml-2 bg-white rounded-full border border-gray-200 shadow">
                 <svg class="w-6 h-6 text-[#EC2028]" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -276,10 +276,10 @@
     </div>
 
     <!-- Filter Modal (mobile only) -->
-    <div id="filter-modal"
-        class="flex hidden fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-30 md:hidden">
+    <div x-show="showFilterModal" x-transition
+        class="flex fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-30 md:hidden">
         <div class="relative p-6 mx-auto w-11/12 max-w-sm bg-white rounded-2xl">
-            <button id="close-filter-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700">
+            <button @click="closeFilterModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -318,14 +318,16 @@
                 </div>
             </div>
             <div class="mb-4">
-                <input type="text" class="px-3 py-2 mb-2 w-full text-xs rounded-lg border"
+                <input type="text" x-model="bookingNumber" class="px-3 py-2 mb-2 w-full text-xs rounded-lg border"
                     placeholder="Booking Number">
-                <input type="text" class="px-3 py-2 w-full text-xs rounded-lg border" placeholder="Customer Name">
+                <input type="text" x-model="customerName" class="px-3 py-2 w-full text-xs rounded-lg border"
+                    placeholder="Customer Name">
             </div>
             <div class="flex gap-2 mt-4">
-                <button
+                <button @click="resetFilters"
                     class="flex-1 border border-[#EC2028] text-[#EC2028] rounded-lg px-4 py-2 font-bold text-sm">Reset</button>
-                <button class="flex-1 bg-[#EC2028] text-white rounded-lg px-4 py-2 font-bold text-sm">Search</button>
+                <button @click="applySearchAndClose"
+                    class="flex-1 bg-[#EC2028] text-white rounded-lg px-4 py-2 font-bold text-sm">Search</button>
             </div>
         </div>
     </div>
@@ -339,6 +341,7 @@
             selectedMonthLabel: 'All time',
             showMonthDropdownMobile: false,
             showMonthDropdownDesktop: false,
+            showFilterModal: false,
             commissionStatuses: ['All', 'Pending', 'Paid'],
             commissionStatus: 'All',
             customerStatuses: ['All', 'Not Paid', 'Partial', 'Paid'],
@@ -403,6 +406,24 @@
             },
             applySearch() {
                 this.$dispatch('filters-changed', this.getFilters());
+            },
+            openFilterModal() {
+                this.showFilterModal = true;
+            },
+            closeFilterModal() {
+                this.showFilterModal = false;
+            },
+            applySearchAndClose() {
+                this.applySearch();
+                this.closeFilterModal();
+            },
+            resetFilters() {
+                this.commissionStatus = 'All';
+                this.customerStatus = 'All';
+                this.bookingNumber = '';
+                this.customerName = '';
+                this.$dispatch('filters-changed', this.getFilters());
+                this.closeFilterModal();
             },
             getFilters() {
                 return {

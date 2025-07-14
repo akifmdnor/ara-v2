@@ -32,7 +32,7 @@
 
     <!-- Car Image -->
     <div class="flex justify-center mb-2 md:justify-start md:mb-0">
-        <img src="{{ $booking->car_model->model_specification->picture_url }}" alt="Car"
+        <img :src="booking.car_model?.model_specification?.picture_url || '/images/agent.svg'" alt="Car"
             class="object-contain w-32 h-20" />
     </div>
 
