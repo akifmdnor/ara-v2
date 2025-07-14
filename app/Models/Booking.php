@@ -58,6 +58,8 @@ class Booking extends Model
         'sales_agent_id',
     ];
 
+    protected $appends = ['commission'];
+
     public function getBkIdAttribute()
     {
         return 'BK' . str_pad($this->id, 4, '0', STR_PAD_LEFT);
@@ -80,12 +82,12 @@ class Booking extends Model
 
     public function staff()
     {
-        return $this->belongsTo('App\Staff')->withTrashed();
+        return $this->belongsTo('App\Models\Staff')->withTrashed();
     }
 
     public function assistant_staff()
     {
-        return $this->belongsTo('App\Staff', 'assistant_staff_id')->withTrashed();
+        return $this->belongsTo('App\Models\Staff', 'assistant_staff_id')->withTrashed();
     }
 
     public function car()
@@ -101,7 +103,7 @@ class Booking extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User')->withTrashed();
+        return $this->belongsTo('App\Models\User')->withTrashed();
     }
 
     public function car_conditions()
@@ -111,12 +113,12 @@ class Booking extends Model
 
     public function addonbookings()
     {
-        return $this->hasMany('App\AddOnBookings');
+        return $this->hasMany('App\Models\AddOnBookings');
     }
 
     public function contract()
     {
-        return $this->hasOne('App\Contract');
+        return $this->hasOne('App\Models\Contract');
     }
 
     public function pictures()

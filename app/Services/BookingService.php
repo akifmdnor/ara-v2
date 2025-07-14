@@ -33,4 +33,20 @@ class BookingService
     {
         return $this->bookingRepository->getBookingsForAgent($agentId);
     }
+
+    /**
+     * Get paginated, filterable, and sortable bookings for agent (for API)
+     */
+    public function getAgentBookingsApi($agentId, $perPage = 10, $sort = 'created_at', $direction = 'desc', $filters = [])
+    {
+        return $this->bookingRepository->getAgentBookingsApi($agentId, $perPage, $sort, $direction, $filters);
+    }
+
+    /**
+     * Get statistics for agent based on selected month period
+     */
+    public function getAgentStats($agentId, $month = 'all')
+    {
+        return $this->bookingRepository->getAgentStats($agentId, $month);
+    }
 }

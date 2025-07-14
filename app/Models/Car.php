@@ -40,7 +40,7 @@ class Car extends Model
 
     public function unavailablePeriods()
     {
-        return $this->hasMany('App\UnavailableCars', 'car_id');
+        return $this->hasMany('App\Models\UnavailableCars', 'car_id');
     }
 
     public function scopeAvailable($query)

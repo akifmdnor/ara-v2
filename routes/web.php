@@ -49,4 +49,9 @@ Route::prefix('agent')->middleware(['auth:agent'])->name('agent.')->group(functi
     Route::get('/bookings', [\App\Http\Controllers\Agent\BookingController::class, 'index'])->name('bookings.index');
 
     // Add more agent-specific routes here
+
+});
+
+Route::middleware(['auth:agent'])->group(function () {
+    Route::get('/api/agent/bookings', [\App\Http\Controllers\Agent\BookingController::class, 'apiList']);
 });

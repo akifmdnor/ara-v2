@@ -55,7 +55,7 @@ class CarModel extends Model
 
     public function addoncars()
     {
-        return $this->hasMany('App\AddOnCars');
+        return $this->hasMany('App\Models\AddOnCars');
     }
 
     public function model_specification()
@@ -65,7 +65,7 @@ class CarModel extends Model
 
     public function seasonal_prices()
     {
-        return $this->hasMany('App\SeasonalPrice');
+        return $this->hasMany('App\Models\SeasonalPrice');
     }
 
     public function branch_seasonal_prices()
