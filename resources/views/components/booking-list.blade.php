@@ -35,7 +35,7 @@
                                 <span class="text-base text-gray-400">Commission (RM)</span>
                                 <span class="text-base font-semibold text-gray-800"
                                     x-text="Number(booking.commission).toFixed(2)"></span>
-                                <div class="ml-2"
+                                <div class="px-2 ml-2"
                                     x-html="getStatusBadge(booking.commission_status ?? 'Pending', 'sm')"></div>
                             </div>
                         </div>

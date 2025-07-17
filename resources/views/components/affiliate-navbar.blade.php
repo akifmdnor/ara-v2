@@ -25,19 +25,24 @@
                 <a href="{{ route('affiliate.dashboard') }}"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg transition
                     {{ request()->routeIs('affiliate.dashboard') ? 'bg-white text-[#EC2028] font-bold' : 'hover:bg-[#d91b23] text-white' }}">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 4h6a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <svg class="w-6 h-6" viewBox="0 0 24 28"
+                        fill="{{ request()->routeIs('affiliate.dashboard') ? '#EC2028' : 'white' }}"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20.9126 2.5H15.6876C15.1626 1.05 13.7876 0 12.1626 0C10.5376 0 9.1626 1.05 8.6376 2.5H3.4126C2.0376 2.5 0.912598 3.625 0.912598 5V25C0.912598 26.375 2.0376 27.5 3.4126 27.5H20.9126C22.2876 27.5 23.4126 26.375 23.4126 25V5C23.4126 3.625 22.2876 2.5 20.9126 2.5ZM12.1626 2.5C12.8501 2.5 13.4126 3.0625 13.4126 3.75C13.4126 4.4375 12.8501 5 12.1626 5C11.4751 5 10.9126 4.4375 10.9126 3.75C10.9126 3.0625 11.4751 2.5 12.1626 2.5ZM20.9126 25H3.4126V5H5.9126V8.75H18.4126V5H20.9126V25Z" />
                     </svg>
                     Dashboard
                 </a>
                 <a href="{{ route('affiliate.bookings.index') }}"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg transition
                     {{ request()->routeIs('affiliate.bookings.index') ? 'bg-white text-[#EC2028] font-bold' : 'hover:bg-[#d91b23] text-white' }}">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <svg class="w-6 h-6" viewBox="0 0 24 26"
+                        fill="{{ request()->routeIs('affiliate.bookings.index') ? '#EC2028' : 'white' }}"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.6625 12.825L16.3375 11.5L10.2375 17.6L7.5875 14.95L6.2625 16.275L10.2375 20.25L17.6625 12.825ZM20.75 2.75H19.5V0.25H17V2.75H7V0.25H4.5V2.75H3.25C1.8625 2.75 0.7625 3.875 0.7625 5.25L0.75 22.75C0.75 23.413 1.01339 24.0489 1.48223 24.5178C1.95107 24.9866 2.58696 25.25 3.25 25.25H20.75C22.125 25.25 23.25 24.125 23.25 22.75V5.25C23.25 3.875 22.125 2.75 20.75 2.75ZM20.75 22.75H3.25V9H20.75V22.75Z" />
                     </svg>
+
                     Bookings
                 </a>
             </nav>
