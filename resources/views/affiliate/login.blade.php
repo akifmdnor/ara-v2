@@ -9,22 +9,20 @@
         <div class="p-8 w-full max-w-sm bg-white rounded-xl shadow-lg">
             <!-- Logo or brand -->
             <div class="mb-6 text-center">
-                <img src="https://www.aracarrental.com.my/images/web/homepage/new/ara-logo.png"
-                    alt="ARA Logo" class="mx-auto w-auto h-12" />
+                <img src="https://www.aracarrental.com.my/images/web/homepage/new/ara-logo.png" alt="ARA Logo"
+                    class="mx-auto w-auto h-12" />
                 <h2 class="mt-4 text-2xl font-bold text-gray-800">Welcome Back</h2>
-                <p class="text-sm text-gray-500">Please login to your agent account
+                <p class="text-sm text-gray-500">Please login to your affiliate account
                 </p>
             </div>
 
             <!-- Form -->
-                            <form method="POST" action="{{ route('affiliate.login') }}"
-                class="space-y-5">
+            <form method="POST" action="{{ route('affiliate.login') }}" class="space-y-5">
                 @csrf
 
                 <!-- Email -->
                 <div>
-                    <label
-                        class="block mb-1 text-sm font-medium text-gray-700">Email</label>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}"
                         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#EC2028] {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}"
                         placeholder="you@example.com" required />
@@ -33,8 +31,7 @@
 
                 <!-- Password -->
                 <div>
-                    <label
-                        class="block mb-1 text-sm font-medium text-gray-700">Password</label>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">Password</label>
                     <div class="relative">
                         <input type="password" name="password" id="password"
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#EC2028
