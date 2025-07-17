@@ -20,6 +20,7 @@
     @yield('content')
 
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('js/status-utils.js') }}"></script>
     @stack('scripts')
 </body>
 

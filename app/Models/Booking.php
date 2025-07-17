@@ -68,11 +68,11 @@ class Booking extends Model
     public function getCommissionAttribute()
     {
         $agent = $this->sales_agent;
-        if (!$agent || !$this->amount) {
+        if (!$agent || !$this->amount_rent) {
             return 0;
         }
-        $rate = $agent->commission_normal ?? 0;
-        return round($this->amount * ($rate / 100), 2);
+        $rate = $agent->commission_in_house ?? 0;
+        return round($this->amount_rent * ($rate / 100), 2);
     }
 
     public function branch()

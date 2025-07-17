@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Agent\Auth;
+namespace App\Http\Controllers\Affiliate\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('agent.login');
+        return view('affiliate.login');
     }
 
     public function login(Request $request)
@@ -25,13 +25,13 @@ class LoginController extends Controller
             // Example: Check if password reset is required (customize as needed)
             $agent = Auth::guard('agent')->user();
             if (isset($agent->must_change_password) && $agent->must_change_password) {
-                return redirect()->route('agent.change-password');
+                return redirect()->route('affiliate.change-password');
             }
 
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Logged in']);
             }
-            return redirect()->intended('/agent/dashboard');
+            return redirect()->intended('/affiliate/dashboard');
         }
 
         if ($request->expectsJson()) {
@@ -48,6 +48,6 @@ class LoginController extends Controller
         Auth::guard('agent')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/agent/login');
+        return redirect('/affiliate/login');
     }
 }

@@ -14,7 +14,7 @@
                 class="p-4 w-full bg-white rounded-2xl border border-gray-100 shadow transition-all duration-200 md:p-6">
                 <div class="flex flex-row gap-6">
                     <!-- Left: Car Image -->
-                    <div class="flex hidden flex-col flex-shrink-0 justify-center items-center w-32 md:flex">
+                    <div class="hidden flex-col flex-shrink-0 justify-center items-center w-32 md:flex">
                         <div class="relative">
                             <div
                                 class="absolute -bottom-2 left-1/2 z-0 w-24 h-6 bg-red-100 rounded-full blur-sm -translate-x-1/2">
@@ -31,13 +31,12 @@
                         <div class="flex flex-row justify-between items-start">
                             <span class="text-[#EC2028] font-bold text-base md:text-lg"
                                 x-text="booking.bk_id ?? ('BK' + String(booking.id).padStart(4, '0'))"></span>
-                            <div class="flex hidden gap-2 items-center md:flex">
-                                <span class="text-xs text-gray-400">Commission (RM)</span>
+                            <div class="hidden gap-2 items-center md:flex">
+                                <span class="text-base text-gray-400">Commission (RM)</span>
                                 <span class="text-base font-semibold text-gray-800"
                                     x-text="Number(booking.commission).toFixed(2)"></span>
-                                <span
-                                    class="ml-2 px-3 py-1 rounded-lg text-xs font-semibold bg-[#FFF4E0] text-[#FFB800]"
-                                    x-text="booking.commission_status ?? 'Pending'"></span>
+                                <div class="ml-2"
+                                    x-html="getStatusBadge(booking.commission_status ?? 'Pending', 'sm')"></div>
                             </div>
                         </div>
                         <div class="flex flex-row justify-between items-start">
@@ -52,52 +51,50 @@
 
                         <!-- Row 2: Client Name -->
                         <div class="flex flex-col">
-                            <span class="text-sm font-medium text-gray-800">Client’s Name</span>
+                            <span class="text-base font-medium text-gray-800">Client’s Name</span>
                             <span class="text-base text-gray-700 truncate" x-text="booking.user?.name ?? '-' "></span>
                         </div>
                         <!-- Row 3: Brand, Model, Start, End, Statuses (full width grid) -->
-                        <div class="grid grid-cols-2 gap-4 items-center mt-1 w-full text-sm md:grid-cols-6">
+                        <div class="grid grid-cols-2 gap-4 items-center mt-1 w-full text-base md:grid-cols-6">
                             <div>
-                                <span class="block text-xs text-gray-400">Car Brand</span>
+                                <span class="block text-base text-gray-400">Car Brand</span>
                                 <span x-text="booking.car_model?.model_specification?.brand ?? '-' "></span>
                             </div>
                             <div>
-                                <span class="block text-xs text-gray-400">Car Model</span>
+                                <span class="block text-base text-gray-400">Car Model</span>
                                 <span x-text="booking.car_model?.model_specification?.model_name ?? '-' "></span>
                             </div>
                             <div>
-                                <span class="block text-xs text-gray-400">Start Date & Time</span>
+                                <span class="block text-base text-gray-400">Start Date & Time</span>
                                 <span
                                     x-text="booking.pickup_datetime ? (new Date(booking.pickup_datetime).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })) : '-' "></span>
                             </div>
                             <div>
-                                <span class="block text-xs text-gray-400">End Date & Time</span>
+                                <span class="block text-base text-gray-400">End Date & Time</span>
                                 <span
                                     x-text="booking.dropoff_datetime ? (new Date(booking.dropoff_datetime).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })) : '-' "></span>
                             </div>
-                            <div class="md:col-span-1">
-                                <span class="block text-xs text-gray-400">Booking Status</span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-[#F3EFFF] text-[#A259FF]"
-                                    x-text="booking.booking_status"></span>
+                            <div>
+                                <span class="block text-base text-gray-400">Booking Status</span>
+                                <div x-html="getStatusBadge(booking.booking_status)"></div>
                             </div>
-                            <div class="hidden md:block">
-                                <span class="block text-xs text-gray-400">Payment Status</span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-[#FFEAEA] text-[#EC2028]"
-                                    x-text="booking.payment_status"></span>
+                            <div class="hidden px-4 md:block">
+                                <span class="block text-base text-gray-400">Payment Status</span>
+                                <div x-html="getStatusBadge(booking.payment_status)"></div>
                             </div>
                             <div class="block md:hidden">
-                                <span class="block text-xs text-gray-400">Commission (RM)</span>
+                                <span class="block text-base text-gray-400">Commission (RM)</span>
                                 <span class="text-base font-semibold text-gray-800"
                                     x-text="Number(booking.commission).toFixed(2)"></span>
                                 <span
-                                    class="ml-2 px-3 py-1 rounded-lg text-xs font-semibold bg-[#FFF4E0] text-[#FFB800]"
+                                    class="ml-2 px-3 py-1 rounded-lg text-base font-semibold bg-[#FFF4E0] text-[#FFB800]"
                                     x-text="booking.commission_status ?? 'Pending'"></span>
                             </div>
                         </div>
                         <!-- Expand Button centered below -->
                         <div class="flex justify-center mt-4">
                             <button @click="expanded = !expanded"
-                                class="flex gap-1 items-center text-sm font-medium text-gray-600 focus:outline-none">
+                                class="flex gap-1 items-center text-base font-medium text-gray-600 focus:outline-none hover:text-gray-800">
                                 <span x-text="expanded ? 'Collapse' : 'Expand'"></span>
                                 <svg x-show="!expanded" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,13 +111,18 @@
                     </div>
                 </div>
                 <!-- Expanded Details (unchanged, below main card) -->
-                <div x-show="expanded" x-transition class="pt-4 mt-4 border-t">
-                    <div class="flex flex-col md:flex-row md:gap-8">
+                <div x-show="expanded" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 max-h-0 overflow-hidden"
+                    x-transition:enter-end="opacity-100 max-h-screen overflow-visible"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 max-h-screen overflow-visible"
+                    x-transition:leave-end="opacity-0 max-h-0 overflow-hidden">
+                    <div class="flex flex-col pt-4 mt-4 border-t md:flex-row md:gap-8">
                         <!-- Left: Client & Car Details -->
                         <div class="flex-1 mb-4 md:mb-0">
                             <div class="mb-2">
-                                <div class="mb-1 text-sm font-bold">Client's Details</div>
-                                <div class="flex flex-col gap-1 text-xs text-gray-700">
+                                <div class="mb-1 text-base font-bold">Client's Details</div>
+                                <div class="flex flex-col gap-1 text-base text-gray-700">
                                     <div class="flex justify-between"><span class="text-[#cccccc]">Name</span><span
                                             x-text="booking.user?.name ?? '-' "></span></div>
                                     <div class="flex justify-between"><span class="text-[#cccccc]">Phone
@@ -131,8 +133,8 @@
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <div class="mb-1 text-sm font-bold">Car Details</div>
-                                <div class="flex flex-col gap-1 text-xs text-gray-700">
+                                <div class="mb-1 text-base font-bold">Car Details</div>
+                                <div class="flex flex-col gap-1 text-base text-gray-700">
                                     <div class="flex justify-between"><span class="text-[#cccccc]">Plat
                                             Number</span><span x-text="booking.car?.plat_number ?? '-' "></span></div>
                                     <div class="flex justify-between"><span class="text-[#cccccc]">Handling
@@ -151,51 +153,85 @@
                         <!-- Right: Start & Return, Sale Details -->
                         <div class="flex-1">
                             <div class="mb-2">
-                                <div class="mb-1 text-sm font-bold">Start & Return</div>
-                                <div class="flex flex-col gap-2 text-xs text-gray-700">
+                                <div class="mb-1 text-base font-bold">Start & Return</div>
+                                <div class="flex flex-col gap-2 text-base text-gray-700">
                                     <div class="flex gap-2 items-center mx-3 mt-3">
                                         <!-- Solid Dot Icon -->
                                         <svg class="w-4 h-4 text-[#EC2028]" fill="currentColor" viewBox="0 0 24 24">
                                             <circle cx="12" cy="12" r="6" />
                                         </svg>
-                                        <span x-text="booking.pickup_location ?? '-' "></span>
-                                        <span class="ml-2 text-gray-400"
-                                            x-text="booking.pickup_datetime ? (new Date(booking.pickup_datetime).toLocaleDateString('en-GB')) : '-' "></span>
-                                        <span class="flex items-center ml-2 text-gray-400"><svg class="mr-1 w-4 h-4"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 8v4l3 3" />
-                                            </svg><span
-                                                x-text="booking.pickup_datetime ? (new Date(booking.pickup_datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })) : '-' "></span></span>
+                                        <div class="flex flex-col w-1/2">
+                                            <span x-text="booking.pickup_location ?? '-' "></span>
+                                            <div class="flex flex-row justify-between mt-1 text-base">
+                                                <span class="flex items-center text-gray-500">
+                                                    <svg class="mr-1 w-5 h-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                        </path>
+                                                    </svg>
+                                                    <span
+                                                        x-text="booking.pickup_datetime ? (new Date(booking.pickup_datetime).toLocaleDateString('en-GB')) : '-' "></span>
+                                                </span>
+                                                <span
+                                                    class="flex items-center ml-4 text-right border-gray-400 border-l-1">
+                                                    <svg class="mr-1 w-5 h-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                    <span
+                                                        x-text="booking.pickup_datetime ? (new Date(booking.pickup_datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false })) : '' "></span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div
                                         class="ml-[1.1rem] flex flex-col gap-2 w-1 h-[50px] border-l-4 border-dotted border-[#EC2028]">
                                     </div>
                                     <div class="flex gap-2 items-center mx-3 mb-3">
-                                        <!-- Material Icon: Location -->
                                         <svg class="w-4 h-4 text-[#EC2028]" fill="none" stroke="currentColor"
                                             stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
                                             <circle cx="12" cy="9" r="2.5" />
                                         </svg>
-                                        <span x-text="booking.dropoff_location ?? '-' "></span>
-                                        <span class="ml-2 text-gray-400"
-                                            x-text="booking.dropoff_datetime ? (new Date(booking.dropoff_datetime).toLocaleDateString('en-GB')) : '-' "></span>
-                                        <span class="flex items-center ml-2 text-gray-400"><svg class="mr-1 w-4 h-4"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 8v4l3 3" />
-                                            </svg><span
-                                                x-text="booking.dropoff_datetime ? (new Date(booking.dropoff_datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })) : '-' "></span></span>
+                                        <div class="flex flex-col w-1/2">
+                                            <span
+                                                x-text="booking.dropoff_location
+                                            ?? '-' "></span>
+                                            <div class="flex flex-row justify-between mt-1 text-base">
+                                                <span class="flex items-center text-gray-500">
+                                                    <svg class="mr-1 w-5 h-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                        </path>
+                                                    </svg>
+                                                    <span
+                                                        x-text="booking.dropoff_datetime ? (new Date(booking.dropoff_datetime).toLocaleDateString('en-GB')) : '-' "></span>
+                                                </span>
+                                                <span class="flex items-center ml-4 text-right">
+                                                    <svg class="mr-1 w-5 h-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                    <span
+                                                        x-text="booking.dropoff_datetime ? (new Date(booking.dropoff_datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false })) : '' "></span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <div class="mb-1 text-sm font-bold">Sale Details Type</div>
-                                <div class="flex flex-col gap-1 text-xs text-gray-700">
+                                <div class="mb-1 text-base font-bold">Sale Details Type</div>
+                                <div class="flex flex-col gap-1 text-base text-gray-700">
                                     <div class="flex justify-between"><span class="text-[#cccccc]">Sale
                                             Type</span><span>Normal
                                             Rate</span></div>
@@ -206,9 +242,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex justify-end mt-4">
+                            <div class="flex justify-end mt-4" x-show="booking.booking_status === 'Pending'">
                                 <button
-                                    class="bg-[#EC2028] text-white rounded-xl px-4 py-2 font-bold text-sm flex items-center gap-2">
+                                    class="bg-[#EC2028] text-white rounded-xl px-4 py-2 font-bold text-base flex items-center gap-2">
                                     Resend Quotation
                                 </button>
                             </div>
@@ -221,15 +257,15 @@
     <!-- Pagination Controls -->
     <div class="flex justify-center mt-6" x-show="!loading && meta && meta.last_page > 1">
         <button @click="prevPage" :disabled="!meta || meta.current_page === 1"
-            class="px-3 py-1 mx-1 text-xs rounded border"
+            class="px-3 py-1 mx-1 text-base rounded border"
             :class="!meta || meta.current_page === 1 ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700'">Prev</button>
         <template x-for="page in meta ? meta.last_page : 0" :key="page">
             <button @click="goToPage(page)"
                 :class="meta && meta.current_page === page ? 'bg-[#EC2028] text-white' : 'bg-white text-gray-700'"
-                class="px-3 py-1 mx-1 text-xs rounded border" x-text="page"></button>
+                class="px-3 py-1 mx-1 text-base rounded border" x-text="page"></button>
         </template>
         <button @click="nextPage" :disabled="!meta || meta.current_page === meta.last_page"
-            class="px-3 py-1 mx-1 text-xs rounded border"
+            class="px-3 py-1 mx-1 text-base rounded border"
             :class="!meta || meta.current_page === meta.last_page ? 'bg-gray-100 text-gray-400' :
                 'bg-white text-gray-700'">Next</button>
     </div>
@@ -263,7 +299,7 @@
                         booking_number: this.filters.booking_number,
                         customer_name: this.filters.customer_name,
                     });
-                    fetch(`/api/agent/bookings?${params.toString()}`)
+                    fetch(`/api/affiliate/bookings?${params.toString()}`)
                         .then(res => res.json())
                         .then(data => {
                             this.bookings = data.data || [];
@@ -309,6 +345,9 @@
                         ...event.detail
                     };
                     this.fetchBookings(1); // Reset to first page on filter change
+                },
+                getStatusBadge(status, size = 'base') {
+                    return window.StatusUtils.generateBadge(status, size);
                 },
             }
         }

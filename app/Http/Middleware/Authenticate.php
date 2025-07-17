@@ -18,10 +18,10 @@ class Authenticate extends Middleware
         if ($request->expectsJson()) {
             return null;
         }
-        // Redirect to agent login if route exists, otherwise fallback
-        if (Route::has('agent.login')) {
-            return route('agent.login');
+        // Redirect to affiliate login if route exists, otherwise fallback
+        if (Route::has('affiliate.login')) {
+            return route('affiliate.login');
         }
-        return '/agent/login';
+        return '/affiliate/login';
     }
 }

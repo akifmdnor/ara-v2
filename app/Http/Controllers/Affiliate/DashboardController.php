@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Agent;
+namespace App\Http\Controllers\Affiliate;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $agent = Auth::guard('agent')->user();
         $bookings = $this->bookingService->getDashboardBookings($agent->id);
 
-        return view('agent.dashboard', [
+        return view('affiliate.dashboard', [
             'pendingBookings' => $bookings['pending'],
             'processedBookings' => $bookings['processed'],
         ]);

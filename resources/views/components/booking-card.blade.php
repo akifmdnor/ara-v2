@@ -24,7 +24,7 @@
                 </p>
             </div>
             @if ($showDate)
-                <div class="flex items-center space-x-1 text-xs font-medium text-gray-400">
+                <div class="flex items-center space-x-1 text-base font-medium text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

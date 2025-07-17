@@ -8,7 +8,7 @@
             <div class="relative flex-1" id="sort-dropdown-wrapper-mobile">
                 <button type="button" @click="toggleMonthDropdown('mobile')"
                     class="flex flex-col justify-center items-start p-2 w-full bg-white rounded-xl border border-gray-200 shadow focus:outline-none">
-                    <span class="text-xs leading-tight text-gray-400">Sort By</span>
+                    <span class="text-base leading-tight text-gray-400">Sort By</span>
                     <div class="flex items-center">
                         <span x-text="selectedMonthLabel" class="mr-2 text-sm font-normal text-gray-800"></span>
                         <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
@@ -44,12 +44,12 @@
             </button>
         </div>
         <!-- Statistics -->
-        <div class="flex flex-row gap-2 justify-between mt-2 max-w-[100px]">
+        <div class="flex flex-row gap-2 justify-between mt-2 md:max-w-[100px] sm:w-full">
             <div class="flex flex-col p-1 bg-white max-h-[100px]">
-                <div class="text-xs leading-tight text-gray-500">Total Bookings</div>
+                <div class="text-base leading-tight text-gray-500">Total Bookings</div>
                 <div class="flex justify-between items-end pt-2 mt-auto">
                     <div class="text-base font-bold" x-text="statsDisplay.total_bookings"></div>
-                    <div class="flex gap-1 items-center text-xs font-semibold"
+                    <div class="flex gap-1 items-center text-base font-semibold"
                         :class="statsDisplay.total_bookings_growth && statsDisplay.total_bookings_growth.includes('-') ?
                             'text-red-500' : 'text-green-500'">
                         <svg x-show="!statsDisplay.total_bookings_growth || !statsDisplay.total_bookings_growth.includes('-')"
@@ -69,10 +69,10 @@
                 </div>
             </div>
             <div class="flex flex-col p-1 bg-white max-h-[100px]">
-                <div class="text-xs leading-tight text-gray-500">Total Sales</div>
+                <div class="text-base leading-tight text-gray-500">Total Sales</div>
                 <div class="flex justify-between items-end pt-2 mt-auto">
                     <div class="text-base font-bold" x-text="'RM' + statsDisplay.total_sales"></div>
-                    <div class="flex gap-1 items-center text-xs font-semibold"
+                    <div class="flex gap-1 items-center text-base font-semibold"
                         :class="statsDisplay.total_sales_growth && statsDisplay.total_sales_growth.includes('-') ?
                             'text-red-500' : 'text-green-500'">
                         <svg x-show="!statsDisplay.total_sales_growth || !statsDisplay.total_sales_growth.includes('-')"
@@ -92,10 +92,10 @@
                 </div>
             </div>
             <div class="flex flex-col p-1 bg-white max-h-[100px]">
-                <div class="text-xs leading-tight text-gray-500">Total Commission</div>
+                <div class="text-base leading-tight text-gray-500">Total Commission</div>
                 <div class="flex justify-between items-end pt-2 mt-auto">
                     <div class="text-base font-bold" x-text="'RM' + statsDisplay.total_commission"></div>
-                    <div class="flex gap-1 items-center text-xs font-semibold"
+                    <div class="flex gap-1 items-center text-base font-semibold"
                         :class="statsDisplay.total_commission_growth && statsDisplay.total_commission_growth.includes('-') ?
                             'text-red-500' : 'text-green-500'">
                         <svg x-show="!statsDisplay.total_commission_growth || !statsDisplay.total_commission_growth.includes('-')"
@@ -138,13 +138,13 @@
             <!-- Statistics -->
             <div class="flex flex-col flex-1 gap-4 md:flex-row">
                 <div class="flex flex-col p-1 bg-white max-h-[100px]">
-                    <div class="text-xs leading-tight text-gray-500">Total Booking This Month</div>
+                    <div class="text-base leading-tight text-gray-500">Total Booking This Month</div>
                     <div class="flex justify-between items-end pt-2 mt-auto">
                         <div class="text-base font-bold">
                             <span x-text="statsDisplay.total_bookings"></span>
                             <span class="text-base font-normal">Cars</span>
                         </div>
-                        <div class="flex gap-1 items-center text-xs font-semibold"
+                        <div class="flex gap-1 items-center text-base font-semibold"
                             :class="statsDisplay.total_bookings_growth && statsDisplay.total_bookings_growth.includes('-') ?
                                 'text-red-500' : 'text-green-500'">
                             <svg x-show="!statsDisplay.total_bookings_growth || !statsDisplay.total_bookings_growth.includes('-')"
@@ -164,13 +164,12 @@
                     </div>
                 </div>
                 <div class="flex flex-col p-1 bg-white max-h-[100px]">
-                    <div class="text-xs leading-tight text-gray-500">Total Sales This Month</div>
+                    <div class="text-base leading-tight text-gray-500">Total Sales This Month</div>
                     <div class="flex justify-between items-end pt-2 mt-auto">
                         <div class="text-base font-bold">
                             <span x-text="'RM' + statsDisplay.total_sales"></span>
-                            <span class="text-base font-normal">RM</span>
                         </div>
-                        <div class="flex gap-1 items-center text-xs font-semibold"
+                        <div class="flex gap-1 items-center text-base font-semibold"
                             :class="statsDisplay.total_sales_growth && statsDisplay.total_sales_growth.includes('-') ?
                                 'text-red-500' : 'text-green-500'">
                             <svg x-show="!statsDisplay.total_sales_growth || !statsDisplay.total_sales_growth.includes('-')"
@@ -189,14 +188,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col p-1 bg-white max-h-[100px]">
-                    <div class="text-xs leading-tight text-gray-500">Total Estimated Commission This Month</div>
+                <div class="flex flex-col p-1 bg-white max-h-[100px] md:max-w-[200px]">
+                    <div class="text-base leading-tight text-gray-500">Total Estimated Commission This Month</div>
                     <div class="flex justify-between items-end pt-2 mt-auto">
                         <div class="text-base font-bold">
                             <span x-text="'RM' + statsDisplay.total_commission"></span>
-                            <span class="text-base font-normal">RM</span>
                         </div>
-                        <div class="flex gap-1 items-center text-xs font-semibold"
+                        <div class="flex gap-1 items-center text-base font-semibold"
                             :class="statsDisplay.total_commission_growth && statsDisplay.total_commission_growth.includes('-') ?
                                 'text-red-500' : 'text-green-500'">
                             <svg x-show="!statsDisplay.total_commission_growth || !statsDisplay.total_commission_growth.includes('-')"
@@ -222,7 +220,7 @@
                 <div class="relative" id="sort-dropdown-wrapper">
                     <button type="button" @click="toggleMonthDropdown('desktop')"
                         class="flex flex-col items-start justify-center bg-white rounded-xl p-2 shadow border border-gray-200 min-w-[100px] mr-0 focus:outline-none">
-                        <span class="text-xs leading-tight text-gray-400">Sort By</span>
+                        <span class="text-base leading-tight text-gray-400">Sort By</span>
                         <div class="flex items-center">
                             <span x-text="selectedMonthLabel" class="mr-2 text-sm font-normal text-gray-800"></span>
                             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
@@ -250,7 +248,7 @@
                 <!-- Sales History Button -->
                 <button
                     class="flex items-center gap-2 border-2 border-[#EC2028] text-[#EC2028]
-                        bg-white rounded-xl px-3 py-2 font-bold text-xs shadow hover:bg-red-50 transition">
+                        bg-white rounded-xl px-3 py-2 font-bold text-base shadow hover:bg-red-50 transition">
                     <svg class="w-6 h-6" fill="none" stroke="#EC2028" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M13 3a9 9 0 1 0 8 9" />
                         <path d="M12 7v5l3 3" />
@@ -259,7 +257,7 @@
                 </button>
                 <!-- Create Booking Button -->
                 <button
-                    class="flex items-center gap-2 bg-[#EC2028] text-white rounded-xl px-3 py-2 font-bold text-xs shadow hover:bg-red-600 transition">
+                    class="flex items-center gap-2 bg-[#EC2028] text-white rounded-xl px-3 py-2 font-bold text-base shadow hover:bg-red-600 transition">
                     <span class="text-2xl leading-none">+</span>
                     Create Booking
                 </button>
@@ -270,11 +268,11 @@
             <div class="flex flex-col gap-4 w-full md:flex-row md:items-center">
                 <!-- Commission Payment Status -->
                 <div class="flex flex-col">
-                    <span class="mb-3 text-xs font-semibold">Commission Payment Status</span>
+                    <span class="mb-3 text-base font-semibold">Commission Payment Status</span>
                     <div class="inline-flex">
                         <template x-for="(status, i) in commissionStatuses" :key="status">
-                            <button class="px-3 py-2 text-xs font-semibold border transition"
-                                :class="commissionStatus === status ? 'bg-[#EC2028] text-white border-[#EC2028]' :
+                            <button class="px-3 py-2 text-base font-semibold border transition"
+                                :class="commissionStatus === status ? 'rounded-l-lg bg-[#EC2028] text-white border-[#EC2028]' :
                                     'bg-white text-gray-700 border-gray-200' +
                                     (i === 0 ? ' rounded-l-lg' : '') +
                                     (i === commissionStatuses.length - 1 ? ' rounded-r-lg' : '') +
@@ -288,11 +286,12 @@
                 <!-- Customer Payment Status and Search Inputs -->
                 <div class="flex flex-col flex-1 ml-0 w-full md:flex-row md:items-end md:ml-4">
                     <div class="flex flex-col">
-                        <span class="mb-3 text-xs font-semibold">Customer Payment Status</span>
+                        <span class="mb-3 text-base font-semibold">Customer Payment Status</span>
                         <div class="inline-flex">
                             <template x-for="(status, i) in customerStatuses" :key="status">
-                                <button class="px-3 py-2 text-xs font-semibold border transition"
-                                    :class="customerStatus === status ? 'bg-[#EC2028] text-white border-[#EC2028]' :
+                                <button class="px-3 py-2 text-base font-semibold border transition"
+                                    :class="customerStatus === status ?
+                                        'rounded-l-lg bg-[#EC2028] text-white border-[#EC2028]' :
                                         'bg-white text-gray-700 border-gray-200' +
                                         (i === 0 ? ' rounded-l-lg' : '') +
                                         (i === customerStatuses.length - 1 ? ' rounded-r-lg' : '') +
@@ -307,12 +306,12 @@
                         class="flex flex-1 gap-2 items-center mt-2 w-full min-w-0 md:justify-end md:ml-4 md:mt-0">
                         <div class="flex flex-1 min-w-0">
                             <input type="text" x-model="bookingNumber"
-                                class="px-3 py-2 w-full min-w-0 text-xs rounded-lg border"
+                                class="px-3 py-2 w-full min-w-0 text-base rounded-lg border"
                                 placeholder="Booking Number">
                         </div>
                         <div class="flex flex-1 min-w-0">
                             <input type="text" x-model="customerName"
-                                class="px-3 py-2 w-full min-w-0 text-xs rounded-lg border"
+                                class="px-3 py-2 w-full min-w-0 text-base rounded-lg border"
                                 placeholder="Customer Name">
                         </div>
                         <button type="submit"
@@ -340,10 +339,10 @@
             </button>
             <div class="mb-4 text-lg font-bold">Filter By</div>
             <div class="mb-4">
-                <div class="mb-2 text-xs font-semibold">Commission Payment Status</div>
+                <div class="mb-2 text-base font-semibold">Commission Payment Status</div>
                 <div class="inline-flex w-full">
                     <template x-for="(status, i) in commissionStatuses" :key="status">
-                        <button class="flex-1 px-3 py-2 text-xs font-semibold border transition"
+                        <button class="flex-1 px-3 py-2 text-base font-semibold border transition"
                             :class="commissionStatus === status ? 'bg-[#EC2028] text-white border-[#EC2028]' :
                                 'bg-white text-gray-700 border-gray-200' +
                                 (i === 0 ? ' rounded-l-lg' : '') +
@@ -356,10 +355,10 @@
                 </div>
             </div>
             <div class="mb-4">
-                <div class="mb-2 text-xs font-semibold">Customer Payment Status</div>
+                <div class="mb-2 text-base font-semibold">Customer Payment Status</div>
                 <div class="inline-flex w-full">
                     <template x-for="(status, i) in customerStatuses" :key="status">
-                        <button class="flex-1 px-3 py-2 text-xs font-semibold border transition"
+                        <button class="flex-1 px-3 py-2 text-base font-semibold border transition"
                             :class="customerStatus === status ? 'bg-[#EC2028] text-white border-[#EC2028]' :
                                 'bg-white text-gray-700 border-gray-200' +
                                 (i === 0 ? ' rounded-l-lg' : '') +
@@ -372,9 +371,9 @@
                 </div>
             </div>
             <div class="mb-4">
-                <input type="text" x-model="bookingNumber" class="px-3 py-2 mb-2 w-full text-xs rounded-lg border"
-                    placeholder="Booking Number">
-                <input type="text" x-model="customerName" class="px-3 py-2 w-full text-xs rounded-lg border"
+                <input type="text" x-model="bookingNumber"
+                    class="px-3 py-2 mb-2 w-full text-base rounded-lg border" placeholder="Booking Number">
+                <input type="text" x-model="customerName" class="px-3 py-2 w-full text-base rounded-lg border"
                     placeholder="Customer Name">
             </div>
             <div class="flex gap-2 mt-4">
@@ -419,7 +418,7 @@
                     label: 'All time'
                 });
                 let d = new Date(now.getFullYear(), now.getMonth(), 1);
-                const oldest = new Date(2024, 0, 1);
+                const oldest = new Date(2023, 10, 1); // November2023(month is 0, so 10 = November)
                 while (d >= oldest) {
                     const label = d.toLocaleString('default', {
                         month: 'long',

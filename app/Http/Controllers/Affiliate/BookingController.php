@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Agent;
+namespace App\Http\Controllers\Affiliate;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +27,7 @@ class BookingController extends Controller
             'total_commission' => 1270,
             'total_commission_growth' => '36%',
         ];
-        return view('agent.bookings.index', [
+        return view('affiliate.bookings.index', [
             'stats' => $stats,
         ]);
     }

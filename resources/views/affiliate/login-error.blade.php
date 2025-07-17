@@ -11,7 +11,7 @@
                 class="mx-auto mb-4 w-auto h-12" />
             <h2 class="mb-2 text-2xl font-bold text-red-600">Login Failed</h2>
             <p class="mb-6 text-gray-700">The email or password you entered is incorrect.</p>
-            <a href="{{ route('agent.login') }}"
+            <a href="{{ route('affiliate.login') }}"
                 class="inline-block bg-[#EC2028] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#d51c24] transition">Try
                 Again</a>
         </div>

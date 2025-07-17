@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Agent\Auth\LoginController;
+use App\Http\Controllers\Affiliate\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,39 +19,39 @@ Route::get('/', function () {
 });
 
 // Agent authentication routes (accessible without auth)
-Route::prefix('agent')->name('agent.')->group(function () {
+Route::prefix('affiliate')->name('affiliate.')->group(function () {
     Route::get('/login', function () {
-        return view('agent.login');
+        return view('affiliate.login');
     })->name('login');
 
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::get('agent/login-error', function () {
-    return view('agent.login-error');
-})->name('agent.login-error');
+Route::get('affiliate/login-error', function () {
+    return view('affiliate.login-error');
+})->name('affiliate.login-error');
 
-Route::get('agent/change-password', function () {
-    return view('agent.change-password');
-})->name('agent.change-password');
+Route::get('affiliate/change-password', function () {
+    return view('affiliate.change-password');
+})->name('affiliate.change-password');
 
 // Agent protected routes (require authentication)
-Route::prefix('agent')->middleware(['auth:agent'])->name('agent.')->group(function () {
-    // Redirect /agent to /agent/dashboard if authenticated
+Route::prefix('affiliate')->middleware(['auth:agent'])->name('affiliate.')->group(function () {
+    // Redirect /affiliate to /affiliate/dashboard if authenticated
     Route::get('/', function () {
-        return redirect()->route('agent.dashboard');
+        return redirect()->route('affiliate.dashboard');
     });
 
-    Route::get('/dashboard', [\App\Http\Controllers\Agent\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Affiliate\DashboardController::class, 'index'])->name('dashboard');
 
     // Bookings module
-    Route::get('/bookings', [\App\Http\Controllers\Agent\BookingController::class, 'index'])->name('bookings.index');
+    Route::get('/bookings', [\App\Http\Controllers\Affiliate\BookingController::class, 'index'])->name('bookings.index');
 
     // Add more agent-specific routes here
 
 });
 
 Route::middleware(['auth:agent'])->group(function () {
-    Route::get('/api/agent/bookings', [\App\Http\Controllers\Agent\BookingController::class, 'apiList']);
+    Route::get('/api/affiliate/bookings', [\App\Http\Controllers\Affiliate\BookingController::class, 'apiList']);
 });

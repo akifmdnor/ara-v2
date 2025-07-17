@@ -7,7 +7,7 @@ use App\Models\Booking;
 class BookingRepository
 {
     /**
-     * Get bookings for a specific sales agent.
+     * Get bookings for a specific sales affiliate.
      */
     public function getBookingsForAgent($agentId)
     {
@@ -29,8 +29,8 @@ class BookingRepository
         if (!empty($filters['month']) && $filters['month'] !== 'all') {
             $year = substr($filters['month'], 0, 4);
             $month = substr($filters['month'], 5, 2);
-            $query->whereYear('created_at', $year)
-                ->whereMonth('created_at', $month);
+            $query->whereYear('pickup_datetime', $year)
+                ->whereMonth('pickup_datetime', $month);
         }
 
         // Filtering
@@ -64,12 +64,12 @@ class BookingRepository
         if ($month !== 'all') {
             $year = substr($month, 0, 4);
             $monthNum = substr($month, 5, 2);
-            $currentQuery->whereYear('created_at', $year)
-                ->whereMonth('created_at', $monthNum);
+            $currentQuery->whereYear('pickup_datetime', $year)
+                ->whereMonth('pickup_datetime', $monthNum);
         } else {
             // For 'all' time, compare current month with previous month
-            $currentQuery->whereYear('created_at', date('Y'))
-                ->whereMonth('created_at', date('n'));
+            $currentQuery->whereYear('pickup_datetime', date('Y'))
+                ->whereMonth('pickup_datetime', date('n'));
         }
 
         $currentBookings = $currentQuery->get();
@@ -77,7 +77,7 @@ class BookingRepository
         $currentTotalSales = $currentBookings->sum('amount');
         $currentTotalCommission = $currentBookings->sum('commission');
 
-                // Get previous period stats for comparison
+        // Get previous period stats for comparison
         $previousQuery = Booking::where('sales_agent_id', $agentId);
 
         if ($month !== 'all') {
@@ -86,13 +86,13 @@ class BookingRepository
 
             // Calculate previous month
             $previousDate = \Carbon\Carbon::createFromDate($year, $monthNum, 1)->subMonth();
-            $previousQuery->whereYear('created_at', $previousDate->year)
-                ->whereMonth('created_at', $previousDate->month);
+            $previousQuery->whereYear('pickup_datetime', $previousDate->year)
+                ->whereMonth('pickup_datetime', $previousDate->month);
         } else {
             // For 'all' time, compare current month with previous month
             $previousDate = \Carbon\Carbon::now()->subMonth();
-            $previousQuery->whereYear('created_at', $previousDate->year)
-                ->whereMonth('created_at', $previousDate->month);
+            $previousQuery->whereYear('pickup_datetime', $previousDate->year)
+                ->whereMonth('pickup_datetime', $previousDate->month);
         }
 
         $previousBookings = $previousQuery->get();
