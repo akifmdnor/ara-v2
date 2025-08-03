@@ -124,11 +124,11 @@
                 </svg>
                 Sales History
             </button>
-            <button
-                class="flex-1 bg-[#EC2028] text-white rounded-lg px-4 py-2 font-bold text-sm flex items-center justify-center">
+            <a href="{{ route('affiliate.car-listing.index') }}"
+                class="flex-1 bg-[#EC2028] text-white rounded-lg px-4 py-2 font-bold text-sm flex items-center justify-center hover:bg-red-700 transition duration-200">
                 <span class="mr-2 text-2xl leading-none">+</span>
                 Create Booking
-            </button>
+            </a>
         </div>
     </div>
 
@@ -256,11 +256,11 @@
                     Sales History
                 </button>
                 <!-- Create Booking Button -->
-                <button
-                    class="flex items-center gap-2 bg-[#EC2028] text-white rounded-xl px-3 py-2 font-bold text-base shadow hover:bg-red-600 transition">
+                <a href="{{ route('affiliate.car-listing.index') }}"
+                    class="flex items-center gap-2 bg-[#EC2028] text-white rounded-xl px-3 py-2 font-bold text-base shadow hover:bg-red-600 transition no-underline">
                     <span class="text-2xl leading-none">+</span>
                     Create Booking
-                </button>
+                </a>
             </div>
         </div>
         <!-- Filters & Search -->

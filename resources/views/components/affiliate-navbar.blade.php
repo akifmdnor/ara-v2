@@ -23,7 +23,7 @@
             <!-- Nav Links -->
             <nav class="flex flex-col gap-2 px-4 w-full">
                 <a href="{{ route('affiliate.dashboard') }}"
-                    class="flex items-center gap-3 px-4 py-2 rounded-lg transition
+                    class="flex items-center gap-3 px-4 py-2 rounded-lg transition no-underline
                     {{ request()->routeIs('affiliate.dashboard') ? 'bg-white text-[#EC2028] font-bold' : 'hover:bg-[#d91b23] text-white' }}">
                     <svg class="w-6 h-6" viewBox="0 0 24 28"
                         fill="{{ request()->routeIs('affiliate.dashboard') ? '#EC2028' : 'white' }}"
@@ -34,7 +34,7 @@
                     Dashboard
                 </a>
                 <a href="{{ route('affiliate.bookings.index') }}"
-                    class="flex items-center gap-3 px-4 py-2 rounded-lg transition
+                    class="flex items-center gap-3 px-4 py-2 rounded-lg transition no-underline
                     {{ request()->routeIs('affiliate.bookings.index') ? 'bg-white text-[#EC2028] font-bold' : 'hover:bg-[#d91b23] text-white' }}">
                     <svg class="w-6 h-6" viewBox="0 0 24 26"
                         fill="{{ request()->routeIs('affiliate.bookings.index') ? '#EC2028' : 'white' }}"
@@ -45,6 +45,7 @@
 
                     Bookings
                 </a>
+
             </nav>
         </aside>
     </div>

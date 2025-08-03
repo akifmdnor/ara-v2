@@ -48,6 +48,14 @@ Route::prefix('affiliate')->middleware(['auth:agent'])->name('affiliate.')->grou
     // Bookings module
     Route::get('/bookings', [\App\Http\Controllers\Affiliate\BookingController::class, 'index'])->name('bookings.index');
 
+    // Car listing module
+    Route::get('/car-listing', [\App\Http\Controllers\Affiliate\CarListingController::class, 'index'])->name('car-listing.index');
+    Route::post('/car-listing/search', [\App\Http\Controllers\Affiliate\CarListingController::class, 'search'])->name('car-listing.search');
+    Route::get('/car-listing/{carModel}/book', [\App\Http\Controllers\Affiliate\CarListingController::class, 'book'])->name('car-listing.book');
+
+    // Restricted dates endpoint
+    Route::get('/restricted-date', [\App\Http\Controllers\Affiliate\CarListingController::class, 'getRestrictedDates'])->name('restricted-dates');
+
     // Add more agent-specific routes here
 
 });

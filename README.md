@@ -2,10 +2,10 @@
 
 This project is built using:
 
-- Laravel 8 (Blade for SSR and SEO)
-- Vue 2 (for interactive UI)
-- Tailwind CSS (for styling)
-- Laravel Mix (for compiling frontend assets)
+-   Laravel 8 (Blade for SSR and SEO)
+-   Vue 2 (for interactive UI)
+-   Tailwind CSS (for styling)
+-   Laravel Mix (for compiling frontend assets)
 
 ---
 
@@ -66,27 +66,27 @@ Then update it:
 
 ```js
 module.exports = {
-  content: [
-    "./resources/**/*.blade.php",
-    "./resources/**/*.js",
-    "./resources/**/*.vue",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+    content: [
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
+    ],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+};
 ```
 
 ---
 
 ## 🛠️ Compile Assets
 
-| Command            | Description                        |
-|--------------------|------------------------------------|
-| `npm run dev`      | Compile for development            |
-| `npm run watch`    | Watch files and auto-compile       |
-| `npm run prod`     | Compile and minify for production  |
+| Command         | Description                       |
+| --------------- | --------------------------------- |
+| `npm run dev`   | Compile for development           |
+| `npm run watch` | Watch files and auto-compile      |
+| `npm run prod`  | Compile and minify for production |
 
 ---
 
@@ -113,22 +113,51 @@ In `resources/js/app.js`, import and mount them as needed.
 Example:
 
 ```js
-import Login from './components/auth/Login.vue';
-new Vue({ el: '#app', components: { Login } });
+import Login from "./components/auth/Login.vue";
+new Vue({ el: "#app", components: { Login } });
 ```
 
 ---
 
 ## ✅ Tested With
 
-- Laravel 8.x
-- Node.js 16+
-- Vue 2.7
-- Laravel Mix 6.x
-- Tailwind CSS 3.x
+-   Laravel 8.x
+-   Node.js 16+
+-   Vue 2.7
+-   Laravel Mix 6.x
+-   Tailwind CSS 3.x
 
 ---
 
 ## 📬 Support
 
 Open an issue or contact the maintainer if you run into problems.
+
+---
+
+## 🚗 Distance Filtering
+
+The car listing system now includes distance-based filtering using Mapbox API:
+
+### Features
+
+-   **10km Radius Filter**: Only shows cars from branches within 10km of pickup location
+-   **Caching**: Distance calculations are cached for 24 hours to reduce API calls
+-   **Fallback**: Uses branch coordinates if pickup coordinates are not provided
+-   **Error Handling**: Graceful handling of API failures
+
+### Configuration
+
+Add your Mapbox API key to your `.env` file:
+
+```
+MAPBOX_API_KEY=your_mapbox_api_key_here
+```
+
+### How It Works
+
+1. When user selects a pickup location with coordinates
+2. System calculates distance from pickup to each car's branch
+3. Only cars within 10km radius are displayed
+4. Distance is shown on each car card
+5. Results are cached to minimize API calls
