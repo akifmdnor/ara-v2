@@ -91,7 +91,7 @@
                         </div>
 
                         <!-- Chevron Icon -->
-                        <div class="md:flex justify-center items-center pt-10 hidden">
+                        <div class="hidden justify-center items-center pt-10 md:flex">
                             <svg class="w-8 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 32 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 5l7 7-7 7" />
@@ -227,11 +227,336 @@
                     <div class="w-12 h-12 rounded-full border-b-2 border-red-600 animate-spin"></div>
                 </div>
 
+                <!-- Selected Car Detail Section -->
+                <div x-show="selectedCar" class="mb-8">
+                    <template x-if="selectedCar">
+                        <div class="overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="flex flex-col lg:flex-row">
+                                <!-- Car Image and Details -->
+                                <div class="p-6 lg:w-1/2">
+                                    <!-- Car Image on Red Circular Base -->
+                                    <div class="flex justify-center mb-4">
+                                        <div class="relative">
+
+                                            <img :src="selectedCar.model_specification ? selectedCar.model_specification
+                                                .picture_url || '/images/car-placeholder.jpg' :
+                                                '/images/car-placeholder.jpg'"
+                                                :alt="selectedCar.model_specification ? selectedCar.model_specification
+                                                    .model_name || 'Car' : 'Car'"
+                                                class="object-contain w-[400px] h-auto">
+
+                                            <div x-show="selectedCar.is_promo"
+                                                class="absolute -top-2 -right-2 px-2 py-1 text-xs font-bold text-white bg-yellow-500 rounded-full">
+                                                PROMO
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Car Name -->
+                                    <h3 class="mb-4 text-xl font-bold text-center text-gray-900"
+                                        x-text="selectedCar.model_specification ? selectedCar.model_specification.model_name || 'Unknown Model' : 'Unknown Model'">
+                                    </h3>
+
+                                    <!-- Car Specifications Row -->
+                                    <div class="flex flex-wrap gap-4 justify-center text-sm text-gray-600">
+                                        <!-- Luggage -->
+                                        <div class="flex items-center space-x-1">
+                                            <img src="/icons/luggage.svg" alt="Luggage" class="w-4 h-4">
+                                            <span
+                                                x-text="(selectedCar.model_specification ? selectedCar.model_specification.luggage : 'N/A') + ' Luggage'"></span>
+                                        </div>
+
+                                        <!-- Transmission -->
+                                        <div class="flex items-center space-x-1">
+                                            <img src="/icons/transmission.svg" alt="Transmission" class="w-4 h-4">
+                                            <span
+                                                x-text="selectedCar.model_specification ? (selectedCar.model_specification.transmission_type || 'Auto') : 'Auto'"></span>
+                                        </div>
+
+                                        <!-- Seats -->
+                                        <div class="flex items-center space-x-1">
+                                            <img src="/icons/seat.svg" alt="Seats" class="w-4 h-4">
+                                            <span
+                                                x-text="(selectedCar.model_specification ? selectedCar.model_specification.seats : 'N/A') + ' Seats'"></span>
+                                        </div>
+
+                                        <!-- Engine -->
+                                        <div class="flex items-center space-x-1">
+                                            <img src="/icons/engine.svg" alt="Engine" class="w-4 h-4">
+                                            <span
+                                                x-text="(selectedCar.model_specification ? selectedCar.model_specification.fuel_tank : 'N/A') + ' L'"></span>
+                                        </div>
+
+                                        <!-- Doors -->
+                                        <div class="flex items-center space-x-1">
+                                            <img src="/icons/door.svg" alt="Doors" class="w-4 h-4">
+                                            <span
+                                                x-text="(selectedCar.model_specification ? selectedCar.model_specification.doors : 'N/A') + ' Doors'"></span>
+                                        </div>
+
+                                        <!-- Fuel Type -->
+                                        <div class="flex items-center space-x-1">
+                                            <img src="/icons/petrol.svg" alt="Fuel Type" class="w-4 h-4">
+                                            <span
+                                                x-text="selectedCar.model_specification ? selectedCar.model_specification.fuel_type || 'Petrol' : 'Petrol'"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Location-based Pricing Table -->
+                                <div class="p-6 bg-gray-50 lg:w-1/2">
+                                    <!-- Desktop Table (hidden on mobile) -->
+                                    <div class="hidden overflow-hidden bg-white rounded-lg md:block">
+                                        <!-- Table Header -->
+                                        <div class="grid grid-cols-4 gap-4 px-4 py-3 bg-gray-100 border-b border-gray-200">
+                                            <div class="text-sm font-semibold tracking-wide text-gray-700 uppercase">
+                                                LOCATION</div>
+                                            <div
+                                                class="text-sm font-semibold tracking-wide text-center text-gray-700 uppercase">
+                                                PRICE PER DAY (RM)</div>
+                                            <div
+                                                class="text-sm font-semibold tracking-wide text-center text-gray-700 uppercase">
+                                                DELIVERY & PICKUP (RM)</div>
+                                            <div></div>
+                                        </div>
+
+                                        <!-- Table Rows -->
+                                        <div>
+                                            <!-- Row 1 -->
+                                            <div
+                                                class="grid grid-cols-4 gap-4 items-center px-4 py-3 border-b border-gray-200">
+                                                <div class="font-medium text-gray-900">Bandar Puteri Puchong, Sel...</div>
+                                                <div class="font-semibold text-center">1,000.00</div>
+                                                <div class="text-center">20.00</div>
+                                                <div class="text-center">
+                                                    <button
+                                                        class="px-6 py-2 text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                        Select This Car
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 2 (Promo) -->
+                                            <div
+                                                class="grid grid-cols-4 gap-4 items-center px-4 py-3 border-b border-gray-200">
+                                                <div>
+                                                    <div class="font-medium text-gray-900">Shah Alam, Selangor</div>
+                                                    <span
+                                                        class="inline-block px-2 py-1 mt-1 text-xs font-bold text-white bg-yellow-500 rounded">Discount
+                                                        Promo Rate</span>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div class="text-sm text-gray-400 line-through">1,099</div>
+                                                    <div class="font-semibold text-red-600">990.00</div>
+                                                </div>
+                                                <div class="text-center">20.00</div>
+                                                <div class="text-center">
+                                                    <button
+                                                        class="px-6 py-2 text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                        Select This Car
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 3 -->
+                                            <div
+                                                class="grid grid-cols-4 gap-4 items-center px-4 py-3 border-b border-gray-200">
+                                                <div class="font-medium text-gray-900">Setapak, Kuala Lumpur</div>
+                                                <div class="font-semibold text-center">1,000.00</div>
+                                                <div class="text-center">20.00</div>
+                                                <div class="text-center">
+                                                    <button
+                                                        class="px-6 py-2 text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                        Select This Car
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 4 (Fully Booked) -->
+                                            <div
+                                                class="grid grid-cols-4 gap-4 items-center px-4 py-3 border-b border-gray-200">
+                                                <div class="font-medium text-gray-900">Subang Jaya, Selangor</div>
+                                                <div class="font-semibold text-center">1,050.00</div>
+                                                <div class="text-center">15.00</div>
+                                                <div class="text-center">
+                                                    <button disabled
+                                                        class="px-6 py-2 text-sm font-semibold text-white bg-gray-400 rounded-md cursor-not-allowed">
+                                                        Fully Booked
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 5 (Promo) -->
+                                            <div class="grid grid-cols-4 gap-4 items-center px-4 py-3">
+                                                <div>
+                                                    <div class="font-medium text-gray-900">USJ 1, Selangor</div>
+                                                    <span
+                                                        class="inline-block px-2 py-1 mt-1 text-xs font-bold text-white bg-yellow-500 rounded">Discount
+                                                        Promo Rate</span>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div class="text-sm text-gray-400 line-through">1,099</div>
+                                                    <div class="font-semibold text-red-600">980.00</div>
+                                                </div>
+                                                <div class="text-center">10.00</div>
+                                                <div class="text-center">
+                                                    <button
+                                                        class="px-6 py-2 text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                        Select This Car
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mobile Card Layout (shown only on mobile) -->
+                                    <div class="block space-y-4 md:hidden">
+                                        <!-- Location Card 1 -->
+                                        <div class="p-4 bg-white rounded-lg border border-gray-200">
+                                            <div class="space-y-3">
+                                                <div>
+                                                    <div class="text-lg font-medium text-gray-900">Bandar Puteri Puchong,
+                                                        Selangor</div>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Price Per Day (RM)</div>
+                                                        <div class="text-lg font-semibold">1,000.00</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Delivery & Pickup (RM)</div>
+                                                        <div class="text-lg font-semibold">20.00</div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    class="py-3 w-full text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                    Select This Car
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Location Card 2 (Promo) -->
+                                        <div class="p-4 bg-white rounded-lg border border-gray-200">
+                                            <div class="space-y-3">
+                                                <div>
+                                                    <div class="text-lg font-medium text-gray-900">Shah Alam, Selangor
+                                                    </div>
+                                                    <span
+                                                        class="inline-block px-2 py-1 mt-1 text-xs font-bold text-white bg-yellow-500 rounded">Discount
+                                                        Promo Rate</span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Price Per Day (RM)</div>
+                                                        <div class="text-sm text-gray-400 line-through">1,099.00</div>
+                                                        <div class="text-lg font-semibold text-red-600">990.00</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Delivery & Pickup (RM)</div>
+                                                        <div class="text-lg font-semibold">20.00</div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    class="py-3 w-full text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                    Select This Car
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Location Card 3 -->
+                                        <div class="p-4 bg-white rounded-lg border border-gray-200">
+                                            <div class="space-y-3">
+                                                <div>
+                                                    <div class="text-lg font-medium text-gray-900">Setapak, Kuala Lumpur
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Price Per Day (RM)</div>
+                                                        <div class="text-lg font-semibold">1,000.00</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Delivery & Pickup (RM)</div>
+                                                        <div class="text-lg font-semibold">20.00</div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    class="py-3 w-full text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                    Select This Car
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Location Card 4 (Fully Booked) -->
+                                        <div class="p-4 bg-white rounded-lg border border-gray-200">
+                                            <div class="space-y-3">
+                                                <div>
+                                                    <div class="text-lg font-medium text-gray-900">Subang Jaya, Selangor
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Price Per Day (RM)</div>
+                                                        <div class="text-lg font-semibold">1,050.00</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Delivery & Pickup (RM)</div>
+                                                        <div class="text-lg font-semibold">15.00</div>
+                                                    </div>
+                                                </div>
+                                                <button disabled
+                                                    class="py-3 w-full text-sm font-semibold text-white bg-gray-400 rounded-md cursor-not-allowed">
+                                                    Fully Booked
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Location Card 5 (Promo) -->
+                                        <div class="p-4 bg-white rounded-lg border border-gray-200">
+                                            <div class="space-y-3">
+                                                <div>
+                                                    <div class="text-lg font-medium text-gray-900">USJ 1, Selangor</div>
+                                                    <span
+                                                        class="inline-block px-2 py-1 mt-1 text-xs font-bold text-white bg-yellow-500 rounded">Discount
+                                                        Promo Rate</span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Price Per Day (RM)</div>
+                                                        <div class="text-sm text-gray-400 line-through">1,099.00</div>
+                                                        <div class="text-lg font-semibold text-red-600">980.00</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Delivery & Pickup (RM)</div>
+                                                        <div class="text-lg font-semibold">10.00</div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    class="py-3 w-full text-sm font-semibold text-white bg-red-600 rounded-md transition duration-200 hover:bg-red-700">
+                                                    Select This Car
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Close Button -->
+                    <div class="mt-4 text-center">
+                        <button @click="selectedCar = null"
+                            class="px-6 py-2 font-semibold text-white bg-gray-500 rounded-md transition duration-200 hover:bg-gray-600">
+                            Close Details
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Car Grid -->
                 <div x-show="!loading" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     <template x-for="car in carModels" :key="car.id">
                         <div class="overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm transition-shadow duration-200 hover:shadow-md  md:min-w-[250px]"
-                            @click="window.location.href = `/affiliate/car-listing/${car.id}/book?pickup_location=${searchParams.pickup_location}&return_location=${searchParams.return_location}&pickup_date=${searchParams.pickup_date}&return_date=${searchParams.return_date}&pickup_time=${searchParams.pickup_time}&return_time=${searchParams.return_time}`">
+                            @click="selectCar(car)">
                             <!-- Car Image -->
                             <div class="flex relative justify-center items-center  aspect-square md:m-w-[250px]">
 
@@ -350,7 +675,6 @@
 
             </div>
         </div>
-        </div>
     </x-affiliate-navbar>
 
     <script src="{{ asset('js/date-time-picker.js') }}"></script>
@@ -410,6 +734,7 @@
                 loading: false,
                 hasSearched: false,
                 carModels: [],
+                selectedCar: null,
                 categories: @json($categories),
                 searchParams: {
                     pickup_location: '{{ $searchParams['pickup_location'] ?? '' }}',
@@ -444,6 +769,9 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const hasSearchParams = urlParams.has('pickup_location') || urlParams.has('return_location') ||
                         urlParams.has('pickup_date') || urlParams.has('return_date');
+
+                    console.log('Has search params:', hasSearchParams);
+                    console.log('URL params:', Object.fromEntries(urlParams.entries()));
 
                     if (hasSearchParams) {
                         this.hasSearched = true;
@@ -506,7 +834,7 @@
                     const year = date.getFullYear();
                     const month = String(date.getMonth() + 1).padStart(2, '0');
                     const day = String(date.getDate()).padStart(2, '0');
-                    return `${year}-${month}-${day}`;
+                    return `${day}-${month}-${year}`;
                 },
 
                 async searchCars() {
@@ -529,7 +857,10 @@
                         if (data.success) {
                             this.carModels = data.data;
                             console.log('Updated carModels count:', this.carModels.length);
+                            console.log('Car models:', this.carModels);
                             this.updateUrl();
+                        } else {
+                            console.error('Search failed:', data.message || 'Unknown error');
                         }
                     } catch (error) {
                         console.error('Error searching cars:', error);
@@ -646,6 +977,21 @@
                             this.updateUrl();
                         });
                     }
+                },
+
+                selectCar(car) {
+                    console.log('Selected car:', car);
+                    this.selectedCar = car;
+                    // Scroll to the selected car section
+                    this.$nextTick(() => {
+                        const selectedSection = document.querySelector('[x-show="selectedCar"]');
+                        if (selectedSection) {
+                            selectedSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
                 }
             }
         }
