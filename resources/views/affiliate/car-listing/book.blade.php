@@ -18,12 +18,11 @@
                     </a>
                 </div>
 
-                <div class="flex flex-col lg:flex-row gap-8">
-                    <!-- Car Image and Details -->
-                    <div class="lg:w-1/3">
-                        <h2 class="mb-4 text-lg font-semibold text-gray-900">Selected Car</h2>
-
-                        <div class="p-6 bg-gray-50 rounded-lg">
+                <!-- Featured Car Section (Main Car) -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden mb-8">
+                    <div class="flex flex-col lg:flex-row">
+                        <!-- Car Image and Details -->
+                        <div class="lg:w-1/3 p-6">
                             <!-- Car Image on Red Circular Base -->
                             <div class="flex justify-center mb-4">
                                 <div class="relative">
@@ -85,97 +84,292 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Location-based Pricing Table -->
-                    <div class="lg:w-2/3">
-                        <h2 class="mb-4 text-lg font-semibold text-gray-900">Available Locations</h2>
-
-                        <div class="space-y-3">
-                            <!-- Sample locations - you'll need to replace with actual branch data -->
-                            <div class="flex items-center justify-between p-3 bg-white rounded-lg border">
-                                <div>
-                                    <div class="font-medium text-gray-900">Bandar Puteri Puchong, Selangor</div>
-                                    <div class="text-sm text-gray-500">Price per day RM 1,000.00</div>
-                                    <div class="text-sm text-gray-500">Delivery & Pickup RM 20.00</div>
+                        <!-- Location-based Pricing Table -->
+                        <div class="lg:w-2/3 bg-gray-50 p-6">
+                            <!-- Table -->
+                            <div class="bg-white rounded-lg overflow-hidden">
+                                <!-- Table Header -->
+                                <div class="grid grid-cols-4 gap-4 py-3 px-4 bg-gray-100 border-b border-gray-200">
+                                    <div class="text-sm font-semibold text-gray-700 uppercase tracking-wide">LOCATION</div>
+                                    <div class="text-sm font-semibold text-gray-700 uppercase tracking-wide text-center">
+                                        PRICE PER DAY (RM)</div>
+                                    <div class="text-sm font-semibold text-gray-700 uppercase tracking-wide text-center">
+                                        DELIVERY & PICKUP (RM)</div>
+                                    <div></div>
                                 </div>
-                                <button
-                                    class="px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-200">
-                                    Select This Car
-                                </button>
-                            </div>
 
-                            <div class="flex items-center justify-between p-3 bg-white rounded-lg border">
+                                <!-- Table Rows -->
                                 <div>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="font-medium text-gray-900">Shah Alam, Selangor</span>
-                                        <span class="px-2 py-1 text-xs font-bold text-white bg-yellow-500 rounded">Discount
-                                            Promo Rate</span>
+                                    <!-- Row 1 -->
+                                    <div class="grid grid-cols-4 gap-4 items-center py-3 px-4 border-b border-gray-200">
+                                        <div class="font-medium text-gray-900">Bandar Puteri Puchong, Sel...</div>
+                                        <div class="text-center font-semibold">1,000.00</div>
+                                        <div class="text-center">20.00</div>
+                                        <div class="text-center">
+                                            <button
+                                                class="px-6 py-2 bg-red-600 text-white text-sm font-semibold rounded-md hover:bg-red-700 transition duration-200">
+                                                Select This Car
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="text-sm text-gray-500">
-                                        <span class="line-through">RM 1,099.00</span>
-                                        <span class="font-semibold text-red-600 ml-2">RM 990.00</span>
-                                    </div>
-                                    <div class="text-sm text-gray-500">Delivery & Pickup RM 20.00</div>
-                                </div>
-                                <button
-                                    class="px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-200">
-                                    Select This Car
-                                </button>
-                            </div>
 
-                            <div class="flex items-center justify-between p-3 bg-white rounded-lg border">
-                                <div>
-                                    <div class="font-medium text-gray-900">Setapak, Kuala Lumpur</div>
-                                    <div class="text-sm text-gray-500">Price per day RM 1,000.00</div>
-                                    <div class="text-sm text-gray-500">Delivery & Pickup RM 20.00</div>
-                                </div>
-                                <button
-                                    class="px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-200">
-                                    Select This Car
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 bg-white rounded-lg border">
-                                <div>
-                                    <div class="font-medium text-gray-900">Subang Jaya, Selangor</div>
-                                    <div class="text-sm text-gray-500">Price per day RM 1,050.00</div>
-                                    <div class="text-sm text-gray-500">Delivery & Pickup RM 15.00</div>
-                                </div>
-                                <button disabled
-                                    class="px-4 py-2 bg-gray-400 text-white font-semibold rounded cursor-not-allowed">
-                                    Fully Booked
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 bg-white rounded-lg border">
-                                <div>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="font-medium text-gray-900">USJ 1, Selangor</span>
-                                        <span class="px-2 py-1 text-xs font-bold text-white bg-yellow-500 rounded">Discount
-                                            Promo Rate</span>
+                                    <!-- Row 2 (Promo) -->
+                                    <div class="grid grid-cols-4 gap-4 items-center py-3 px-4 border-b border-gray-200">
+                                        <div>
+                                            <div class="font-medium text-gray-900">Shah Alam, Selangor</div>
+                                            <span
+                                                class="inline-block px-2 py-1 text-xs font-bold text-white bg-yellow-500 rounded mt-1">Discount
+                                                Promo Rate</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-gray-400 line-through text-sm">1,099</div>
+                                            <div class="font-semibold text-red-600">990.00</div>
+                                        </div>
+                                        <div class="text-center">20.00</div>
+                                        <div class="text-center">
+                                            <button
+                                                class="px-6 py-2 bg-red-600 text-white text-sm font-semibold rounded-md hover:bg-red-700 transition duration-200">
+                                                Select This Car
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="text-sm text-gray-500">
-                                        <span class="line-through">RM 1,099.00</span>
-                                        <span class="font-semibold text-red-600 ml-2">RM 980.00</span>
+
+                                    <!-- Row 3 -->
+                                    <div class="grid grid-cols-4 gap-4 items-center py-3 px-4 border-b border-gray-200">
+                                        <div class="font-medium text-gray-900">Setapak, Kuala Lumpur</div>
+                                        <div class="text-center font-semibold">1,000.00</div>
+                                        <div class="text-center">20.00</div>
+                                        <div class="text-center">
+                                            <button
+                                                class="px-6 py-2 bg-red-600 text-white text-sm font-semibold rounded-md hover:bg-red-700 transition duration-200">
+                                                Select This Car
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="text-sm text-gray-500">Delivery & Pickup RM 10.00</div>
+
+                                    <!-- Row 4 (Fully Booked) -->
+                                    <div class="grid grid-cols-4 gap-4 items-center py-3 px-4 border-b border-gray-200">
+                                        <div class="font-medium text-gray-900">Subang Jaya, Selangor</div>
+                                        <div class="text-center font-semibold">1,050.00</div>
+                                        <div class="text-center">15.00</div>
+                                        <div class="text-center">
+                                            <button disabled
+                                                class="px-6 py-2 bg-gray-400 text-white text-sm font-semibold rounded-md cursor-not-allowed">
+                                                Fully Booked
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 5 (Promo) -->
+                                    <div class="grid grid-cols-4 gap-4 items-center py-3 px-4">
+                                        <div>
+                                            <div class="font-medium text-gray-900">USJ 1, Selangor</div>
+                                            <span
+                                                class="inline-block px-2 py-1 text-xs font-bold text-white bg-yellow-500 rounded mt-1">Discount
+                                                Promo Rate</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-gray-400 line-through text-sm">1,099</div>
+                                            <div class="font-semibold text-red-600">980.00</div>
+                                        </div>
+                                        <div class="text-center">10.00</div>
+                                        <div class="text-center">
+                                            <button
+                                                class="px-6 py-2 bg-red-600 text-white text-sm font-semibold rounded-md hover:bg-red-700 transition duration-200">
+                                                Select This Car
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button
-                                    class="px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition duration-200">
-                                    Select This Car
-                                </button>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Back Button -->
-                        <div class="mt-6">
-                            <button onclick="window.history.back()"
-                                class="px-4 py-3 w-full font-semibold text-gray-700 bg-gray-100 rounded-lg transition duration-200 hover:bg-gray-200">
-                                Back to Search
-                            </button>
+                <!-- Additional Cars Grid -->
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
+                    <!-- BMW 320D M-Sport (F30) -->
+                    <div
+                        class="overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm transition-shadow duration-200 hover:shadow-md">
+                        <div class="flex justify-center p-4">
+                            <div class="w-32 h-32 bg-red-600 rounded-full flex items-center justify-center">
+                                <img src="/images/bmw-320d.jpg" alt="BMW 320D M-Sport" class="w-28 h-28 object-contain">
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <h3 class="text-lg font-bold text-center text-gray-900 mb-3">BMW 320D M-Sport (F30)</h3>
+                            <div class="flex flex-wrap justify-center gap-3 text-xs text-gray-600 mb-4">
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/luggage.svg" alt="Luggage" class="w-3 h-3">
+                                    <span>4 Luggage</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/seat.svg" alt="Seats" class="w-3 h-3">
+                                    <span>10 Seats</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/door.svg" alt="Doors" class="w-3 h-3">
+                                    <span>4 Doors</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/transmission.svg" alt="Transmission" class="w-3 h-3">
+                                    <span>Auto</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/engine.svg" alt="Engine" class="w-3 h-3">
+                                    <span>3.0 L</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/petrol.svg" alt="Fuel" class="w-3 h-3">
+                                    <span>Petrol</span>
+                                </div>
+                            </div>
+                            <div
+                                class="block px-4 py-3 w-full font-semibold text-center text-white bg-red-600 rounded-b-lg transition duration-200 hover:bg-red-700 cursor-pointer">
+                                View More
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Honda CR-V -->
+                    <div
+                        class="overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm transition-shadow duration-200 hover:shadow-md">
+                        <div class="flex justify-center p-4">
+                            <div class="w-32 h-32 bg-red-600 rounded-full flex items-center justify-center">
+                                <img src="/images/honda-crv.jpg" alt="Honda CR-V" class="w-28 h-28 object-contain">
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <h3 class="text-lg font-bold text-center text-gray-900 mb-3">Honda CR-V (5th Generation)
+                            </h3>
+                            <div class="flex flex-wrap justify-center gap-3 text-xs text-gray-600 mb-4">
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/luggage.svg" alt="Luggage" class="w-3 h-3">
+                                    <span>4 Luggage</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/seat.svg" alt="Seats" class="w-3 h-3">
+                                    <span>10 Seats</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/door.svg" alt="Doors" class="w-3 h-3">
+                                    <span>4 Doors</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/transmission.svg" alt="Transmission" class="w-3 h-3">
+                                    <span>Auto</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/engine.svg" alt="Engine" class="w-3 h-3">
+                                    <span>3.0 L</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/petrol.svg" alt="Fuel" class="w-3 h-3">
+                                    <span>Petrol</span>
+                                </div>
+                            </div>
+                            <div
+                                class="block px-4 py-3 w-full font-semibold text-center text-white bg-red-600 rounded-b-lg transition duration-200 hover:bg-red-700 cursor-pointer">
+                                View More
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Perodua Myvi -->
+                    <div
+                        class="overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm transition-shadow duration-200 hover:shadow-md">
+                        <div class="flex justify-center p-4">
+                            <div class="w-32 h-32 bg-red-600 rounded-full flex items-center justify-center">
+                                <img src="/images/perodua-myvi.jpg" alt="Perodua Myvi" class="w-28 h-28 object-contain">
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <h3 class="text-lg font-bold text-center text-gray-900 mb-3">Perodua Myvi (M600) 1.5</h3>
+                            <div class="flex flex-wrap justify-center gap-3 text-xs text-gray-600 mb-4">
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/luggage.svg" alt="Luggage" class="w-3 h-3">
+                                    <span>4 Luggage</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/seat.svg" alt="Seats" class="w-3 h-3">
+                                    <span>10 Seats</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/door.svg" alt="Doors" class="w-3 h-3">
+                                    <span>4 Doors</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/transmission.svg" alt="Transmission" class="w-3 h-3">
+                                    <span>Auto</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/engine.svg" alt="Engine" class="w-3 h-3">
+                                    <span>3.0 L</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/petrol.svg" alt="Fuel" class="w-3 h-3">
+                                    <span>Petrol</span>
+                                </div>
+                            </div>
+                            <div
+                                class="block px-4 py-3 w-full font-semibold text-center text-white bg-red-600 rounded-b-lg transition duration-200 hover:bg-red-700 cursor-pointer">
+                                View More
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hyundai Starex Royale -->
+                    <div
+                        class="overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm transition-shadow duration-200 hover:shadow-md">
+                        <div class="flex justify-center p-4">
+                            <div class="w-32 h-32 bg-red-600 rounded-full flex items-center justify-center">
+                                <img src="/images/hyundai-starex.jpg" alt="Hyundai Starex Royale"
+                                    class="w-28 h-28 object-contain">
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <h3 class="text-lg font-bold text-center text-gray-900 mb-3">Hyundai Starex Royale</h3>
+                            <div class="flex flex-wrap justify-center gap-3 text-xs text-gray-600 mb-4">
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/luggage.svg" alt="Luggage" class="w-3 h-3">
+                                    <span>4 Luggage</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/seat.svg" alt="Seats" class="w-3 h-3">
+                                    <span>10 Seats</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/door.svg" alt="Doors" class="w-3 h-3">
+                                    <span>4 Doors</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/transmission.svg" alt="Transmission" class="w-3 h-3">
+                                    <span>Auto</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/engine.svg" alt="Engine" class="w-3 h-3">
+                                    <span>3.0 L</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <img src="/icons/petrol.svg" alt="Fuel" class="w-3 h-3">
+                                    <span>Petrol</span>
+                                </div>
+                            </div>
+                            <div
+                                class="block px-4 py-3 w-full font-semibold text-center text-white bg-red-600 rounded-b-lg transition duration-200 hover:bg-red-700 cursor-pointer">
+                                View More
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back Button -->
+                <div class="mt-6">
+                    <button onclick="window.history.back()"
+                        class="px-4 py-3 w-full font-semibold text-gray-700 bg-gray-100 rounded-lg transition duration-200 hover:bg-gray-200">
+                        Back to Search
+                    </button>
                 </div>
             </div>
         </div>
