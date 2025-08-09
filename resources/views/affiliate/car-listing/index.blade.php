@@ -91,7 +91,7 @@
                         </div>
 
                         <!-- Chevron Icon -->
-                        <div class="flex justify-center items-center pt-10">
+                        <div class="md:flex justify-center items-center pt-10 hidden">
                             <svg class="w-8 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 32 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 5l7 7-7 7" />
