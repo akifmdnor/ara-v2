@@ -233,7 +233,7 @@
                         <div class="overflow-hidden bg-white rounded-lg border border-gray-200 shadow-sm">
                             <div class="flex flex-col lg:flex-row">
                                 <!-- Car Image and Details -->
-                                <div class="p-6 lg:w-1/2">
+                                <div class="flex-shrink-0 p-6 lg:w-1/2">
                                     <!-- Car Image on Red Circular Base -->
                                     <div class="flex justify-center mb-4">
                                         <div class="relative">
@@ -304,7 +304,7 @@
                                 </div>
 
                                 <!-- Location-based Pricing Table -->
-                                <div class="p-6 bg-gray-50 lg:w-1/2">
+                                <div class="flex-1 p-6 bg-gray-50 lg:w-1/2">
                                     <!-- Desktop Table (hidden on mobile) -->
                                     <div class="hidden overflow-hidden bg-white rounded-lg md:block">
                                         <!-- Table Header -->
