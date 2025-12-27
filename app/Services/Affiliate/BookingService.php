@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Affiliate;
 
-use App\Repositories\BookingRepository;
+use App\Repositories\Affiliate\BookingRepository;
 
 class BookingService
 {
@@ -44,8 +44,12 @@ class BookingService
 
     /**
      * Get statistics for agent based on selected month period
+     *
+     * @param int $agentId
+     * @param string $month
+     * @return array
      */
-    public function getAgentStats($agentId, $month = 'all')
+    public function getAgentStats($agentId, $month = 'all'): array
     {
         return $this->bookingRepository->getAgentStats($agentId, $month);
     }

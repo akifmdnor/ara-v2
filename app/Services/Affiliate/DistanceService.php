@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Affiliate;
 
 use App\Models\Branch;
 use Illuminate\Support\Facades\Cache;

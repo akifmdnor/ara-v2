@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Affiliate;
 
 use App\Models\CarModel;
-use App\Repositories\CarModelRepository;
+use App\Repositories\Affiliate\CarModelRepository;
 use Illuminate\Support\Collection;
 
 class CarListingService

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Affiliate;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Services\BookingService;
+use App\Services\Affiliate\BookingService;
 
 class DashboardController extends Controller
 {

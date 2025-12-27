@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Affiliate;
 
 use App\Models\CarModel;
 use Illuminate\Support\Collection;
@@ -39,7 +39,7 @@ class CarModelRepository
                 Log::info('"All" category selected - no filter applied');
             } else {
                 Log::info('Applying category filter:', $filters['category']);
-            $query->whereIn('category', $filters['category']);
+                $query->whereIn('category', $filters['category']);
             }
         } else {
             Log::info('No category filter applied - empty or not set');
