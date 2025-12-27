@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Affiliate;
+namespace App\Services;
 
-use App\Repositories\Affiliate\BookingRepository;
+use App\Repositories\BookingRepository;
 
 class BookingService
 {

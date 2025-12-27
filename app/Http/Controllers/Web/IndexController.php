@@ -4,37 +4,26 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Branch;
-use App\Models\RecentBooking;
-use App\Models\CarModel;
-use App\Models\HomepageManager;
-use App\Models\CustomerReview;
+use App\Services\WebService;
 
 class IndexController extends Controller
 {
+    protected $webService;
+
+    public function __construct(WebService $webService)
+    {
+        $this->webService = $webService;
+    }
+
     /**
      * Display the web index page with homepage data.
      *
      * @return \Illuminate\View\View
      */
-    public function xindex()
+    public function index()
     {
-        $branches = Branch::get();
-        $recentCars = RecentBooking::with('model_specification')
-            ->orderBy('created_at', 'desc')
-            ->take(8)
-            ->get();
+        $homepageData = $this->webService->getHomepageData();
 
-        foreach ($recentCars as $recentCar) {
-            $carModel = CarModel::where('model_specification_id', $recentCar->model_specification_id)->first();
-            $recentCar->category = $carModel ? $carModel->category : 'Unknown';
-        }
-        $categories = CarModel::get()->unique('category');
-        $desktopCover = HomepageManager::where('type', 'desktop_cover')->first();
-        $mobileCover = HomepageManager::where('type', 'mobile_cover')->first();
-        $timelessDeals = HomepageManager::where('type', 'timeless_deal')->get();
-        $customerReviews = CustomerReview::all();
-
-        return view('web.index', compact('branches', 'recentCars', 'categories', 'desktopCover', 'mobileCover', 'timelessDeals', 'customerReviews'));
+        return view('web.index', $homepageData);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Affiliate;
+namespace App\Repositories;
 
 use App\Models\Booking;
 

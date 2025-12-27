@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Services\Affiliate\DistanceService;
+use App\Services\DistanceService;
 use Illuminate\Support\Facades\Cache;
 
 class ClearDistanceCache extends Command

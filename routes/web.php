@@ -27,7 +27,7 @@ use App\Http\Controllers\Affiliate\Auth\LoginController;
 Route::name('web.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Web\IndexController::class, 'index']);
     //web.listing
-    Route::get('/search', [\App\Http\Controllers\Web\SearchController::class, 'search']);
+    Route::get('/search', [\App\Http\Controllers\Web\SearchController::class, 'search'])->name('search');
 });
 
 
@@ -81,7 +81,7 @@ Route::prefix('affiliate')->name('affiliate.')->group(function () {
             return redirect()->route('affiliate.dashboard');
         });
 
-        Route::get('/dashboard', [\App\Http\Controllers\Affiliate\DashboardController::class, 'index'])
+        Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
             ->name('dashboard');
 
         // Bookings Management

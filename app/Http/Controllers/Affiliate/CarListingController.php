@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Affiliate;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Affiliate\CarListingService;
-use App\Services\Affiliate\DistanceService;
+use App\Services\CarListingService;
+use App\Services\DistanceService;
 use Illuminate\Support\Facades\Log;
 
 class CarListingController extends Controller

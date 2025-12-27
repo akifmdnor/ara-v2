@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Affiliate;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Services\Affiliate\BookingService;
+use App\Services\BookingService;
 
 class DashboardController extends Controller
 {
