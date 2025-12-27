@@ -17,7 +17,7 @@ class IndexController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function xindex()
     {
         $branches = Branch::get();
         $recentCars = RecentBooking::with('model_specification')

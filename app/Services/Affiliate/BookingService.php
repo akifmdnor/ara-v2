@@ -36,8 +36,15 @@ class BookingService
 
     /**
      * Get paginated, filterable, and sortable bookings for agent (for API)
+     *
+     * @param int $agentId
+     * @param int $perPage
+     * @param string $sort
+     * @param string $direction
+     * @param array $filters
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getAgentBookingsApi($agentId, $perPage = 10, $sort = 'created_at', $direction = 'desc', $filters = [])
+    public function getAgentBookingsApi($agentId, $perPage = 10, $sort = 'created_at', $direction = 'desc', $filters = []): \Illuminate\Pagination\LengthAwarePaginator
     {
         return $this->bookingRepository->getAgentBookingsApi($agentId, $perPage, $sort, $direction, $filters);
     }

@@ -69,7 +69,7 @@
                         <!-- First Column: Form and Other Content -->
                         <div class="col-md-6 form-container">
                             <div class="car-rental-form-div">
-                                <form class="cr-rental-form" method="get" action="{{ route('web.listing') }}"
+                                <form class="cr-rental-form" method="get" action="{{ route('web.search') }}"
                                     enctype="multipart/form-data" id="search_form">
                                     <h1 class="cr-section__title">
                                         Rent a Car in <span class="txt-prmry-clr">Malaysia</span>

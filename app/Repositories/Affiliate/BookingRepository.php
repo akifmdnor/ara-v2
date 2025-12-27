@@ -19,38 +19,50 @@ class BookingRepository
 
     /**
      * Get paginated, filterable, and sortable bookings for a specific sales agent (for API)
+     *
+     * @param int $agentId
+     * @param int $perPage
+     * @param string $sort
+     * @param string $direction
+     * @param array $filters
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getAgentBookingsApi($agentId, $perPage = 10, $sort = 'created_at', $direction = 'desc', $filters = [])
+    public function getAgentBookingsApi($agentId, $perPage = 10, $sort = 'created_at', $direction = 'desc', $filters = []): \Illuminate\Pagination\LengthAwarePaginator
     {
-        $query = Booking::where('sales_agent_id', $agentId)
-            ->with(['car_model', 'car_model.branch', 'car_model.model_specification', 'user', 'branch', 'staff', 'sales_agent', 'car.car_model.model_specification']);
+        try {
+            $query = Booking::where('sales_agent_id', $agentId)
+                ->with(['car_model', 'car_model.branch', 'car_model.model_specification', 'user', 'branch', 'staff', 'sales_agent', 'car.car_model.model_specification']);
 
-        // Month filtering
-        if (!empty($filters['month']) && $filters['month'] !== 'all') {
-            $year = substr($filters['month'], 0, 4);
-            $month = substr($filters['month'], 5, 2);
-            $query->whereYear('pickup_datetime', $year)
-                ->whereMonth('pickup_datetime', $month);
-        }
+            // Month filtering
+            if (!empty($filters['month']) && $filters['month'] !== 'all') {
+                $year = substr($filters['month'], 0, 4);
+                $month = substr($filters['month'], 5, 2);
+                $query->whereYear('pickup_datetime', $year)
+                    ->whereMonth('pickup_datetime', $month);
+            }
 
-        // Filtering
-        if (!empty($filters['customer_status']) && $filters['customer_status'] !== 'All') {
-            $query->where('payment_status', $filters['customer_status']);
-        }
-        if (!empty($filters['booking_number'])) {
-            $query->whereRaw("CONCAT('BK', LPAD(id, 4, '0')) LIKE ?", ['%' . $filters['booking_number'] . '%']);
-        }
-        if (!empty($filters['customer_name'])) {
-            $query->whereHas('user', function ($q) use ($filters) {
-                $q->where('name', 'like', '%' . $filters['customer_name'] . '%');
-            });
-        }
+            // Filtering
+            if (!empty($filters['customer_status']) && $filters['customer_status'] !== 'All') {
+                $query->where('payment_status', $filters['customer_status']);
+            }
+            if (!empty($filters['booking_number'])) {
+                $query->whereRaw("CONCAT('BK', LPAD(id, 4, '0')) LIKE ?", ['%' . $filters['booking_number'] . '%']);
+            }
+            if (!empty($filters['customer_name'])) {
+                $query->whereHas('user', function ($q) use ($filters) {
+                    $q->where('name', 'like', '%' . $filters['customer_name'] . '%');
+                });
+            }
 
-        // Sorting
-        $query->orderBy($sort, $direction);
+            // Sorting
+            $query->orderBy($sort, $direction);
 
-        // Pagination
-        return $query->paginate($perPage);
+            // Pagination
+            return $query->paginate($perPage);
+        } catch (\Exception $e) {
+            // Return empty paginator in case of error
+            return new \Illuminate\Pagination\LengthAwarePaginator([], 0, $perPage);
+        }
     }
 
     /**
