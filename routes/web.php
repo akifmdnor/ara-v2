@@ -18,48 +18,93 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Agent authentication routes (accessible without auth)
+
+
+/*
+|--------------------------------------------------------------------------
+| Affiliate Routes
+|--------------------------------------------------------------------------
+|
+| Routes for affiliate/agent functionality including authentication,
+| dashboard, bookings, and car listings.
+|
+*/
+
 Route::prefix('affiliate')->name('affiliate.')->group(function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Affiliate Routes (No Authentication Required)
+    |--------------------------------------------------------------------------
+    */
+    // Authentication routes
     Route::get('/login', function () {
-        return view('affiliate.login');
+        return view('affiliate.auth.login');
     })->name('login');
 
     Route::post('/login', [LoginController::class, 'login']);
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-});
 
-Route::get('affiliate/login-error', function () {
-    return view('affiliate.login-error');
-})->name('affiliate.login-error');
+    // Public informational routes
+    Route::get('/login-error', function () {
+        return view('affiliate.auth.login-error');
+    })->name('login-error');
 
-Route::get('affiliate/change-password', function () {
-    return view('affiliate.change-password');
-})->name('affiliate.change-password');
+    /*
+    |--------------------------------------------------------------------------
+    | Protected Affiliate Routes (Authentication Required)
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware('auth:agent')->group(function () {
+        // Authentication
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Agent protected routes (require authentication)
-Route::prefix('affiliate')->middleware(['auth:agent'])->name('affiliate.')->group(function () {
-    // Redirect /affiliate to /affiliate/dashboard if authenticated
-    Route::get('/', function () {
-        return redirect()->route('affiliate.dashboard');
+        // Password management
+        Route::get('/change-password', function () {
+            return view('affiliate.auth.change-password');
+        })->name('change-password');
+
+        // Dashboard
+        Route::get('/', function () {
+            return redirect()->route('affiliate.dashboard');
+        });
+
+        Route::get('/dashboard', [\App\Http\Controllers\Affiliate\DashboardController::class, 'index'])
+            ->name('dashboard');
+
+        // Bookings Management
+        Route::prefix('bookings')->name('bookings.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Affiliate\BookingController::class, 'index'])
+                ->name('index');
+        });
+
+        // Car Listings Management
+        Route::prefix('car-listing')->name('car-listing.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Affiliate\CarListingController::class, 'index'])
+                ->name('index');
+
+            Route::post('/search', [\App\Http\Controllers\Affiliate\CarListingController::class, 'search'])
+                ->name('search');
+
+            Route::get('/{carModel}/book', [\App\Http\Controllers\Affiliate\CarListingController::class, 'book'])
+                ->name('book');
+        });
+
+        // Utility endpoints
+        Route::get('/restricted-dates', [\App\Http\Controllers\Affiliate\CarListingController::class, 'getRestrictedDates'])
+            ->name('restricted-dates');
     });
 
-    Route::get('/dashboard', [\App\Http\Controllers\Affiliate\DashboardController::class, 'index'])->name('dashboard');
-
-    // Bookings module
-    Route::get('/bookings', [\App\Http\Controllers\Affiliate\BookingController::class, 'index'])->name('bookings.index');
-
-    // Car listing module
-    Route::get('/car-listing', [\App\Http\Controllers\Affiliate\CarListingController::class, 'index'])->name('car-listing.index');
-    Route::post('/car-listing/search', [\App\Http\Controllers\Affiliate\CarListingController::class, 'search'])->name('car-listing.search');
-    Route::get('/car-listing/{carModel}/book', [\App\Http\Controllers\Affiliate\CarListingController::class, 'book'])->name('car-listing.book');
-
-    // Restricted dates endpoint
-    Route::get('/restricted-date', [\App\Http\Controllers\Affiliate\CarListingController::class, 'getRestrictedDates'])->name('restricted-dates');
-
-    // Add more agent-specific routes here
-
 });
 
-Route::middleware(['auth:agent'])->group(function () {
-    Route::get('/api/affiliate/bookings', [\App\Http\Controllers\Affiliate\BookingController::class, 'apiList']);
+/*
+|--------------------------------------------------------------------------
+| Affiliate API Routes
+|--------------------------------------------------------------------------
+|
+| API endpoints for affiliate functionality that return JSON responses.
+|
+*/
+Route::middleware('auth:agent')->prefix('api/affiliate')->name('api.affiliate.')->group(function () {
+    Route::get('/bookings', [\App\Http\Controllers\Affiliate\BookingController::class, 'apiList'])
+        ->name('bookings');
 });

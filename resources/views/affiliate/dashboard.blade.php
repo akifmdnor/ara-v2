@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('affiliate.layouts.app')
 
 @section('title', 'Agent Dashboard')
 @section('description', 'Agent Dashboard - Manage your bookings')
@@ -6,7 +6,7 @@
 @section('content')
 
 
-    <x-affiliate-navbar :user="auth()->user()">
+    <x-affiliate.affiliate-navbar :user="auth()->user()">
         <div class="flex justify-end w-full">
             <div class="flex gap-4 items-center px-5 py-2 max-w-full bg-gray-100 rounded-[20px]">
                 <div class="py-2 px-4 bg-white rounded-[20px]">
@@ -33,7 +33,7 @@
                 <div class="space-y-4">
                     @php $pendingCount = $pendingBookings->count(); @endphp
                     @foreach ($pendingBookings->take(10) as $booking)
-                        <x-booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch->branch_name ?? ''" :amount="number_format($booking->amount, 2)" :dateTime="$booking->pickup_datetime
+                        <x-affiliate.booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch->branch_name ?? ''" :amount="number_format($booking->amount, 2)" :dateTime="$booking->pickup_datetime
                             ? date('d/m/Y h:iA', strtotime($booking->pickup_datetime))
                             : ''"
                             :status="$booking->booking_status" :image="$booking->car_model && $booking->car_model->model_specification
@@ -43,10 +43,10 @@
                     @if ($pendingCount > 10)
                         <div id="pending-more" class="hidden">
                             @foreach ($pendingBookings->slice(10) as $booking)
-                                <x-booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch->branch_name ?? ''" :amount="number_format($booking->amount, 2)" :dateTime="$booking->pickup_datetime
-                                    ? date('d/m/Y h:iA', strtotime($booking->pickup_datetime))
-                                    : ''"
-                                    :status="$booking->booking_status" :image="$booking->car_model && $booking->car_model->model_specification
+                                <x-affiliate.booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch->branch_name ?? ''" :amount="number_format($booking->amount, 2)"
+                                    :dateTime="$booking->pickup_datetime
+                                        ? date('d/m/Y h:iA', strtotime($booking->pickup_datetime))
+                                        : ''" :status="$booking->booking_status" :image="$booking->car_model && $booking->car_model->model_specification
                                         ? $booking->car_model->model_specification->picture_url
                                         : '/car.png'" :showDate="true" />
                             @endforeach
@@ -69,22 +69,24 @@
                 <div class="space-y-4">
                     @php $processedCount = $processedBookings->count(); @endphp
                     @foreach ($processedBookings->take(10) as $booking)
-                        <x-booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch->branch_name ?? ''" :carModel="$booking->car_model->name ?? ''" :dateTime="$booking->pickup_datetime
-                            ? date('d/m/Y h:iA', strtotime($booking->pickup_datetime))
-                            : ''"
-                            :status="$booking->booking_status" :image="$booking->car_model && $booking->car_model->model_specification
+                        <x-affiliate.booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch->branch_name ?? ''" :carModel="$booking->car_model->name ?? ''"
+                            :dateTime="$booking->pickup_datetime
+                                ? date('d/m/Y h:iA', strtotime($booking->pickup_datetime))
+                                : ''" :status="$booking->booking_status" :image="$booking->car_model && $booking->car_model->model_specification
                                 ? $booking->car_model->model_specification->picture_url
-                                : '/car.png'" :showDate="true" :amount="number_format($booking->amount, 2)" />
+                                : '/car.png'" :showDate="true"
+                            :amount="number_format($booking->amount, 2)" />
                     @endforeach
                     @if ($processedCount > 10)
                         <div id="processed-more" class="hidden">
                             @foreach ($processedBookings->slice(10) as $booking)
-                                <x-booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch_name ?? ''" :carModel="$booking->car_model->name ?? ''" :dateTime="$booking->pickup_datetime
-                                    ? date('d/m/Y h:iA', strtotime($booking->pickup_datetime))
-                                    : ''"
-                                    :status="$booking->booking_status" :image="$booking->car_model && $booking->car_model->model_specification
+                                <x-affiliate.booking-card :code="$booking->bk_id" :branch="$booking->car_model->branch_name ?? ''" :carModel="$booking->car_model->name ?? ''"
+                                    :dateTime="$booking->pickup_datetime
+                                        ? date('d/m/Y h:iA', strtotime($booking->pickup_datetime))
+                                        : ''" :status="$booking->booking_status" :image="$booking->car_model && $booking->car_model->model_specification
                                         ? $booking->car_model->model_specification->picture_url
-                                        : '/car.png'" :showDate="true" :amount="number_format($booking->amount, 2)" />
+                                        : '/car.png'" :showDate="true"
+                                    :amount="number_format($booking->amount, 2)" />
                             @endforeach
                         </div>
                     @endif
@@ -95,7 +97,7 @@
                 </div>
             </div>
         </div>
-    </x-affiliate-navbar>
+    </x-affiliate.affiliate-navbar>
 @endsection
 
 @push('scripts')

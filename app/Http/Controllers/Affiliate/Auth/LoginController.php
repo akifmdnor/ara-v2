@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('affiliate.login');
+        return view('affiliate.auth.login');
     }
 
     public function login(Request $request)

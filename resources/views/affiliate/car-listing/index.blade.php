@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('affiliate.layouts.app')
 
 @section('title', 'Car Listing - Book Your Car')
 @section('description', 'Browse and book cars for your rental needs')
 
 @section('content')
-    <x-affiliate-navbar :user="auth()->user()" headerText="Car Listing">
+    <x-affiliate.affiliate-navbar :user="auth()->user()" headerText="Car Listing">
         <div x-data="carListing()" x-init="initCarListing()">
             <!-- Search Form -->
             <div class="p-6 mb-6 bg-white rounded-lg border border-gray-200 shadow-sm">
@@ -675,7 +675,7 @@
 
             </div>
         </div>
-    </x-affiliate-navbar>
+    </x-affiliate.affiliate-navbar>
 
     <script src="{{ asset('js/date-time-picker.js') }}"></script>
     <script>
