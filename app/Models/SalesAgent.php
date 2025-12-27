@@ -22,7 +22,7 @@ class SalesAgent extends Authenticatable
         'zip_code',
         'city',
         'state',
-        'commission_in_house',
+        'commision_in_house',
         'commision_out_sourced',
         'profile_photo',
         'phone_number',
@@ -33,19 +33,4 @@ class SalesAgent extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    public function bookings()
-    {
-        return $this->hasMany('App\Models\Booking');
-    }
-
-    public function getProfilePhotoUrlAttribute()
-    {
-        if ($this->profile_photo) {
-            // Remove 'public/' or 'public\' from the start if present
-            $photo = preg_replace('#^public[\/]+#', '', $this->profile_photo);
-            return config('app.v1_url') . 'storage/' . ltrim($photo, '/');
-        }
-        return asset('images/avatar.png');
-    }
 }

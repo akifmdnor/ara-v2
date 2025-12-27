@@ -16,6 +16,6 @@ class RestrictedDateTime extends Model
 
     public function restricted_date_time_branches()
     {
-        return $this->hasMany('App\RestrictedDateTimeBranch');
+        return $this->hasMany('App\Models\RestrictedDateTimeBranch');
     }
 }

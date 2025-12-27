@@ -20,6 +20,6 @@ class RestrictedDateTimeBranch extends Model
 
     public function restricted_date_time()
     {
-        return $this->belongsTo('App\RestrictedDateTime');
+        return $this->belongsTo('App\Models\RestrictedDateTime');
     }
 }

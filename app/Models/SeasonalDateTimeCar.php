@@ -21,6 +21,6 @@ class SeasonalDateTimeCar extends Model
 
     public function seasonal_date_time()
     {
-        return $this->belongsTo('App\RestrictedDateTime');
+        return $this->belongsTo('App\Models\RestrictedDateTime');
     }
 }

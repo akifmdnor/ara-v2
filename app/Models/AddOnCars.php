@@ -21,7 +21,7 @@ class AddOnCars extends Model
 
     public function addon()
     {
-        return $this->belongsTo('App\AddOn');
+        return $this->belongsTo('App\Models\AddOn');
     }
 
 

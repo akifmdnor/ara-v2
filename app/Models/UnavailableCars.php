@@ -21,7 +21,7 @@ class UnavailableCars extends Model
 
     public function booking()
     {
-        return $this->belongsTo('App\Booking');
+        return $this->belongsTo('App\Models\Booking');
     }
 
 

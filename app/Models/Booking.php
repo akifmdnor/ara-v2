@@ -55,25 +55,10 @@ class Booking extends Model
         'addon_charge_by_admin',
         'deliver_pickup_charge_by_admin',
         'assistant_staff_id',
-        'sales_agent_id',
+        'amount_sst',
+        'video_link_before',
+        'video_link_after',
     ];
-
-    protected $appends = ['commission'];
-
-    public function getBkIdAttribute()
-    {
-        return 'BK' . str_pad($this->id, 4, '0', STR_PAD_LEFT);
-    }
-
-    public function getCommissionAttribute()
-    {
-        $agent = $this->sales_agent;
-        if (!$agent || !$this->amount_rent) {
-            return 0;
-        }
-        $rate = $agent->commission_in_house ?? 0;
-        return round($this->amount_rent * ($rate / 100), 2);
-    }
 
     public function branch()
     {
@@ -124,11 +109,6 @@ class Booking extends Model
     public function pictures()
     {
         return $this->hasMany('App\Models\Picture', 'model_id')->where('model_name', '=', 'booking');
-    }
-
-    public function sales_agent()
-    {
-        return $this->belongsTo('App\Models\SalesAgent');
     }
 
 }

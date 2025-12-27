@@ -18,7 +18,7 @@ class SeasonalDateTime extends Model
 
     public function seasonal_date_time_cars()
     {
-        return $this->hasMany('App\SeasonalDateTimeCar');
+        return $this->hasMany('App\Models\SeasonalDateTimeCar');
     }
 
 }

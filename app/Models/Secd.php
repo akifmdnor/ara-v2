@@ -27,17 +27,17 @@ class Secd extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function staff()
     {
-        return $this->belongsTo('App\Staff');
+        return $this->belongsTo('App\Models\Staff');
     }
 
     public function booking()
     {
-        return $this->hasOne('App\Booking');
+        return $this->hasOne('App\Models\Booking');
     }
 
     public function branch()

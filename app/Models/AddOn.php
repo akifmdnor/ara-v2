@@ -29,11 +29,11 @@ class AddOn extends Model
 
     public function addoncars()
     {
-        return $this->hasMany('App\AddOnCars');
+        return $this->hasMany('App\Models\AddOnCars');
     }
 
     public function addonbookings()
     {
-        return $this->hasMany('App\AddOnBookings');
+        return $this->hasMany('App\Models\AddOnBookings');
     }
 }

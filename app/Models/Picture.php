@@ -21,11 +21,11 @@ class Picture extends Model
 
     public function addon()
     {
-        return $this->belongsTo('App\AddOn', 'model_id');
+        return $this->belongsTo('App\Models\AddOn', 'model_id');
     }
 
     public function staff()
     {
-        return $this->belongsTo('App\Staff', 'model_id');
+        return $this->belongsTo('App\Models\Staff', 'model_id');
     }
 }

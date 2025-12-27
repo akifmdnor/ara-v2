@@ -23,12 +23,12 @@ class Review extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function booking()
     {
-        return $this->hasOne('App\Booking');
+        return $this->hasOne('App\Models\Booking');
     }
 
     public function car()

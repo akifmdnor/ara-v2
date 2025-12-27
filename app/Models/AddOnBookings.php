@@ -17,12 +17,12 @@ class AddOnBookings extends Model
 
     public function car_model()
     {
-        return $this->belongsTo('App\Booking');
+        return $this->belongsTo('App\Models\Booking');
     }
 
     public function addon()
     {
-        return $this->belongsTo('App\AddOn');
+        return $this->belongsTo('App\Models\AddOn');
     }
 
 }
