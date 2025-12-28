@@ -24,6 +24,6 @@ class IndexController extends Controller
     {
         $homepageData = $this->webService->getHomepageData();
 
-        return view('web.index', $homepageData);
+        return view('web.landing.index', $homepageData);
     }
 }

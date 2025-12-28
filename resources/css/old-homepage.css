@@ -232,7 +232,7 @@ section:last-child {
 /** New Hero Section CSS **/
 
 .cr-hero {
-    background: url(../images/homepage/hero-image.png);
+    background: url(../images/web/homepage/hero-image.png);
     background-size: cover;
     padding-top: calc(98px + 24px);
     height: 650px;
@@ -669,7 +669,6 @@ span.flatpickr-weekday:hover {
     margin-bottom: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     display: -webkit-box;
 }
@@ -707,7 +706,7 @@ span.flatpickr-weekday:hover {
 }
 
 .cr-car__details li {
-    display: flex;
+    display: -webkit-box;
     align-items: center;
     gap: 8px;
     color: var(--cr-neutral);
@@ -718,9 +717,8 @@ span.flatpickr-weekday:hover {
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    display: -webkit-box;
+    display: flex;
 }
 
 .cr-car__details li .bi {
@@ -1295,12 +1293,12 @@ span.flatpickr-weekday:hover {
     font-weight: 900;
     font-size: 12px;
     color: #333;
-    background: url("../images/homepage/chevron-arrow.svg");
+    background: url("../images/web/homepage/chevron-arrow.svg");
     background-repeat: no-repeat;
 }
 
 .accordion-button:not(.collapsed)::after {
-    background: url("../images/homepage/chevron-arrow.svg");
+    background: url("../images/web/homepage/chevron-arrow.svg");
     background-repeat: no-repeat;
     transform: translateY(-50%) rotate(180deg);
     /* Rotate 90 degrees */
@@ -1691,7 +1689,6 @@ footer {
     .cr-menus button {
         padding: 6px 20px;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         display: -webkit-box;
     }

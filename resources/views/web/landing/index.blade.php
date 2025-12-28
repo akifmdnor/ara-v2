@@ -33,7 +33,7 @@
         <nav class="ara-nav navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="images/homepage/ara-logo.png" alt="ARA" class="ara-logo">
+                    <img src="images/web/homepage/ara-logo.png" alt="ARA" class="ara-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -41,7 +41,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse ara-navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="mb-2 navbar-nav me-auto mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="https://www.aracarrental.com.my/wp/locations/">Our Location</a>
                         </li>
@@ -60,9 +60,9 @@
         <!--New Hero sectiom-->
         <section>
             <div class="hero-section" id="add-location">
-                <img src="{{ $desktopCover ? Storage::url($desktopCover->picture) : URL::asset('/images/homepage/ara-hero-img.jpg') }}"
+                <img src="{{ $desktopCover ? Storage::url($desktopCover->picture) : URL::asset('/images/web/homepage/ara-hero-img.jpg') }}"
                     alt="Background Image" class="hero-bg-img">
-                <img src="{{ $mobileCover ? Storage::url($mobileCover->picture) : URL::asset('/images/homepage/ara-hero-img-mob.png') }}"
+                <img src="{{ $mobileCover ? Storage::url($mobileCover->picture) : URL::asset('/images/web/homepage/ara-hero-img-mob.png') }}"
                     alt="Background Image" class="hero-bg-img-mob">
                 <div class="container hero-content">
                     <div class="row">
@@ -74,7 +74,7 @@
                                     <h1 class="cr-section__title">
                                         Rent a Car in <span class="txt-prmry-clr">Malaysia</span>
                                     </h1>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <span class="input-group-text">
                                             <i class="bi bi-geo-alt"></i>
                                         </span>
@@ -84,7 +84,7 @@
                                         <input type="hidden" name="pickup_longitude" id="pickup_longitude" />
                                     </div>
                                     <div class="form-div-flex">
-                                        <div class="form-row mb-3">
+                                        <div class="mb-3 form-row">
                                             <div class="input-group">
                                                 <span class="input-group-text">
                                                     <i class="bi bi-calendar"></i>
@@ -191,7 +191,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-row mb-3">
+                                        <div class="mb-3 form-row">
                                             <div class="input-group">
                                                 <span class="input-group-text">
                                                     <i class="bi bi-calendar"></i>
@@ -305,7 +305,7 @@
                                             different
                                             location</label>
                                     </div>
-                                    <div class="input-group mb-2 d-none" id="return-location">
+                                    <div class="mb-2 input-group d-none" id="return-location">
                                         <span class="input-group-text">
                                             <i class="bi bi-geo-alt"></i>
                                         </span>
@@ -314,7 +314,7 @@
                                         <input type="hidden" name="return_latitude" id="return_latitude" />
                                         <input type="hidden" name="return_longitude" id="return_longitude" />
                                     </div>
-                                    <button type="submit" class="cr-button mb-3">Search Available Cars</button>
+                                    <button type="submit" class="mb-3 cr-button">Search Available Cars</button>
                                 </form>
                             </div>
                         </div>
@@ -322,7 +322,7 @@
                         <div class="col-md-6">
                             <div class="right-content-div">
                                 <h2>Your <span class="txt-prmry-clr">Affordable</span> <br>Journey Begins</h2>
-                                <img src="images/homepage/here.svg" alt="here" class="draw-svg">
+                                <img src="images/web/homepage/here.svg" alt="here" class="draw-svg">
                             </div>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                     <h3><span class="txt-prmry-clr">Popular</span> Car Choices</h3>
                     <p>As per recent booking by others</p>
                 </div>
-                <!-- <ul class="cr-menus nav nav-pills mb-3" id="menus-tab" role="tablist">
+                <!-- <ul class="mb-3 cr-menus nav nav-pills" id="menus-tab" role="tablist">
                   <li class="nav-item" role="presentation">
                      <button class="nav-link active" id="menus-all-tab" data-bs-toggle="pill"
                         data-bs-target="#menus-all" type="button" role="tab" aria-controls="menus-all"
@@ -357,50 +357,7 @@
                         aria-labelledby="menus-all-tab" tabindex="0">
                         <div class="swiper cr-cars-swiper">
                             <div class="swiper-wrapper" id="cr-list">
-
-                                @foreach ($recentCars as $featureCar)
-                                    <div class="swiper-slide">
-                                        <div class="cr-car">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <h4 class="cr-car__title">
-                                                        {{ $featureCar->model_specification->brand }}</h4>
-                                                    <p class="cr-car__type">
-                                                        {{ $featureCar->model_specification->model_name }}</p>
-                                                </div>
-                                                <img class="cr-car__logo"
-                                                    src="{{ Storage::url($featureCar->model_specification->brand_logo) }}"
-                                                    alt="logo">
-                                            </div>
-                                            <div class="car-img-wrapper">
-                                                <img class="cr-car__image"
-                                                    src="{{ count($featureCar->model_specification->featured_pictures) > 0 ? Storage::url($featureCar->model_specification->featured_pictures[0]->file_name) : 'assets/img/car_undercover.png' }}"
-                                                    alt="{{ $featureCar->model_specification->model_name }}">
-                                            </div>
-                                            <ul class="cr-car__details">
-                                                <li>
-                                                    <i class="bi bi-geo-alt-fill"></i>
-                                                    {{ $featureCar->location }}
-                                                </li>
-                                                @if (!empty($featureCar->rental_days))
-                                                    <li>
-                                                        <i class="bi bi-calendar"></i>
-                                                        {{ $featureCar->rental_days }} Days Rental
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                            <h5 class="cr-car__price-label">Starting From</h5>
-                                            <a href="#add-location" class="cr-car__button cr-button">
-                                                RM
-                                                <span
-                                                    class="cr-car__price">{{ ceil($featureCar->price_per_day) }}/</span>
-                                                Day
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-
-
+                                @include('web.landing.cars')
                             </div>
                             <div class="swiper-pagination"></div>
                             <div class="swiper-button swiper-button-prev"></div>
@@ -434,26 +391,26 @@
                             @endforeach
                         @else
                             <div class="swiper-slide">
-                                <img src="images/homepage/Big-MPV-Rental.jpg" alt="Promo 1">
+                                <img src="images/web/homepage/Big-MPV-Rental.jpg" alt="Promo 1">
                             </div>
                             <div class="swiper-slide">
-                                <img src="images/homepage/CarRental-for-Business-Trip.jpg" alt="Promo 2">
+                                <img src="images/web/homepage/CarRental-for-Business-Trip.jpg" alt="Promo 2">
                             </div>
                             <div class="swiper-slide">
-                                <img src="images/homepage/Car-rental-Sale.jpg" alt="Promo 3">
+                                <img src="images/web/homepage/Car-rental-Sale.jpg" alt="Promo 3">
                             </div>
                             <div class="swiper-slide">
-                                <img src="images/homepage/Car-Rental-With-Intercity-Drop-Off-Service.jpg"
+                                <img src="images/web/homepage/Car-Rental-With-Intercity-Drop-Off-Service.jpg"
                                     alt="Promo 4">
                             </div>
                             <div class="swiper-slide">
-                                <img src="images/homepage/Kereta-Sewa-Balik-Kampung.jpg" alt="Promo 5">
+                                <img src="images/web/homepage/Kereta-Sewa-Balik-Kampung.jpg" alt="Promo 5">
                             </div>
                             <div class="swiper-slide">
-                                <img src="images/homepage/Door-To-Door-Car-Rental-Service.jpg" alt="Promo 6">
+                                <img src="images/web/homepage/Door-To-Door-Car-Rental-Service.jpg" alt="Promo 6">
                             </div>
                             <div class="swiper-slide">
-                                <img src="images/homepage/Premium-Car-Rental.jpg" alt="Promo 6">
+                                <img src="images/web/homepage/Premium-Car-Rental.jpg" alt="Promo 6">
                             </div>
                         @endif
                     </div>
@@ -533,7 +490,7 @@
                         </button>
                     </div>
                     <div class="car-content-div">
-                        <img src="images/homepage/clients-reviews.svg" alt="review" class="car-review-img">
+                        <img src="images/web/homepage/clients-reviews.svg" alt="review" class="car-review-img">
                     </div>
                 </div>
             </div>
@@ -543,7 +500,7 @@
             <div class="container">
                 <div class="row cr-reviews-row">
                     <div class="col-4">
-                        <img src="images/homepage/reviews-image.png" alt="Reviews">
+                        <img src="images/web/homepage/reviews-image.png" alt="Reviews">
                     </div>
                     <div class="col-1"></div>
                     <div class="col-7">
@@ -557,7 +514,7 @@
                                     <div class="swiper-slide">
                                         <p class="cr-section__subtitle">Dummy Review</p>
                                         <div>
-                                            <img src="images/homepage/dummy-review.png" alt="Dummy Review">
+                                            <img src="images/web/homepage/dummy-review.png" alt="Dummy Review">
                                             <div>
                                                 <h6>John Doe</h6>
                                                 <p>Car Model</p>
@@ -575,8 +532,7 @@
                                             </div>
                                         </div>
                                         <p>
-                                            powered by <img src="images/homepage/google-logo.png"
-                                                alt="Google">
+                                            powered by <img src="images/web/homepage/google-logo.png" alt="Google">
                                         </p>
                                     </div>
                                 @else
@@ -607,7 +563,7 @@
                                                 </div>
                                             </div>
                                             <p>
-                                                powered by <img src="images/homepage/google-logo.png"
+                                                powered by <img src="images/web/homepage/google-logo.png"
                                                     alt="Google">
                                             </p>
                                         </div>
@@ -634,7 +590,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="htb-im-div">
-                            <img src="images/homepage/How-To-Book.gif" alt="how to book">
+                            <img src="images/web/homepage/How-To-Book.gif" alt="how to book">
                         </div>
                     </div>
                 </div>
@@ -655,47 +611,47 @@
                     <div class="col-md-12">
                         <div class="our-successful-venture-div">
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/venture-10.svg" alt="logo">
+                                <img src="images/web/homepage/venture-10.svg" alt="logo">
                                 <p>AKA Balloon Sdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/Bureau-Veritas.svg" alt="logo">
+                                <img src="images/web/homepage/Bureau-Veritas.svg" alt="logo">
                                 <p>Bureau Veritas (M) Sdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/venture-5.svg" alt="logo">
+                                <img src="images/web/homepage/venture-5.svg" alt="logo">
                                 <p>COWAY (M) Sdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/driven-Communication.svg" alt="logo">
+                                <img src="images/web/homepage/driven-Communication.svg" alt="logo">
                                 <p>Driven CommunicationsSdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/venture-6.svg" alt="logo">
+                                <img src="images/web/homepage/venture-6.svg" alt="logo">
                                 <p>KLM E&M (Malaysia) Sdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/venture-11.svg" alt="logo">
+                                <img src="images/web/homepage/venture-11.svg" alt="logo">
                                 <p>Societe Air France </p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/mpb.svg" alt="logo">
+                                <img src="images/web/homepage/mpb.svg" alt="logo">
                                 <p>Lembaga LADA Malaysia (MPB)</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/venture-9.svg" alt="logo">
+                                <img src="images/web/homepage/venture-9.svg" alt="logo">
                                 <p>IKEA Supply (Malaysia) Sdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/tbik.svg" alt="logo">
+                                <img src="images/web/homepage/tbik.svg" alt="logo">
                                 <p>The British School of Kuala Lumpur Sdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/venture-7.svg" alt="logo">
+                                <img src="images/web/homepage/venture-7.svg" alt="logo">
                                 <p>ALLO Technology Sdn Bhd</p>
                             </div>
                             <div class="ss-ven-div-img">
-                                <img src="images/homepage/venture-1.png" alt="logo">
+                                <img src="images/web/homepage/venture-1.png" alt="logo">
                                 <p>Lembaga Tabung Haji</p>
                             </div>
                         </div>
@@ -715,7 +671,13 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="our-nation-wide-location-div">
+                        <div id="map" class="map-branch"></div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- our Nation wide locations-->
         <!-- FAQs-->
@@ -948,34 +910,372 @@
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <!-- <script src="assets/js/index-main.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="js/web/main2.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111548273-1"></script>
     <script>
-        function fetchCarData(category) {
-            const url = `/get/popular?category=${category}`;
+        (function() {
+            // Navbar Scroll
+            window.addEventListener("scroll", function() {
+                var navHeader = document.querySelector(".navbar");
+                var windowPosition = window.scrollY > 98;
+                navHeader.classList.toggle("bg-primary", windowPosition);
+            });
 
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('cr-list').innerHTML = html;
-                    if (window.carsSwiper) {
-                        window.carsSwiper.slideTo(0);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching car data:', error);
+            const carsSwiper = new Swiper(".cr-cars-swiper", {
+                // Optional parameters
+                // mousewheel: true,
+                spaceBetween: 0,
+                slidesPerView: 1,
+
+                // Responsive breakpoints
+                breakpoints: {
+                    // when window width is >= 768px
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 16,
+                    },
+                    // when window width is >= 992px
+                    992: {
+                        slidesPerView: 3,
+                        spaceBetween: 24,
+                    },
+                },
+
+                // If we need pagination
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+            window.carsSwiper = carsSwiper;
+
+            const detailsSwiper = new Swiper(".cr-details-swiper", {
+                // Optional parameters
+                mousewheel: false,
+                slidesPerView: 1,
+                direction: "vertical",
+
+                // If we need pagination
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+
+            const promoSwiper = new Swiper(".cr-promo-swiper", {
+                // Optional parameters
+                mousewheel: false,
+                loop: true,
+                spaceBetween: 16,
+                slidesPerView: 2,
+                autoplay: {
+                    delay: 5000,
+                },
+
+                // Responsive breakpoints
+                breakpoints: {
+                    // when window width is >= 992px
+                    992: {
+                        spaceBetween: 16,
+                        slidesPerView: 4,
+                    },
+
+                    // when window width is >= 769px
+                    769: {
+                        spaceBetween: 16,
+                        slidesPerView: 2.5,
+                    },
+
+                    // when window width is less than 769px (mobile view)
+                    0: {
+                        // This breakpoint covers all widths from 0 to 768px
+                        slidesPerView: 1, // Only 1 slide per view on mobile
+                    },
+                },
+
+                // If we need pagination
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+
+            const reviewsSwiper = new Swiper(".cr-reviews-swiper", {
+                // Optional parameters
+                mousewheel: false,
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                },
+
+                // If we need pagination
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+
+            if (document.getElementById("InputStartDate")) {
+                flatpickr("#InputStartDate", {
+                    // enableTime: true,
+                    dateFormat: "d-m-Y",
                 });
-        }
+            }
+
+            if (document.getElementById("InputReturnDate")) {
+                flatpickr("#InputReturnDate", {
+                    // enableTime: true,
+                    dateFormat: "d-m-Y",
+                });
+            }
+
+            const differentLocationCheck =
+                document.getElementById("different-location");
+            const returnLocation = document.getElementById("return-location");
+            if (differentLocationCheck && returnLocation) {
+                differentLocationCheck.addEventListener("change", function(event) {
+                    if (event.currentTarget.checked) {
+                        returnLocation.classList.remove("d-none");
+                    } else {
+                        returnLocation.classList.add("d-none");
+                    }
+                });
+            }
+        })();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const today = new Date();
+            let datearray = [];
+            const currentTime = today.getHours() + today.getMinutes() / 60;
+
+            const minPickupDate = dateFns.format(today, "yyyy-MM-dd");
+            const returnMinDate = dateFns.format(
+                dateFns.addDays(today, 1),
+                "yyyy-MM-dd"
+            );
+
+            const pickupTimeSelect = document.getElementById("InputStartTime");
+
+            const pickupDatePicker = flatpickr("#InputStartDate", {
+                minDate: minPickupDate,
+                dateFormat: "d-m-Y",
+                onChange: function(selectedDates, dateStr, instance) {
+                    const pickupDate = selectedDates[0];
+                    if (pickupDate) {
+                        const returnStartDate = dateFns.addDays(
+                            new Date(pickupDate),
+                            1
+                        );
+
+                        if (
+                            dateFns.isAfter(
+                                pickupDate,
+                                returnDatePicker.selectedDates[0]
+                            ) ||
+                            dateFns.isSameDay(
+                                pickupDate,
+                                returnDatePicker.selectedDates[0]
+                            )
+                        ) {
+                            returnDatePicker.setDate(returnStartDate);
+                        }
+                        returnDatePicker.set("minDate", returnStartDate);
+                    }
+
+                    // Handle time availability based on selected date
+                    handleTimeAvailability(selectedDates[0]);
+                },
+                onOpen: function(selectedDates, dateStr, instance) {
+                    handleTimeAvailability(selectedDates[0]);
+                },
+            });
+
+            const returnDatePicker = flatpickr("#InputReturnDate", {
+                minDate: returnMinDate,
+                dateFormat: "d-m-Y",
+            });
+
+            function blockRestricted() {
+                fetch("/restricted-date")
+                    .then((response) => response.json())
+                    .then((data) => {
+                        datearray = datearray.concat(data);
+                        //sort date array based on date dd-mm-yyyy
+                        datearray.sort(function(a, b) {
+                            var aa = a.split("-").reverse().join(),
+                                bb = b.split("-").reverse().join();
+                            return aa < bb ? -1 : aa > bb ? 1 : 0;
+                        });
+
+                        console.log("datearray", datearray);
+
+                        checkDate = new Date(today);
+                        checkDate.setHours(8, 0, 0, 0);
+                        datearray = datearray.filter(function(date) {
+                            var dateObj = new Date(date.split("-").reverse().join("-"));
+                            return dateObj >= checkDate;
+                        });
+
+                        for (let i = 0; i < datearray.length; i++) {
+                            var date = datearray[i];
+                            var dateObj = new Date(date.split("-").reverse().join("-"));
+
+                            if (dateObj < checkDate) {
+                                continue;
+                            }
+                            if (dateFns.isSameDay(dateObj, checkDate)) {
+                                console.log("today is restricted");
+                                checkDate.setDate(checkDate.getDate() + 1);
+                                pickupDatePicker.setDate(checkDate);
+                                pickupDatePicker.set("minDate", checkDate);
+                                returnDatePicker.set(
+                                    "minDate",
+                                    dateFns.addDays(checkDate, 1)
+                                );
+                                returnDatePicker.setDate(dateFns.addDays(checkDate, 1));
+                            }
+                            //else add this do datepickjer bloick date
+                        }
+                        pickupDatePicker.set("disable", datearray);
+                        returnDatePicker.set("disable", datearray);
+                    })
+                    .catch((error) => {
+                        console.error(
+                            "There was an error fetching the restricted dates:",
+                            error
+                        );
+                    });
+            }
+
+            function handleTimeAvailability(selectedPickupDate) {
+                let options = pickupTimeSelect.options;
+                let minAvailableTime;
+                let selectedDate = new Date(selectedPickupDate);
+                let todayRef = new Date(today);
+
+                // If the selected pickup date is today
+                if (dateFns.isSameDay(selectedDate, todayRef)) {
+                    if (currentTime >= 19) {
+                        // After 7 PM, force tomorrow as pickup date and set minimum time to 10:30 AM
+                        todayRef = dateFns.addDays(today, 1);
+                        pickupDatePicker.setDate(todayRef);
+                        pickupDatePicker.set("minDate", todayRef);
+                        if (
+                            dateFns.isAfter(
+                                todayRef,
+                                returnDatePicker.selectedDates[0]
+                            ) ||
+                            !returnDatePicker.selectedDates[0]
+                        ) {
+                            returnDatePicker.setDate(dateFns.addDays(todayRef, 1));
+                        }
+                        returnDatePicker.set("minDate", dateFns.addDays(todayRef, 1));
+                        minAvailableTime = 10.5; // 10:30 AM
+                        pickupTimeSelect.value = "10:30 AM";
+                    } else if (currentTime < 9) {
+                        pickupDatePicker.setDate(todayRef);
+                        returnDatePicker.set("minDate", dateFns.addDays(todayRef, 1));
+                        if (
+                            dateFns.isAfter(
+                                todayRef,
+                                returnDatePicker.selectedDates[0]
+                            ) ||
+                            !returnDatePicker.selectedDates[0]
+                        ) {
+                            returnDatePicker.setDate(dateFns.addDays(todayRef, 1));
+                        }
+                        minAvailableTime = 10.5;
+                        pickupTimeSelect.value = "10:30 AM";
+                    } else {
+                        // Before 7 PM, allow today, but only after 1.5 hours from now
+                        pickupDatePicker.setDate(todayRef);
+                        returnDatePicker.set("minDate", dateFns.addDays(todayRef, 1));
+                        if (
+                            dateFns.isAfter(
+                                todayRef,
+                                returnDatePicker.selectedDates[0]
+                            ) ||
+                            !returnDatePicker.selectedDates[0]
+                        ) {
+                            returnDatePicker.setDate(dateFns.addDays(todayRef, 1));
+                        }
+                        minAvailableTime = currentTime + 1.5;
+                        pickupTimeSelect.value = convertDecimalToTime(minAvailableTime);
+                    }
+                } else if (dateFns.isSameDay(selectedDate, dateFns.addDays(today, 1))) {
+                    if (currentTime < 19) {
+                        minAvailableTime = 9; // 9:00 AM
+                        pickupTimeSelect.value = "9:00 AM";
+                    } else {
+                        // If the selected pickup date is tomorrow, set minimum time to 10:30 AM
+                        minAvailableTime = 10.5; // 10:30 AM
+                        pickupTimeSelect.value = "10:30 AM";
+                    }
+                } else {
+                    // If the selected pickup date is after tomorrow, no time restrictions
+                    minAvailableTime = 9;
+                    pickupTimeSelect.value = "9:00 AM";
+                }
+
+                // Enable or disable time options based on available time
+                for (let i = 0; i < options.length; i++) {
+                    let optionTime = convertTimeToDecimal(options[i].value);
+                    options[i].disabled = optionTime < minAvailableTime;
+                }
+            }
+
+            // Helper function to convert time string to number
+            function convertTimeToDecimal(timeString) {
+                const [time, modifier] = timeString.split(" ");
+                let [hours, minutes] = time.split(":");
+                hours = parseInt(hours, 10);
+                minutes = parseInt(minutes, 10) / 60;
+                if (modifier === "PM" && hours < 12) hours += 12;
+                if (modifier === "AM" && hours === 12) hours = 0;
+                return hours + minutes;
+            }
+
+            // Helper function to convert number to time string
+            function convertDecimalToTime(decimalTime) {
+                let hours = Math.floor(decimalTime);
+                let minutes = (decimalTime - hours) * 60;
+
+                // Rounding logic
+                if (minutes > 30) {
+                    hours += 1; // Round up to the next hour
+                    minutes = 0; // Set minutes to 00
+                } else if (minutes > 0) {
+                    minutes = 30; // Round to 30 minutes
+                } else {
+                    minutes = 0; // Keep minutes at 00
+                }
+
+                // Handle AM/PM format
+                const modifier = hours >= 12 ? "PM" : "AM";
+                let adjustedHours = hours % 12;
+                if (adjustedHours === 0) adjustedHours = 12;
+
+                const formattedMinutes = minutes === 0 ? "00" : "30";
+                return `${adjustedHours}:${formattedMinutes} ${modifier}`;
+            }
+
+            handleTimeAvailability(today);
+            blockRestricted();
+        });
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111548273-1"></script>
     <script type="text/javascript">
         window.$crisp = [];
         window.CRISP_WEBSITE_ID = "326edf0f-fb72-4eeb-a200-3ed1898d267a";
@@ -1022,156 +1322,8 @@
         });
     </script>
 </body>
-<footer>
-    <div class="container">
-        <div class="upper-footer-part">
-            <div class="upper-footer-first-part">
-                <ul>
-                    <li><a href="tel:+603 8322 6469"><i class="bi bi-telephone-inbound"></i>+603 8322 6469 (Office
-                            Hours)</a></li>
-                    <li><a href="tel:+6019 244 6969"><i class="bi bi-telephone-inbound"></i> +6019 244 6969
-                            (Hotline)</a></li>
-                    <li><a href="mailto:admin@aracarrental.com.my"><i class="bi bi-envelope"></i>
-                            enquiry@aracarrental.com.my</a></li>
-                </ul>
-            </div>
-            <div class="upper-footer-second-part">
-                <ul>
-                    <li><a href="{{ url('/term-and-condition') }}">Terms & Condition</a></li>
-                    <li><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></li>
-                    <li><a href="{{ url('/wp') }}">Blog</a></li>
-                    <li><a href="{{ url('/wp/car-list') }}">Car List</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="lower-footer-part">
-            <div class="lower-footer-internal-part">
-                <div>
-                    <p>All right reserved by ARA Time Travel & Tours Sdn. Bhd. </p>
-                    <p>MOTAC# - KPK/LN: 10405</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="about-text-all">
-                <div class="container-fluid nav-container">
-                    <p class="about-text-1">Ara Car Rental<br></p>
-                    <p class="about-text-2">“Trusted Brand, You Can Rely On”<br></p>
-                    <p class="about-text-3">Based in Klang Valley, and established since 2010. ARA Car Rental is part
-                        of
-                        a bigger family in Malaysian Car Rental Organisation known as KOPKES (Koperasi Pengusaha Kereta
-                        Sewa Malaysia Berhad). Thus, our vehicle can be access and booked
-                        NATIONWIDE.<br><br>Focusing in providing door-to-door car rental delivery service, ARA Car
-                        Rental has proven to deliver the BEST in both Vehicle Quality as well as Responsive Support Team
-                        NATIONWIDE. The recognition by our customers
-                        proven with more than 85% of our customers are regular / repeat customer.<br><br><br>Choose from
-                        variety of our vehicle as well as other services :<br><br>· Hire and drive<br><br>· Long term
-                        leasing<br><br>· City tour<br><br>· Tour
-                        package<br><br>· Airport transfer<br><br>· VVIP transfer<br><br>· Wedding car<br><br></p>
-                    <p class="about-text-2">Contact Us<br></p>
-                    <p class="about-text-3"><span><img class="about-icon" src="/assets/img/Icon%20Location.svg">
-                            E-1-01,
-                            Blok E, Jalan Vita 1 Plaza Crystalville, Lingkaran Cyber Point Timur, 63000 Cyberjaya,
-                            Selangor</span></p>
-                    <p class="about-text-3"><span><img class="about-icon" src="/assets/img/Icon%20Email.svg">&nbsp;
-                            &nbsp;admin@aracarrental.com.my</span></p>
-                    <p class="about-text-3"><span><img class="about-icon" src="/assets/img/Icon%20Phone.svg">&nbsp;
-                            &nbsp;+6 019-244 6969 (Office hours)<br>&nbsp; &nbsp; &nbsp; &nbsp; +6 03-8322 6469
-                            (Hotline)</span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const mobileInput = document.getElementById('mobile');
-        const requestButton = document.getElementById('requestButton');
-
-        function validateForm() {
-            const isNameFilled = nameInput.value.trim() !== "";
-            const isEmailFilled = emailInput.value.trim() !== "";
-            const isMobileFilled = mobileInput.value.trim() !== "";
-            const isFormValid = isNameFilled && isEmailFilled && isMobileFilled;
-
-            requestButton.disabled = !isFormValid;
-
-            if (isFormValid) {
-                requestButton.style.backgroundColor = '#ec2028';
-                requestButton.style.color = 'white';
-            } else {
-                requestButton.style.backgroundColor = '#999999';
-                requestButton.style.color = '';
-            }
-        }
-
-        nameInput.addEventListener('input', validateForm);
-        emailInput.addEventListener('input', validateForm);
-        mobileInput.addEventListener('input', validateForm);
-    });
-
-    $(document).ready(function() {
-        // When the modal is about to be shown
-        $('#availabilityModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var modelName = button.data('model-car-name');
-            var pickupDate = button.data('model-pickup-date-time');
-            var returnDate = button.data('model-return-date-time');
-            var pickupLocation = button.data('model-pickup-location');
-            var returnLocation = button.data('model-return-location');
-
-            var modal = $(this);
-            modal.find('#availabilityForm').append('<input type="hidden" name="model_name" value="' +
-                modelName + '">');
-            modal.find('#availabilityForm').append('<input type="hidden" name="pickup_date" value="' +
-                pickupDate + '">');
-            modal.find('#availabilityForm').append('<input type="hidden" name="return_date" value="' +
-                returnDate + '">');
-            modal.find('#availabilityForm').append(
-                '<input type="hidden" name="pickup_location" value="' +
-                pickupLocation + '">');
-            modal.find('#availabilityForm').append(
-                '<input type="hidden" name="return_location" value="' +
-                returnLocation + '">');
-
-
-        });
-
-        // Submit form via AJAX
-        $('#availabilityForm').on('submit', function(event) {
-            event.preventDefault();
-
-            var formData = $(this).serialize();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: 'POST',
-                data: formData,
-                success: function(response) {
-                    $('#availabilityForm')[0].reset();
-                    $('#requestButton').prop('disabled', true).css('background-color',
-                        '#999999').css('color', '');
-                    $('#successMessage').show();
-                },
-                error: function(xhr, status, error) {
-                    // Handle error
-                }
-            });
-        });
-
-        $('#requestButton').on('click', function() {
-            $('#availabilityForm').submit();
-        });
-    });
-</script>
-
+@include('web.landing.footer')
+@include('web.landing.modal')
+@include('web.landing.maps')
 
 </html>

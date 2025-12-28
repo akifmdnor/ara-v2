@@ -15,3 +15,6 @@ yarn-error.log
 /public
 /storage
 
+# all inside public folder
+/public/*
+!/public/.gitignore

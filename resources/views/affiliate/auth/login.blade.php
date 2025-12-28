@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('affiliate.layouts.app')
 
 @section('title', 'Agent Login')
 @section('description', 'Login to your agent account')

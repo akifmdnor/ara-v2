@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('affiliate.layouts.app')
 
 @section('title', 'Login Failed')
 @section('description', 'Agent login failed')
