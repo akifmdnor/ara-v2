@@ -20,7 +20,7 @@ class SearchController extends Controller
     public function index()
     {
 
-        return view('web.search-car.index');
+        return view('web.search.index');
 
     }
 }

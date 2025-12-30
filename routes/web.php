@@ -25,7 +25,7 @@ use App\Http\Controllers\Affiliate\Auth\LoginController;
 |
 */
 Route::name('web.')->group(function () {
-    Route::get('/', [\App\Http\Controllers\Web\IndexController::class, 'index']);
+    Route::get('/', [\App\Http\Controllers\Web\IndexController::class, 'index'])->name('index');
     //web.listing
     Route::get('/search', [\App\Http\Controllers\Web\SearchController::class, 'index'])->name('search');
 });

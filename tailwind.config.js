@@ -9,6 +9,9 @@ module.exports = {
             fontFamily: {
                 manrope: ["Manrope", "sans-serif"],
             },
+            fontSize: {
+                base: ["14px", { lineHeight: "1.25", fontWeight: "400" }],
+            },
         },
     },
     plugins: [],
