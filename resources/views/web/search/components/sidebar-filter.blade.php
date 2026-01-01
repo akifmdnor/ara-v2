@@ -1,5 +1,5 @@
 {{-- Sidebar Filter Component - Matches Figma Design --}}
-<div class="flex flex-col gap-6 p-3 bg-white rounded-lg" x-data="filterData()"
+<div class="flex flex-col gap-6 p-2.5 bg-white rounded-lg" x-data="filterData()"
     style="box-shadow: 0px 2px 4px 0px rgba(51,65,85,0.1), 0px 6px 32px 0px rgba(51,65,85,0.1);">
 
     {{-- Price Range --}}
@@ -7,15 +7,36 @@
         <h3 class="text-sm " style="color: #3f3f46; font-weight: 400;">Price range</h3>
 
         {{-- Price Range Slider --}}
-        <div class="relative px-0 py-3">
-            <div class="relative h-1 rounded-full" style="background-color: #e4e4e7;">
-                <div class="absolute h-1 rounded-full" style="background-color: #c60f16; left: 0; width: 68%;"></div>
-            </div>
-            <div class="absolute w-2.5 h-2.5 rounded-full border-2 border-white"
-                style="background-color: #c60f16; left: 0; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
-            </div>
-            <div class="absolute w-2.5 h-2.5 rounded-full border-2 border-white"
-                style="background-color: #c60f16; left: 68%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+        <div class="relative w-full py-1.5" x-init="mintrigger();
+        maxtrigger()">
+
+            <input type="range" step="10" x-bind:min="priceMin" x-bind:max="priceMax"
+                x-on:input="mintrigger" x-model="minprice"
+                class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+
+            <input type="range" step="10" x-bind:min="priceMin" x-bind:max="priceMax"
+                x-on:input="maxtrigger" x-model="maxprice"
+                class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+
+            <div class="relative z-10 h-[2px]">
+                {{-- Background Track --}}
+                <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-full"
+                    style="background-color: #e4e4e7;"></div>
+
+                {{-- Active Track --}}
+                <div class="absolute z-20 top-0 bottom-0 rounded-full bg-[#C60F16]"
+                    style="background-color: #c60f16 !important;"
+                    x-bind:style="'right:' + maxthumb + '%; left:' + minthumb + '%'"></div>
+
+                {{-- Min Thumb --}}
+                <div class="absolute z-30 w-4 h-4  left-0 rounded-full border-2 -mt-2 bg-[#fff] border-[#C60F16]"
+                    style="background-color: white; border-color: #C60F16; box-shadow: 0 1px 3px rgba(0,0,0,0.15);"
+                    x-bind:style="'left: ' + minthumb + '%'"></div>
+
+                {{-- Max Thumb --}}
+                <div class="absolute z-30 w-4 h-4 right-0 rounded-full border-2 -mt-2 bg-[#fff] border-[#C60F16]"
+                    style="background-color: white; border-color: #c60f16; box-shadow: 0 1px 3px rgba(0,0,0,0.15);"
+                    x-bind:style="'right: ' + maxthumb + '%'"></div>
             </div>
         </div>
 
@@ -24,14 +45,15 @@
             <div class="flex flex-1 gap-1.5 items-center px-2.5 py-1.5 rounded-full border"
                 style="height: 32px; background-color: white; border-color: #e4e4e7; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 <span class="text-sm leading-[20px]" style="color: #6b6b74;">RM</span>
-                <span class="flex-1 font-sm text-right text-sm leading-[20px]" style="color: #18181b;">0.00</span>
+                <span class="flex-1 font-sm text-right text-sm leading-[20px]" style="color: #18181b;"
+                    x-text="minprice.toFixed(2)"></span>
             </div>
             <span class="text-sm leading-[20px]" style="color: #6b6b74;">-</span>
             <div class="flex flex-1 gap-1.5 items-center px-2.5 py-1.5 rounded-full border"
                 style="height: 32px; background-color: white; border-color: #e4e4e7; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 <span class="text-sm leading-[20px]" style="color: #6b6b74;">RM</span>
-                <span class="flex-1 font-normal text-right text-sm leading-[20px]"
-                    style="color: #18181b;">2,000.00</span>
+                <span class="flex-1 font-normal text-right text-sm leading-[20px]" style="color: #18181b;"
+                    x-text="maxprice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"></span>
             </div>
         </div>
     </div>

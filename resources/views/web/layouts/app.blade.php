@@ -41,6 +41,20 @@
             font-weight: inherit;
             line-height: inherit;
         }
+
+        /* Range slider thumb styling */
+        input[type=range]::-webkit-slider-thumb {
+            pointer-events: all;
+            width: 24px;
+            height: 24px;
+            -webkit-appearance: none;
+        }
+
+        input[type=range]::-moz-range-thumb {
+            pointer-events: all;
+            width: 24px;
+            height: 24px;
+        }
     </style>
     @stack('scripts')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

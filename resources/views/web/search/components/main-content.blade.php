@@ -1,24 +1,28 @@
 {{-- Main Content Area - Matches Figma Design --}}
 <div class="flex flex-col gap-6">
     {{-- Results Header Callout --}}
-    <div class="flex gap-2 items-start px-3 py-3 rounded-lg" style="background-color: #f0fdf4;">
+    <div class="flex gap-2 items-start px-2 py-2.5 rounded-lg" style="background-color: #f0fdf4;">
         {{-- Success Icon --}}
         <div class="flex justify-center items-start shrink-0">
-            <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
-                    d="M10 18.75C5.16797 18.75 1.25 14.832 1.25 10C1.25 5.16797 5.16797 1.25 10 1.25C14.832 1.25 18.75 5.16797 18.75 10C18.75 14.832 14.832 18.75 10 18.75ZM9.0625 13.75L15.6445 7.16797L14.4023 5.92578L9.0625 11.2656L6.39258 8.59375L5.15039 9.83594L9.0625 13.75Z"
-                    fill="#15803d" stroke="#15803d" stroke-width="0.5" />
+                    d="M7 11.2143L8.12645 12.5116C8.55869 13.0095 9.34594 12.9601 9.71261 12.4122L13 7.5M17.25 10C17.25 14.0041 14.0041 17.25 10 17.25C5.99594 17.25 2.75 14.0041 2.75 10C2.75 5.99594 5.99594 2.75 10 2.75C14.0041 2.75 17.25 5.99594 17.25 10Z"
+                    stroke="#15803D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         </div>
 
         {{-- Text Content --}}
-        <div class="flex flex-col flex-1 gap-1">
-            <p class="text-sm font-semibold leading-[20px]" style="color: #15803d;">
-                Success!
-            </p>
-            <p class="text-sm leading-[20px]" style="color: #18181b;">
+        <div class="flex flex-col flex-1 ">
+            <div class="flex items-center ">
+                <p class="text-sm font-medium leading-[20px]" style="color: #15803d;">
+                    Success!
+                </p>
+
+            </div>
+            <p class="text-sm leading-[1px] font-light" style="color: #18181b;">
                 We've found 48 cars of all categories near Bandar Puteri, Puchong, Selangor
             </p>
+
         </div>
     </div>
 
