@@ -4,11 +4,11 @@
 
     {{-- Price Range --}}
     <div class="flex flex-col gap-3">
-        <h3 class=" font-medium" style="color: #3f3f46;">Price range</h3>
+        <h3 class="text-sm " style="color: #3f3f46; font-weight: 400;">Price range</h3>
 
         {{-- Price Range Slider --}}
         <div class="relative px-0 py-3">
-            <div class="relative h-1 bg-gray-200 rounded-full">
+            <div class="relative h-1 rounded-full" style="background-color: #e4e4e7;">
                 <div class="absolute h-1 rounded-full" style="background-color: #c60f16; left: 0; width: 68%;"></div>
             </div>
             <div class="absolute w-2.5 h-2.5 rounded-full border-2 border-white"
@@ -21,33 +21,34 @@
 
         {{-- Price Inputs --}}
         <div class="flex gap-1 items-center h-8">
-            <div class="flex flex-1 items-center px-2.5 py-1.5  rounded-full border"
+            <div class="flex flex-1 gap-1.5 items-center px-2.5 py-1.5 rounded-full border"
                 style="height: 32px; background-color: white; border-color: #e4e4e7; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                <span style="color: #6b6b74;">RM</span>
-                <span class="flex-1 font-medium text-right" style="color: #18181b;">0.00</span>
+                <span class="text-sm leading-[20px]" style="color: #6b6b74;">RM</span>
+                <span class="flex-1 font-sm text-right text-sm leading-[20px]" style="color: #18181b;">0.00</span>
             </div>
-            <span class="" style="color: #6b6b74;">-</span>
-            <div class="flex flex-1 items-center px-2.5 py-1.5  rounded-full border"
+            <span class="text-sm leading-[20px]" style="color: #6b6b74;">-</span>
+            <div class="flex flex-1 gap-1.5 items-center px-2.5 py-1.5 rounded-full border"
                 style="height: 32px; background-color: white; border-color: #e4e4e7; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                <span style="color: #6b6b74;">RM</span>
-                <span class="flex-1 font-medium text-right" style="color: #18181b;">2,000.00</span>
+                <span class="text-sm leading-[20px]" style="color: #6b6b74;">RM</span>
+                <span class="flex-1 font-normal text-right text-sm leading-[20px]"
+                    style="color: #18181b;">2,000.00</span>
             </div>
         </div>
     </div>
 
     {{-- Sort by Price --}}
     <div class="flex flex-col gap-3">
-        <h3 class=" font-medium" style="color: #3f3f46;">Sort by price</h3>
-        <div class="flex rounded-lg" style="background-color: #f4f4f5;">
-            <button @click="sortBy = 'low-to-high'" :class="sortBy === 'low-to-high' ? 'bg-white border shadow-sm' : ''"
-                class="flex-1 px-2.5 py-1.5  font-medium rounded-lg transition-colors min-h-8"
+        <h3 class="text-sm" style="color: #3f3f46;">Sort by price</h3>
+        <div class="flex justify-center items-center rounded-lg" style="background-color: #f4f4f5;">
+            <button @click="sortBy = 'low-to-high'" :class="sortBy === 'low-to-high' ? 'bg-white border' : ''"
+                class="flex-1 px-2.5 py-1.5 text-sm rounded-lg transition-colors min-h-8"
                 :style="sortBy === 'low-to-high' ?
                     'border-color: #e4e4e7; color: #18181b; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);' :
                     'color: #6b6b74;'">
                 Low to high
             </button>
-            <button @click="sortBy = 'high-to-low'" :class="sortBy === 'high-to-low' ? 'bg-white border shadow-sm' : ''"
-                class="flex-1 px-2.5 py-1.5  font-medium rounded-lg transition-colors min-h-8"
+            <button @click="sortBy = 'high-to-low'" :class="sortBy === 'high-to-low' ? 'bg-white border' : ''"
+                class="flex-1 px-2.5 py-1.5 text-sm rounded-lg transition-colors min-h-8"
                 :style="sortBy === 'high-to-low' ?
                     'border-color: #e4e4e7; color: #18181b; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);' :
                     'color: #6b6b74;'">
@@ -58,7 +59,7 @@
 
     {{-- Brand Filter --}}
     <div class="flex flex-col gap-3">
-        <h3 class=" font-medium" style="color: #3f3f46;">Brand</h3>
+        <h3 class="text-sm" style="color: #3f3f46;">Brand</h3>
         <div class="flex flex-col gap-3">
             {{-- Proton --}}
             <label class="flex gap-2.5 items-start">
@@ -68,7 +69,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); focus:ring-color: #ec2028;">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">Proton</span>
+                    <span class="w-full text-sm" style="color: #18181b;">Proton</span>
                 </div>
             </label>
 
@@ -80,7 +81,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">Perodua</span>
+                    <span class="w-full text-sm" style="color: #18181b;">Perodua</span>
                 </div>
             </label>
 
@@ -92,7 +93,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">Mercedes</span>
+                    <span class="w-full text-sm" style="color: #18181b;">Mercedes</span>
                 </div>
             </label>
 
@@ -104,7 +105,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">BMW</span>
+                    <span class="w-full text-sm" style="color: #18181b;">BMW</span>
                 </div>
             </label>
 
@@ -116,20 +117,20 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">Volvo</span>
+                    <span class="w-full text-sm" style="color: #18181b;">Volvo</span>
                 </div>
             </label>
 
             {{-- Show All Button --}}
             <button class="flex gap-1.5 items-center rounded-lg" @click="showBrandDropdown = !showBrandDropdown">
-                <span class=" font-medium" style="color: #ec2028;">Show All</span>
+                <span class="text-sm" style="color: #ec2028;">Show All</span>
             </button>
         </div>
     </div>
 
     {{-- Category Filter --}}
     <div class="flex flex-col gap-3">
-        <h3 class=" font-medium" style="color: #3f3f46;">Category</h3>
+        <h3 class="text-sm" style="color: #3f3f46;">Category</h3>
         <div class="flex flex-col gap-3">
             {{-- Compact --}}
             <label class="flex gap-2.5 items-start">
@@ -139,7 +140,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">Compact</span>
+                    <span class="w-full text-sm" style="color: #18181b;">Compact</span>
                 </div>
             </label>
 
@@ -151,7 +152,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">Sedan</span>
+                    <span class="w-full text-sm" style="color: #18181b;">Sedan</span>
                 </div>
             </label>
 
@@ -163,7 +164,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">SUV</span>
+                    <span class="w-full text-sm" style="color: #18181b;">SUV</span>
                 </div>
             </label>
 
@@ -175,7 +176,8 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">MPV/ Minivan</span>
+                    <span class="w-full text-sm" style="color: #18181b;">MPV/
+                        Minivan</span>
                 </div>
             </label>
 
@@ -187,7 +189,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">4WD</span>
+                    <span class="w-full text-sm" style="color: #18181b;">4WD</span>
                 </div>
             </label>
 
@@ -199,7 +201,7 @@
                         style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                 </div>
                 <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full  font-medium" style="color: #18181b;">Van</span>
+                    <span class="w-full text-sm" style="color: #18181b;">Van</span>
                 </div>
             </label>
         </div>
@@ -210,12 +212,12 @@
         <button @click="applyFilters()"
             class="flex gap-1.5 justify-center items-center px-2.5 py-1.5 w-full h-8 rounded-lg border transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
             style="background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); focus:ring-color: #ec2028;">
-            <span class=" font-medium text-white">Filter</span>
+            <span class="text-sm text-white">Filter</span>
         </button>
         <button @click="resetFilters()"
             class="flex gap-1.5 justify-center items-center px-2.5 py-1.5 w-full h-8 rounded-lg border transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2"
             style="background-color: white; border-color: #e4e4e7; color: #3f3f46; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); focus:ring-color: #6b6b74;">
-            <span class=" font-medium">Reset filter</span>
+            <span class="text-sm">Reset filter</span>
         </button>
     </div>
 </div>

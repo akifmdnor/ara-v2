@@ -22,7 +22,7 @@
                         {{ $car['name'] ?? 'Perodua Myvi' }}
                     </h3>
                     @if (isset($car['limited_offer']) && $car['limited_offer'])
-                        <span class="px-2 py-0.5 text-[14px] font-medium rounded border"
+                        <span class="px-2 py-0.5 text-[14px] font-normal rounded border"
                             style="background-color: #f0fdf4; border-color: rgba(21,128,61,0.2); color: #15803d; height: 22px;">
                             Limited Time Offer
                         </span>
@@ -33,7 +33,7 @@
                 <div class="flex gap-1">
                     @if (isset($car['tags']))
                         @foreach ($car['tags'] as $tag)
-                            <span class="px-2 py-0.5 text-[14px] font-medium rounded-full border"
+                            <span class="px-2 py-0.5 text-[14px] font-normal rounded-full border"
                                 style="background-color: #f4f4f5; border-color: rgba(82,82,91,0.2); color: #6b6b74; height: 22px;">
                                 {{ $tag }}
                             </span>
@@ -53,7 +53,7 @@
                                 d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                         </svg>
                     </div>
-                    <span class=" font-medium" style="color: #18181b;">{{ $car['transmission'] ?? 'Auto' }}</span>
+                    <span class=" font-normal" style="color: #18181b;">{{ $car['transmission'] ?? 'Auto' }}</span>
                 </div>
 
                 {{-- Seats --}}
@@ -65,7 +65,7 @@
                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
                     </div>
-                    <span class=" font-medium" style="color: #18181b;">{{ $car['seats'] ?? '4' }} Seats</span>
+                    <span class=" font-normal" style="color: #18181b;">{{ $car['seats'] ?? '4' }} Seats</span>
                 </div>
 
                 {{-- Doors --}}
@@ -78,7 +78,7 @@
                             </path>
                         </svg>
                     </div>
-                    <span class=" font-medium" style="color: #18181b;">{{ $car['doors'] ?? '4' }} Doors</span>
+                    <span class=" font-normal" style="color: #18181b;">{{ $car['doors'] ?? '4' }} Doors</span>
                 </div>
 
                 {{-- Luggage --}}
@@ -91,7 +91,7 @@
                             </path>
                         </svg>
                     </div>
-                    <span class=" font-medium" style="color: #18181b;">{{ $car['luggage'] ?? '2' }} Luggage</span>
+                    <span class=" font-normal" style="color: #18181b;">{{ $car['luggage'] ?? '2' }} Luggage</span>
                 </div>
 
                 {{-- Engine --}}
@@ -102,7 +102,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <span class=" font-medium" style="color: #18181b;">{{ $car['engine'] ?? '1.5 L' }}</span>
+                    <span class=" font-normal" style="color: #18181b;">{{ $car['engine'] ?? '1.5 L' }}</span>
                 </div>
 
                 {{-- Fuel --}}
@@ -113,7 +113,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                         </svg>
                     </div>
-                    <span class=" font-medium" style="color: #18181b;">{{ $car['fuel'] ?? 'Petrol' }}</span>
+                    <span class=" font-normal" style="color: #18181b;">{{ $car['fuel'] ?? 'Petrol' }}</span>
                 </div>
             </div>
         </div>
@@ -126,7 +126,7 @@
             @if (isset($car['sale_tags']) && count($car['sale_tags']) > 0)
                 <div class="flex items-start justify-end pr-2">
                     @foreach ($car['sale_tags'] as $saleTag)
-                        <div class="flex items-center gap-1.5 px-2 py-0.5 text-[14px] font-medium rounded"
+                        <div class="flex items-center gap-1.5 px-2 py-0.5 text-[14px] font-normal rounded"
                             style="height: 22px; background-color: {{ $saleTag['bg'] ?? '#fff4ed' }}; border: 1px solid {{ $saleTag['border'] ?? '#ff9960' }}; color: {{ $saleTag['color'] ?? '#fe7439' }}; margin-right: -8px;">
                             {{ $saleTag['text'] }}
                         </div>
@@ -180,7 +180,7 @@
 
                 {{-- Variant Image and Options --}}
                 <div class="flex flex-col gap-3" style="width: 172px;">
-                    <p class="text-base font-medium" style="color: #18181b; line-height: 24px;">
+                    <p class="text-base font-normal" style="color: #18181b; line-height: 24px;">
                         {{ $variant['name'] ?? 'Myvi 1.5H (M800)' }}
                     </p>
                     <div style="width: 160px; height: 120px;">
@@ -190,30 +190,30 @@
 
                     {{-- Variant Selection --}}
                     <div class="flex flex-col gap-1">
-                        <p class="text-[14px] font-medium" style="color: #6b6b74; line-height: 18px;">Choose spec
+                        <p class="text-[14px] font-normal" style="color: #6b6b74; line-height: 18px;">Choose spec
                             variant:
                         </p>
                         <div class="flex rounded-lg" style="background-color: #f4f4f5;">
                             <button @click="selectedVariant = 'low'"
                                 :class="selectedVariant === 'low' ? 'bg-red-600 shadow-sm' : ''"
-                                class="flex-1 min-h-8 px-2.5 py-1.5  font-medium rounded-lg transition-colors"
+                                class="flex-1 min-h-8 px-2.5 py-1.5  font-normal rounded-lg transition-colors"
                                 :style="selectedVariant === 'low' ? 'color: white;' : 'color: #6b6b74;'">
                                 Low
                             </button>
                             <button @click="selectedVariant = 'med'"
-                                class="flex-1 min-h-8 px-2.5 py-1.5  font-medium rounded-lg transition-colors"
+                                class="flex-1 min-h-8 px-2.5 py-1.5  font-normal rounded-lg transition-colors"
                                 style="color: #6b6b74;">
                                 Med
                             </button>
                             <div class="h-3 w-0 border-r self-center" style="border-color: #d4d4d8;"></div>
                             <button @click="selectedVariant = 'full'"
-                                class="flex-1 min-h-8 px-2.5 py-1.5  font-medium rounded-lg transition-colors"
+                                class="flex-1 min-h-8 px-2.5 py-1.5  font-normal rounded-lg transition-colors"
                                 style="color: #6b6b74;">
                                 Full
                             </button>
                             <div class="h-3 w-0 border-r self-center" style="border-color: #d4d4d8;"></div>
                             <button @click="selectedVariant = 'premium'"
-                                class="flex-1 min-h-8 px-2.5 py-1.5  font-medium rounded-lg transition-colors"
+                                class="flex-1 min-h-8 px-2.5 py-1.5  font-normal rounded-lg transition-colors"
                                 style="color: #6b6b74;">
                                 Premium
                             </button>
@@ -230,7 +230,7 @@
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
                             </path>
                         </svg>
-                        <span class=" font-medium" style="color: #3f3f46;">View Actual Car Image</span>
+                        <span class=" font-normal" style="color: #3f3f46;">View Actual Car Image</span>
                     </button>
                 </div>
 
@@ -311,11 +311,11 @@
                     @if (isset($variant['sale']))
                         <div class="flex flex-col gap-1">
                             <div class="flex items-start justify-end pr-2">
-                                <div class="flex items-center gap-1.5 px-2 py-0.5 text-[14px] font-medium rounded"
+                                <div class="flex items-center gap-1.5 px-2 py-0.5 text-[14px] font-normal rounded"
                                     style="height: 22px; background-color: #fff4ed; border: 1px solid #ff9960; color: #fe7439; margin-right: -8px;">
                                     SALE
                                 </div>
-                                <div class="flex items-center gap-1.5 px-2 py-0.5 text-[14px] font-medium rounded"
+                                <div class="flex items-center gap-1.5 px-2 py-0.5 text-[14px] font-normal rounded"
                                     style="height: 22px; background-color: #fe7439; color: #fff4ed; margin-right: -8px;">
                                     10% OFF TODAY
                                 </div>
@@ -356,7 +356,7 @@
                     <button
                         class="flex items-center justify-center gap-1.5 h-8 px-2.5 py-1.5 rounded-lg border transition-colors hover:opacity-90"
                         style="background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                        <span class=" font-medium text-white">Select this car</span>
+                        <span class=" font-normal text-white">Select this car</span>
                     </button>
                 </div>
             </div>

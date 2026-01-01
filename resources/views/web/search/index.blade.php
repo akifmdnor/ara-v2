@@ -7,13 +7,13 @@
 
 
         {{-- Main Content --}}
-        <div class="px-[280px] py-11 bg-[#FFF]" style="background-color: #FFF;">
+        <div class="px-[277px] py-11 bg-[#FFF]" style="background-color: #FFF;">
             {{-- Search Form Section --}}
             @include('web.search.components.search-form')
 
             <div class="flex gap-6">
                 {{-- Sidebar Filter --}}
-                <div class="flex-shrink-0" style="width: 300px;">
+                <div class="flex-shrink-0" style="width: 276px;">
                     @include('web.search.components.sidebar-filter')
                 </div>
 

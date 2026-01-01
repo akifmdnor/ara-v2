@@ -1,7 +1,7 @@
 {{-- Search Page Navbar - Matches Figma Design --}}
 <nav class="relative z-10 bg-white"
     style="box-shadow: 0px 2px 4px 0px rgba(51,65,85,0.08), 0px 6px 32px 0px rgba(51,65,85,0.12);">
-    <div class="px-[280px] py-[3px]">
+    <div class="px-[277px]  mr-1 py-[3px]">
         <div class="flex justify-between items-center" style="height: 52px; ">
             {{-- Logo & Navigation --}}
             <div class="flex flex-1 gap-3 items-center">
@@ -47,7 +47,7 @@
                 {{-- Language selector --}}
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
-                        class="flex gap-1.5 items-center px-2.5 py-1.5 font-medium rounded-lg border transition-colors hover:bg-gray-50"
+                        class="flex gap-1.5 items-center px-2.5 py-1.5 font-normal rounded-lg border transition-colors hover:bg-gray-50"
                         style="height: 32px; background-color: white; border-color: #e4e4e7; color: #18181b; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -76,7 +76,7 @@
 
                 {{-- Login button --}}
                 <a href="#"
-                    class="px-2.5 py-1.5 font-medium text-white rounded-lg border transition-colors hover:opacity-90"
+                    class="px-2.5 py-1.5 font-normal text-white rounded-lg border transition-colors hover:opacity-90"
                     style="height: 32px; background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); text-decoration: none; font-weight:400;">
                     Log In
                 </a>

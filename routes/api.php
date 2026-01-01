@@ -18,4 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Search API
+Route::get('/search', [\App\Http\Controllers\Api\SearchController::class, 'index']);
+
 
