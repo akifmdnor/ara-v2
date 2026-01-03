@@ -28,8 +28,14 @@
 
     {{-- Cars List --}}
     <div class="flex flex-col gap-8">
-        @php
-            $sampleCars = [
+        @foreach($modelSpecs ?? [] as $modelSpec)
+            @include('web.search.components.car-card', ['modelSpec' => $modelSpec])
+        @endforeach
+    </div>
+
+    {{-- Old Sample Cars (Commented out) --}}
+    {{-- @php
+        $sampleCars = [
                 [
                     'name' => 'Perodua Myvi',
                     'price' => '180.00',

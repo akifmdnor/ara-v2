@@ -16,7 +16,7 @@ class PriceCalculationService
      * @param int $hours
      * @return float
      */
-    public function calculatePrice(?CarModel $carModel, int $rentDays, int $hours): float
+    public function calculatePrice($carModel, int $rentDays, int $hours): float
     {
         if (!$carModel) {
             return 0;

@@ -69,12 +69,7 @@ class SearchController extends Controller
             $request->get('category')
         );
 
-
-
         $categories = $this->searchService->getCategories();
-        //convert modelSpecs to array
-        $modelSpecs = $modelSpecs->toArray();
-        dd($modelSpecs);
         return view('web.search.index', compact('modelSpecs', 'categories'));
 
     }
