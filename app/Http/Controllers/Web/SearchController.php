@@ -65,6 +65,7 @@ class SearchController extends Controller
             $dropoffDateTime,
             $minPrice,
             $maxPrice,
+            //asc
             $request->get('sort_by') ?? 'DESC',
             $request->get('category')
         );

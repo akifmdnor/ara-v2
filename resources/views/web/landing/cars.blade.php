@@ -1,3 +1,6 @@
+@php
+    use App\Services\StorageHelper;
+@endphp
 @foreach ($recentCars as $featureCar)
     <div class="swiper-slide">
         <div class="cr-car">
@@ -6,12 +9,12 @@
                     <h4 class="cr-car__title">{{ $featureCar->model_specification->brand }}</h4>
                     <p class="cr-car__type">{{ $featureCar->model_specification->model_name }}</p>
                 </div>
-                <img class="cr-car__logo" src="{{ Storage::url($featureCar->model_specification->brand_logo) }}"
+                <img class="cr-car__logo" src="{{ StorageHelper::v1Url($featureCar->model_specification->brand_logo) }}"
                     alt="logo">
             </div>
             <div class="car-img-wrapper">
                 <img class="cr-car__image"
-                    src="{{ count($featureCar->model_specification->featured_pictures) > 0 ? Storage::url($featureCar->model_specification->featured_pictures[0]->file_name) : 'images/web/homepage/car_undercover.png' }}"
+                    src="{{ count($featureCar->model_specification->featured_pictures) > 0 ? StorageHelper::v1Url($featureCar->model_specification->featured_pictures[0]->file_name) : 'images/web/homepage/car_undercover.png' }}"
                     alt="{{ $featureCar->model_specification->model_name }}">
             </div>
             <ul class="cr-car__details">

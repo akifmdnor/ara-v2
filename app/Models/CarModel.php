@@ -58,6 +58,12 @@ class CarModel extends Model
         return $this->hasMany('App\Models\AddOnCars');
     }
 
+    // get addon name and price as array
+    public function getAddonsAttribute()
+    {
+        return $this->addoncars->pluck('addon.title', 'addon.price')->toArray();
+    }
+
     public function model_specification()
     {
         return $this->belongsTo('App\Models\ModelSpecification')->withTrashed();

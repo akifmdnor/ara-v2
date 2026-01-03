@@ -1,5 +1,5 @@
 {{-- Main Content Area - Matches Figma Design --}}
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-6" x-data="carListing()">
     {{-- Results Header Callout --}}
     <div class="flex gap-2 items-start px-2 py-2.5 rounded-lg" style="background-color: #f0fdf4;">
         {{-- Success Icon --}}

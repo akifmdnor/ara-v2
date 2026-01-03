@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+@php
+    use App\Services\StorageHelper;
+@endphp
 <html>
 
 <head>
@@ -60,9 +63,9 @@
         <!--New Hero sectiom-->
         <section>
             <div class="hero-section" id="add-location">
-                <img src="{{ $desktopCover ? Storage::url($desktopCover->picture) : URL::asset('/images/web/homepage/ara-hero-img.jpg') }}"
+                <img src="{{ $desktopCover ? StorageHelper::v1Url($desktopCover->picture) : URL::asset('/images/web/homepage/ara-hero-img.jpg') }}"
                     alt="Background Image" class="hero-bg-img">
-                <img src="{{ $mobileCover ? Storage::url($mobileCover->picture) : URL::asset('/images/web/homepage/ara-hero-img-mob.png') }}"
+                <img src="{{ $mobileCover ? StorageHelper::v1Url($mobileCover->picture) : URL::asset('/images/web/homepage/ara-hero-img-mob.png') }}"
                     alt="Background Image" class="hero-bg-img-mob">
                 <div class="container hero-content">
                     <div class="row">
@@ -385,7 +388,7 @@
                         @if (!empty($timelessDeals))
                             @foreach ($timelessDeals as $deal)
                                 <div class="swiper-slide">
-                                    <img src="{{ Storage::url($deal->picture) }}"
+                                    <img src="{{ StorageHelper::v1Url($deal->picture) }}"
                                         alt="timeless-deal-banner-{{ $loop->iteration }}">
                                 </div>
                             @endforeach
@@ -542,7 +545,7 @@
                                             <div>
 
                                                 @if ($review->car_model->model_specification->featured_pictures->isNotEmpty())
-                                                    <img src="{{ Storage::url($review->car_model->model_specification->featured_pictures[0]->file_name) }}"
+                                                    <img src="{{ StorageHelper::v1Url($review->car_model->model_specification->featured_pictures[0]->file_name) }}"
                                                         alt="{{ $review->car_model->model_specification->model_name }}">
                                                 @endif
                                                 <div>

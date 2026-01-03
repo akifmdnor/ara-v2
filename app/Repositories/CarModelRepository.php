@@ -89,4 +89,13 @@ class CarModelRepository
             })
             ->get();
     }
+
+    public function getCarModelsByModelSpecIdAndBranchIds(int $modelSpecId, array $branchIds): Collection
+    {
+        return $this->getActiveCarModels()
+            ->where('model_specification_id', $modelSpecId)
+            ->whereIn('branch_id', $branchIds)
+            ->orderBy('price_day', 'DESC')
+            ->get();
+    }
 }

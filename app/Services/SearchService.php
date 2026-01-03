@@ -47,7 +47,7 @@ class SearchService
         float $maxPrice = 1500,
         string $sortBy = 'DESC',
         array $categories = null
-    ): Collection {
+    ) {
         $modelSpecs = $this->searchRepository->getModelSpecificationsWithCarModels($branchIds, $sortBy, $categories);
 
         return $this->processModelSpecifications($modelSpecs, $pickupDateTime, $dropoffDateTime, $minPrice, $maxPrice, $branchIds);
@@ -71,66 +71,109 @@ class SearchService
         float $minPrice,
         float $maxPrice,
         array $branchIds
-    ): Collection {
-        foreach ($modelSpecs as $key => $modelSpec) {
-            $modelSpec->days = $this->dateTimeService->getDays($pickupDateTime, $dropoffDateTime);
-            $modelSpec->hours = $this->dateTimeService->getHours($pickupDateTime, $dropoffDateTime);
+    ) {
+        $processedModelSpecs = collect();
+        $processedModelSpecIds = [];
 
-            // Skip if car_model is null
-            if (!$modelSpec->car_model) {
-                unset($modelSpecs[$key]);
+        foreach ($modelSpecs as $key => $modelSpec) {
+            // Skip if already processed this model spec
+            if (in_array($modelSpec->id, $processedModelSpecIds)) {
                 continue;
             }
 
-            // Remove duplicate model specs based on pricing
-            foreach ($modelSpecs as $modelSpecCheck) {
-                if ($modelSpec->id == $modelSpecCheck->id) {
-                    if (
-                        $this->priceCalculationService->calculateCarModelPrice($modelSpec->car_model, $pickupDateTime, $dropoffDateTime) >
-                        $this->priceCalculationService->calculateCarModelPrice($modelSpecCheck->car_model, $pickupDateTime, $dropoffDateTime)
-                    ) {
-                        unset($modelSpecs[$key]);
-                        continue 2;
-                    }
-                }
-            }
-
-            $carModel = $modelSpec->car_model;
-            $carModelId = $modelSpec->car_model_id;
-
-            $calculatedPrice = $this->priceCalculationService->calculateCarModelPrice($modelSpec->car_model, $pickupDateTime, $dropoffDateTime);
-            $modelSpec->total_price = $calculatedPrice;
-
+            $modelSpec->days = $this->dateTimeService->getDays($pickupDateTime, $dropoffDateTime);
+            $modelSpec->hours = $this->dateTimeService->getHours($pickupDateTime, $dropoffDateTime);
             $getDays = $this->dateTimeService->getDays($pickupDateTime, $dropoffDateTime);
             $days = $getDays == 0 ? 1 : $getDays;
 
-            if ($calculatedPrice == 0) {
-                unset($modelSpecs[$key]);
+            // Get all car models for this model spec within the branches
+            $carModels = \App\Models\CarModel::with('branch')
+                ->where('model_specification_id', $modelSpec->id)
+                ->whereIn('branch_id', $branchIds)
+                ->where('is_deactive', false)
+                ->get();
+
+            if ($carModels->isEmpty()) {
                 continue;
             }
 
-            $modelSpec->total_price_perday = $calculatedPrice / $days;
-            $isPromo = $this->priceCalculationService->checkIsPickupAndReturnIsPromo($modelSpec->car_model, $pickupDateTime, $dropoffDateTime);
-            $modelSpec->normal_price_perday = $this->priceCalculationService->calculatePrice($modelSpec->car_model, $modelSpec->days, $modelSpec->hours) / $modelSpec->days;
+            // Process each car model
+            $processedCarModels = collect();
+            $minPricePerDay = null;
 
-            if ($isPromo && $modelSpec->normal_price_perday >= $modelSpec->total_price_perday) {
-                $modelSpec->is_promo = $isPromo;
+            foreach ($carModels as $carModel) {
+                $calculatedPrice = $this->priceCalculationService->calculateCarModelPrice($carModel, $pickupDateTime, $dropoffDateTime);
+
+                if ($calculatedPrice == 0) {
+                    continue;
+                }
+
+                $pricePerDay = $calculatedPrice / $days;
+
+                // Track minimum price for filtering
+                if ($minPricePerDay === null || $pricePerDay < $minPricePerDay) {
+                    $minPricePerDay = $pricePerDay;
+                }
+
+                // Add calculated values to car model
+                $carModel->total_price = $calculatedPrice;
+                $carModel->price_per_day = $pricePerDay;
+                $carModel->rent_duration = $this->dateTimeService->durationTitle($modelSpec->days, $modelSpec->hours);
+
+                // Check if promo
+                $isPromo = $this->priceCalculationService->checkIsPickupAndReturnIsPromo($carModel, $pickupDateTime, $dropoffDateTime);
+                $carModel->normal_price_per_day = $this->priceCalculationService->calculatePrice($carModel, $modelSpec->days, $modelSpec->hours) / $modelSpec->days;
+
+                if ($isPromo && $carModel->normal_price_per_day > $carModel->price_per_day) {
+                    $carModel->is_promo = true;
+                } else {
+                    $carModel->is_promo = false;
+                }
+
+                // Check availability
+                $carModel->unavailable = $this->availabilityService->checkCarModelUnavailable($carModel, $pickupDateTime, $dropoffDateTime);
+
+                $processedCarModels->push($carModel);
             }
 
-            if ($modelSpec->total_price_perday == 0) {
-                unset($modelSpecs[$key]);
+            // Skip if no valid car models
+            if ($processedCarModels->isEmpty() || $minPricePerDay === null) {
                 continue;
             }
 
-            if ($modelSpec->total_price_perday < $minPrice || $modelSpec->total_price_perday > $maxPrice) {
-                unset($modelSpecs[$key]);
+            // Apply price filtering based on minimum price
+            if ($minPricePerDay < $minPrice || $minPricePerDay > $maxPrice) {
                 continue;
             }
 
-            $modelSpec->unavailable = $this->availabilityService->checkModelSpecUnavailable($modelSpec, $pickupDateTime, $dropoffDateTime, $branchIds);
+            // Set model spec pricing based on cheapest car model
+            $modelSpec->total_price_perday = $minPricePerDay;
+            $modelSpec->total_price = $minPricePerDay * $days;
+
+            // Check if ANY car model is promo
+            $modelSpec->is_promo = $processedCarModels->contains('is_promo', true);
+
+            // Check if ALL car models are unavailable
+            $modelSpec->unavailable = $processedCarModels->every('unavailable', true);
+
+            // Attach processed car models to model spec
+            $modelSpec->car_models = $processedCarModels;
+
+            // Process included field (add-ons) into array
+            $modelSpec->includedArray = [];
+            if (!empty($modelSpec->included)) {
+                $modelSpec->includedArray = preg_split('/<br[^>]*>/i', $modelSpec->included);
+                // Filter out empty values
+                $modelSpec->includedArray = array_filter($modelSpec->includedArray, function ($value) {
+                    return !empty(trim($value));
+                });
+            }
+
+            $processedModelSpecs->push($modelSpec);
+            $processedModelSpecIds[] = $modelSpec->id;
         }
 
-        return $modelSpecs;
+        return $processedModelSpecs->reverse();
     }
 
     /**

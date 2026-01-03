@@ -95,6 +95,23 @@
                     this.maxtrigger();
                 }
             }));
+
+            // Car listing data - handles card expansion (only one at a time)
+            Alpine.data('carListing', () => ({
+                expandedCardId: null,
+
+                toggleCard(cardId) {
+                    if (this.expandedCardId === cardId) {
+                        this.expandedCardId = null;
+                    } else {
+                        this.expandedCardId = cardId;
+                    }
+                },
+
+                isExpanded(cardId) {
+                    return this.expandedCardId === cardId;
+                }
+            }));
         });
     </script>
 @endpush
