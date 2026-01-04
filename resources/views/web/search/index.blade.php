@@ -1,13 +1,13 @@
 @extends('web.layouts.app')
 
 @section('content')
-    <div class="w-full min-h-screen" style="background-color: #fafafa;">
+    <div class="w-full min-h-screen" style="background-color: #fff;">
         {{-- Navigation --}}
         @include('web.search.components.navbar')
 
 
         {{-- Main Content --}}
-        <div class="px-[277px] py-11 bg-[#FFF]" style="background-color: #FFF;">
+        <div class="w-[1280px] mx-auto py-12 bg-[#FFF]" style="background-color: #FFF;">
             {{-- Search Form Section --}}
             @include('web.search.components.search-form')
 

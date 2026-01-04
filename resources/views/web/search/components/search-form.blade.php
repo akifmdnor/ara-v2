@@ -21,7 +21,7 @@
         </div>
 
         {{-- Start Date --}}
-        <div class="flex flex-col gap-1" style="width: 115px;">
+        <div class="flex flex-col gap-1" style="width: 130px;">
             <label style="color: #3f3f46;">Start Date</label>
             <div class="relative">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-2.5 pointer-events-none">
@@ -40,7 +40,7 @@
         </div>
 
         {{-- Start Time --}}
-        <div class="flex flex-col gap-1" style="width: 106px;">
+        <div class="flex flex-col gap-1" style="width: 125px;">
             <label style="color: #3f3f46;">Start Time</label>
             <div class="relative">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-2.5 pointer-events-none">
@@ -65,10 +65,11 @@
                     <option value="5:00 PM">5:00 PM</option>
                 </select>
                 <div class="flex absolute inset-y-0 right-0 items-center pr-2.5 pointer-events-none">
-                    <svg class="w-3 h-3" fill="currentColor" style="color: #18181b;" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                        fill="none">
+                        <path
+                            d="M5.00195 6.1001H11.0703C11.5158 6.1001 11.7388 6.63863 11.4238 6.95361L8.38965 9.98779C8.19438 10.183 7.87787 10.183 7.68262 9.98779L4.64844 6.95361C4.35323 6.65837 4.53067 6.16643 4.9209 6.10596L5.00195 6.1001Z"
+                            fill="#18181B" stroke="#6B6B74" />
                     </svg>
                 </div>
             </div>
@@ -120,7 +121,7 @@
         </div>
 
         {{-- Return Date --}}
-        <div class="flex flex-col gap-1" style="width: 115px;">
+        <div class="flex flex-col gap-1" style="width: 130px;">
             <label style="color: #3f3f46;">Return Date</label>
             <div class="relative">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-2.5 pointer-events-none">
@@ -139,7 +140,7 @@
         </div>
 
         {{-- Return Time --}}
-        <div class="flex flex-col gap-1" style="width: 106px;">
+        <div class="flex flex-col gap-1" style="width: 125px;">
             <label style="color: #3f3f46;">Return Time</label>
             <div class="relative">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-2.5 pointer-events-none">
@@ -163,10 +164,11 @@
                     <option value="5:00 PM">5:00 PM</option>
                 </select>
                 <div class="flex absolute inset-y-0 right-0 items-center pr-2.5 pointer-events-none">
-                    <svg class="w-3 h-3" fill="currentColor" style="color: #18181b;" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                        fill="none">
+                        <path
+                            d="M5.00195 6.1001H11.0703C11.5158 6.1001 11.7388 6.63863 11.4238 6.95361L8.38965 9.98779C8.19438 10.183 7.87787 10.183 7.68262 9.98779L4.64844 6.95361C4.35323 6.65837 4.53067 6.16643 4.9209 6.10596L5.00195 6.1001Z"
+                            fill="#18181B" stroke="#6B6B74" />
                     </svg>
                 </div>
             </div>

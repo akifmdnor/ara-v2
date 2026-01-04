@@ -123,6 +123,8 @@ class CarListingService
             $returnDateTime
         );
 
+
+
         $carModel->normal_price_per_day = $this->priceCalculationService->calculatePrice(
             $carModel,
             $days,
@@ -131,6 +133,9 @@ class CarListingService
 
         if ($isPromo && $carModel->normal_price_per_day > $carModel->price_per_day) {
             $carModel->is_promo = $isPromo;
+            //calculate promo percentage
+            $promoPercentage = $isPromo ? ($carModel->normal_price_per_day - $carModel->price_per_day) / $carModel->normal_price_per_day * 100 : 0;
+            $carModel->promo_percentage = $promoPercentage;
         }
 
         // Check availability

@@ -9,7 +9,7 @@
                     <h4 class="cr-car__title">{{ $featureCar->model_specification->brand }}</h4>
                     <p class="cr-car__type">{{ $featureCar->model_specification->model_name }}</p>
                 </div>
-                <img class="cr-car__logo" src="{{ StorageHelper::v1Url($featureCar->model_specification->brand_logo) }}"
+                <img class="cr-car__logo" src="{{ $featureCar->model_specification->brand_logo ? StorageHelper::v1Url($featureCar->model_specification->brand_logo) : '' }}"
                     alt="logo">
             </div>
             <div class="car-img-wrapper">

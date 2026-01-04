@@ -1,33 +1,34 @@
 {{-- Search Page Navbar - Matches Figma Design --}}
 <nav class="relative z-10 bg-white"
     style="box-shadow: 0px 2px 4px 0px rgba(51,65,85,0.08), 0px 6px 32px 0px rgba(51,65,85,0.12);">
-    <div class="px-[277px]  mr-1 py-[3px]">
-        <div class="flex justify-between items-center" style="height: 52px; ">
+    <div class="mx-auto max-w-[1280px] ">
+        <div class="flex justify-between items-center h-[60px]  ">
             {{-- Logo & Navigation --}}
             <div class="flex flex-1 gap-3 items-center">
                 {{-- Logo --}}
-                <a href="{{ route('web.index') }}" class="flex items-center" style="width: 126px;">
+                <a href="{{ route('web.index') }}" class="flex items-center" style="width: 145px;">
                     <img src="{{ asset('images/web/ara-logo-new.jpg') }}" alt="ARA Car Rental" class="w-auto h-full">
                 </a>
 
                 {{-- Navigation Links --}}
                 <div class="flex items-center">
-                    <a href="{{ route('web.index') }}" class="px-2.5 py-1.5 rounded-lg transition-colors"
-                        style="color: #3f3f46; text-decoration: none; font-weight:400;">
+                    <a href="{{ route('web.index') }}"
+                        class="px-2.5 py-1.5 font-medium bg-gray-100 rounded-lg transition-colors text-black-700"
+                        style="color: #3F3F46; text-decoration: none;">
                         Home
                     </a>
-                    <a href="#" class="px-2.5 py-1.5 rounded-lg transition-colors hover:bg-gray-100"
-                        style="color: #3f3f46; text-decoration: none; font-weight:400;">
+                    <a href="#" class="px-2.5 py-1.5 rounded-lg transition-colors hover:bg-gray-100font-medium"
+                        style="color: #3f3f46; text-decoration: none; "">
                         Our Locations
                     </a>
                     <a href="{{ url('/contact-us') }}"
-                        class="px-2.5 py-1.5 rounded-lg transition-colors hover:bg-gray-100"
-                        style="color: #3f3f46; text-decoration: none; font-weight:400;">
+                        class="px-2.5 py-1.5 font-medium rounded-lg transition-colors hover:bg-gray-100"
+                        style="color: #3f3f46; text-decoration: none; ">
                         Contact Us
                     </a>
                     <a href="{{ url('/about') }}"
-                        class="px-2.5 py-1.5 rounded-lg transition-colors font-xs hover:bg-gray-100"
-                        style="color: #3f3f46; text-decoration: none; font-weight:400;">
+                        class="px-2.5 py-1.5 font-medium rounded-lg transition-colors font-xs hover:bg-gray-100"
+                        style="color: #3f3f46; text-decoration: none; ">
                         About Us
                     </a>
                 </div>

@@ -28,11 +28,6 @@
             line-height: 24px;
         }
 
-        /* Ensure html root has 16px for proper rem calculations */
-        html {
-            font-size: 14px;
-        }
-
         /* Ensure all text elements inherit these defaults */
         * {
             color: inherit;

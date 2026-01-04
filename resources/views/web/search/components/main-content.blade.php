@@ -14,12 +14,12 @@
         {{-- Text Content --}}
         <div class="flex flex-col flex-1 ">
             <div class="flex items-center ">
-                <p class="text-sm font-medium leading-[20px]" style="color: #15803d;">
+                <p class="text-base font-medium leading-[20px]" style="color: #15803d;">
                     Success!
                 </p>
 
             </div>
-            <p class="text-sm leading-[1px] font-light" style="color: #18181b;">
+            <p class="text-base leading-[1px] font-light" style="color: #18181b;">
                 We've found 48 cars of all categories near Bandar Puteri, Puchong, Selangor
             </p>
 

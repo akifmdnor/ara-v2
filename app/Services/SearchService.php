@@ -122,13 +122,19 @@ class SearchService
 
                 // Check if promo
                 $isPromo = $this->priceCalculationService->checkIsPickupAndReturnIsPromo($carModel, $pickupDateTime, $dropoffDateTime);
+
                 $carModel->normal_price_per_day = $this->priceCalculationService->calculatePrice($carModel, $modelSpec->days, $modelSpec->hours) / $modelSpec->days;
 
                 if ($isPromo && $carModel->normal_price_per_day > $carModel->price_per_day) {
                     $carModel->is_promo = true;
+                    //calculate promo percentage
+                    $promoPercentage = $isPromo ? ($carModel->normal_price_per_day - $carModel->price_per_day) / $carModel->normal_price_per_day * 100 : 0;
+                    $carModel->promo_percentage = $promoPercentage;
                 } else {
                     $carModel->is_promo = false;
                 }
+
+
 
                 // Check availability
                 $carModel->unavailable = $this->availabilityService->checkCarModelUnavailable($carModel, $pickupDateTime, $dropoffDateTime);

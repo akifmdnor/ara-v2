@@ -18,7 +18,7 @@
 
 <div class="flex gap-6 p-3 relative transition-all duration-500 ease-in-out transform"
     style="background-color: {{ $isFullyBooked ? 'rgba(244,244,245,0.4)' : 'rgba(244,244,245,0.4)' }}; {{ $isFullyBooked ? 'border-top: 1px solid #d4d4d8; border-bottom: 1px solid #d4d4d8;' : '' }}"
-    x-data="{ selectedVariant: 'low', isExpanded: true }" x-transition:enter="transition ease-out duration-500"
+    x-data="{ selectedVariant: 'disabled', isExpanded: true }" x-transition:enter="transition ease-out duration-500"
     x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
     x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
     x-transition:leave-end="opacity-0 scale-95">
@@ -47,18 +47,19 @@
             <p class="text-[12px] font-normal" style="color: #6b6b74; line-height: 18px;">
                 Choose spec variant:
             </p>
-            <div class="flex rounded-lg transition-all duration-300 ease-in-out" style="background-color: #f4f4f5;">
-                <button @click.stop="selectedVariant = 'low'"
+            <div class="flex rounded-lg transition-all duration-300 ease-in-out   w-[200px]"
+                style="background-color: #f4f4f5;">
+                <button @click.stop="selectedVariant = 'low'" disabled
                     :class="selectedVariant === 'low' ? 'bg-red-600 shadow-sm transform scale-105' : ''"
-                    class="flex-1 min-h-8 px-2.5 py-1.5 text-sm font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
+                    class="flex-1 min-h-8 px-2.5 py-1.5 text-base font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
                     :style="selectedVariant === 'low' ?
                         'color: white; background-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);' :
                         'color: #6b6b74;'">
                     Low
                 </button>
-                <button @click.stop="selectedVariant = 'med'"
+                <button @click.stop="selectedVariant = 'med'" disabled
                     :class="selectedVariant === 'med' ? 'bg-red-600 shadow-sm transform scale-105' : ''"
-                    class="flex-1 min-h-8 px-2.5 py-1.5 text-sm font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
+                    class="flex-1 min-h-8 px-2.5 py-1.5 text-base font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
                     :style="selectedVariant === 'med' ?
                         'color: white; background-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);' :
                         'color: #6b6b74;'">
@@ -66,9 +67,9 @@
                 </button>
                 <div class="h-3 w-0 border-r self-center transition-all duration-300 ease-in-out"
                     style="border-color: #d4d4d8;"></div>
-                <button @click.stop="selectedVariant = 'full'"
+                <button @click.stop="selectedVariant = 'full'" disabled
                     :class="selectedVariant === 'full' ? 'bg-red-600 shadow-sm transform scale-105' : ''"
-                    class="flex-1 min-h-8 px-2.5 py-1.5 text-sm font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
+                    class="flex-1 min-h-8 px-2.5 py-1.5 text-base font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
                     :style="selectedVariant === 'full' ?
                         'color: white; background-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);' :
                         'color: #6b6b74;'">
@@ -78,9 +79,9 @@
                 <div class="h-3 w-0 border-r self-center transition-all duration-300 ease-in-out"
                     style="border-color: #d4d4d8;"></div>
 
-                <button @click.stop="selectedVariant = 'premium'"
+                <button @click.stop="selectedVariant = 'premium'" disabled
                     :class="selectedVariant === 'premium' ? 'bg-red-600 shadow-sm transform scale-105' : ''"
-                    class="flex-1 min-h-8 px-2.5 py-1.5  w-[50px] text-sm font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
+                    class="flex-1 min-h-8 px-2.5 py-1.5 text-base font-normal rounded-lg transition-all duration-200 ease-in-out hover:scale-105"
                     :style="selectedVariant === 'premium' ?
                         'color: white; background-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);' :
                         'color: #6b6b74;'">
@@ -99,7 +100,7 @@
                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
                 </path>
             </svg>
-            <span class="text-sm font-normal" style="color: #3f3f46; line-height: 20px;">View Actual Car Image</span>
+            <span class="text-base font-normal" style="color: #3f3f46; line-height: 20px;">View Actual Car Image</span>
         </button>
     </div>
 
@@ -122,16 +123,16 @@
         {{-- Location --}}
         <div class="flex flex-col">
             <div class="flex items-center gap-1.5 w-4.5 h-4.5">
-                <svg class="w-4.5 h-4.5" style="color: #3f3f46; width: 18px; height: 18px;" fill="none"
-                    stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7">
-                    </path>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
+                    fill="none">
+                    <path
+                        d="M6.52461 2.4751L2.47461 4.2751V15.5251L6.52461 13.7251M6.52461 2.4751V13.7251M6.52461 2.4751L11.4746 4.2751M6.52461 13.7251L11.4746 15.5251M11.4746 4.2751L15.5246 2.4751V13.7251L11.4746 15.5251M11.4746 4.2751V15.5251"
+                        stroke="#3F3F46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <p class="text-base underline flex-1"
+                <span class="text-base underline flex-1"
                     style="color: #ec2028; line-height: 24px; text-decoration-line: underline;">
                     {{ $carModel->branch->city ?? '' }}{{ $carModel->branch->city && $carModel->branch->country ? ', ' : '' }}{{ $carModel->branch->country ?? '' }}
-                </p>
+                </span>
             </div>
         </div>
 
@@ -168,7 +169,7 @@
                                 stroke="#15803D" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
-                        <span class="text-sm font-normal"
+                        <span class="text-base font-normal"
                             style="color: #6b6b74; line-height: 20px;">{{ $item }}</span>
                     </div>
                 @endforeach
@@ -189,7 +190,7 @@
                                 stroke="#15803D" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
-                        <span class="text-sm font-normal"
+                        <span class="text-base font-normal"
                             style="color: #6b6b74; line-height: 20px;">{{ $item }}</span>
                     </div>
                 @endforeach
@@ -214,13 +215,13 @@
 
             {{-- Price Display (with opacity) --}}
             <div class="flex flex-col items-end justify-center" style="width: 230px; opacity: 0.2;">
-                <p class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
+                <p class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
                 <div class="flex items-baseline">
                     <span class="text-2xl font-semibold" style="color: #18181b; line-height: 32px;">RM
                         {{ number_format($carModel->price_per_day ?? 210, 2) }}</span>
-                    <span class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">/day</span>
+                    <span class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">/day</span>
                 </div>
-                <p class="text-sm font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
+                <p class="text-base font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
                     {{ number_format($carModel->total_price ?? 420, 2) }}</p>
             </div>
         @else
@@ -238,34 +239,33 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col items-end justify-center" style="height: 84px; width: 230px;">
-                        <p class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
-                        <p class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">RM
-                            {{ number_format($carModel->normal_price_per_day ?? 200, 2) }}</p>
+                    <div class="flex flex-col items-end justify-center" style="width: 230px;">
+                        <p class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
                         <div class="relative">
-                            <div class="flex items-baseline">
-                                <span class="text-2xl font-semibold" style="color: #18181b; line-height: 32px;">RM
-                                    {{ number_format($carModel->price_per_day ?? 180, 2) }}</span>
-                                <span class="text-sm font-normal"
-                                    style="color: #6b6b74; line-height: 20px;">/day</span>
-                            </div>
-                            <div class="absolute h-0.5 w-[74px]"
-                                style="background-color: #6b6b74; top: -18px; right: -1px;"></div>
+                            <p class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">RM
+                                {{ number_format($carModel->normal_price_per_day ?? 200, 2) }}</p>
+                            <div class="absolute h-0.5 left-0 right-0"
+                                style="background-color: #6b6b74; top: 50%; transform: translateY(-50%);"></div>
                         </div>
-                        <p class="text-sm font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
+                        <div class="flex items-baseline">
+                            <span class="text-2xl font-semibold" style="color: #18181b; line-height: 32px;">RM
+                                {{ number_format($carModel->price_per_day ?? 180, 2) }}</span>
+                            <span class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">/day</span>
+                        </div>
+                        <p class="text-base font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
                             {{ number_format($carModel->total_price ?? 360, 2) }}</p>
                     </div>
                 </div>
             @else
                 {{-- Normal Price Display --}}
                 <div class="flex flex-col items-end justify-center" style="width: 230px;">
-                    <p class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
+                    <p class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
                     <div class="flex items-baseline">
                         <span class="text-2xl font-semibold" style="color: #18181b; line-height: 32px;">RM
                             {{ number_format($carModel->price_per_day ?? 200, 2) }}</span>
-                        <span class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">/day</span>
+                        <span class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">/day</span>
                     </div>
-                    <p class="text-sm font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
+                    <p class="text-base font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
                         {{ number_format($carModel->total_price ?? 400, 2) }}</p>
                 </div>
             @endif
@@ -274,7 +274,7 @@
             <button @click.stop=""
                 class="flex items-center justify-center gap-1.5 h-8 px-2.5 py-1.5 rounded-lg border transition-all duration-200 ease-in-out hover:opacity-90 hover:scale-105 hover:shadow-lg transform"
                 style="background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                <span class="text-sm font-normal text-white" style="line-height: 20px;">Select this car</span>
+                <span class="text-base font-normal text-white" style="line-height: 20px;">Select this car</span>
             </button>
         @endif
     </div>
