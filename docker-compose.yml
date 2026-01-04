@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        container_name: ara-app
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - .:/var/www
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - ara-network
+
+    nginx:
+        image: nginx:alpine
+        container_name: ara-nginx
+        restart: unless-stopped
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+        networks:
+            - ara-network
+
+    redis:
+        image: redis:alpine
+        container_name: ara-redis
+        restart: unless-stopped
+        networks:
+            - ara-network
+
+networks:
+    ara-network:
+        driver: bridge

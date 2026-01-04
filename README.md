@@ -154,6 +154,106 @@ Add your Mapbox API key to your `.env` file:
 MAPBOX_API_KEY=your_mapbox_api_key_here
 ```
 
+---
+
+## 🐳 Docker Development Setup
+
+This project includes a complete Docker setup for PHP 7.3 development.
+
+### Prerequisites
+
+- Docker Engine
+- Docker Compose
+
+### Quick Start
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd ara-v2
+   ```
+
+2. **Start the containers:**
+   ```bash
+   make up
+   # or
+   docker-compose up -d
+   ```
+
+3. **Install PHP dependencies:**
+   ```bash
+   make install
+   # or
+   docker-compose exec app composer install
+   ```
+
+4. **Set up the application:**
+   ```bash
+   make key
+   make migrate
+   make seed
+   ```
+
+5. **Access the application:**
+   - Web: http://localhost:8000
+   - PHP Container: `make shell`
+
+### Available Commands
+
+```bash
+# Build containers
+make build
+
+# Start containers
+make up
+
+# Stop containers
+make down
+
+# Restart containers
+make restart
+
+# View logs
+make logs
+
+# Access PHP container shell
+make shell
+
+# Install dependencies
+make install
+
+# Generate app key
+make key
+
+# Run migrations
+make migrate
+
+# Seed database
+make seed
+
+# Run tests
+make test
+
+# Clear caches
+make cache
+```
+
+### Container Architecture
+
+- **PHP 7.3 FPM**: Application server with all required extensions
+- **Nginx**: Web server and reverse proxy
+- **Redis**: Caching and session storage
+
+### Configuration
+
+- PHP configuration: `docker/php/local.ini`
+- Nginx configuration: `docker/nginx/conf.d/app.conf`
+- Docker Compose: `docker-compose.yml`
+
+The setup uses your existing database configuration - no MySQL container is included as requested.
+
+---
+
 ### How It Works
 
 1. When user selects a pickup location with coordinates

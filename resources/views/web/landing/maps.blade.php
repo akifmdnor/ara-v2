@@ -16,15 +16,15 @@
 
         var input = document.getElementById('pickup_location');
         if (input && input instanceof HTMLInputElement) {
-            var autocomplete = new google.maps.places.Autocomplete(input, options);
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var place = autocomplete.getPlace();
-                document.getElementById('pickup_location').value = place.name;
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            document.getElementById('pickup_location').value = place.name;
                 var latInput = document.getElementById('pickup_latitude');
                 var lngInput = document.getElementById('pickup_longitude');
                 if (latInput) latInput.value = place.geometry.location.lat();
                 if (lngInput) lngInput.value = place.geometry.location.lng();
-            });
+        });
         }
     }
 
@@ -38,15 +38,15 @@
 
         var input = document.getElementById('return_location');
         if (input && input instanceof HTMLInputElement) {
-            var autocomplete = new google.maps.places.Autocomplete(input, options);
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var place = autocomplete.getPlace();
-                document.getElementById('return_location').value = place.name;
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            document.getElementById('return_location').value = place.name;
                 var latInput = document.getElementById('return_latitude');
                 var lngInput = document.getElementById('return_longitude');
                 if (latInput) latInput.value = place.geometry.location.lat();
                 if (lngInput) lngInput.value = place.geometry.location.lng();
-            });
+        });
         }
     }
 
@@ -60,15 +60,15 @@
 
         var input = document.getElementById('return_location_2');
         if (input && input instanceof HTMLInputElement) {
-            var autocomplete = new google.maps.places.Autocomplete(input, options);
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var place = autocomplete.getPlace();
-                document.getElementById('return_location_2').value = place.name;
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            document.getElementById('return_location_2').value = place.name;
                 var latInput = document.getElementById('return_latitude');
                 var lngInput = document.getElementById('return_longitude');
                 if (latInput) latInput.value = place.geometry.location.lat();
                 if (lngInput) lngInput.value = place.geometry.location.lng();
-            });
+        });
         }
     }
 </script>
@@ -84,7 +84,7 @@
             }
         } catch (error) {
             console.log('Google Maps callback error:', error);
-        }
+            }
     };
 </script>
 <script
