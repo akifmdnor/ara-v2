@@ -308,8 +308,7 @@
                                 <span class="text-sm font-normal"
                                     style="color: #6b6b74; line-height: 20px;">/day</span>
                             </div>
-                            {{-- Strike through line --}}
-
+ 
                         </div>
                     @else
                         {{-- Normal price --}}
