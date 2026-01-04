@@ -56,6 +56,22 @@ class SearchController extends Controller
             }
         }
 
+        // Handle reset filter
+        if ($request->has('reset')) {
+            return redirect()->route('web.search', array_filter([
+                'pickup_location' => $request->get('pickup_location'),
+                'pickup_latitude' => $request->get('pickup_latitude'),
+                'pickup_longitude' => $request->get('pickup_longitude'),
+                'pickup_date' => $request->get('pickup_date'),
+                'pickup_time' => $request->get('pickup_time'),
+                'return_location' => $request->get('return_location'),
+                'return_latitude' => $request->get('return_latitude'),
+                'return_longitude' => $request->get('return_longitude'),
+                'return_date' => $request->get('return_date'),
+                'return_time' => $request->get('return_time'),
+            ]));
+        }
+
         $minPrice = $request->get('min_price') ?? 0;
         $maxPrice = $request->get('max_price') ?? 1500;
 
@@ -67,11 +83,13 @@ class SearchController extends Controller
             $maxPrice,
             //asc
             $request->get('sort_by') ?? 'DESC',
-            $request->get('category')
+            $request->get('category'),
+            $request->get('brand')
         );
 
         $categories = $this->searchService->getCategories();
-        return view('web.search.index', compact('modelSpecs', 'categories'));
+        $brands = $this->searchService->getBrands();
+        return view('web.search.index', compact('modelSpecs', 'categories', 'brands'));
 
     }
 }

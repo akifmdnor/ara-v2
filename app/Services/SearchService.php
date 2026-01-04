@@ -46,9 +46,10 @@ class SearchService
         float $minPrice = 0,
         float $maxPrice = 1500,
         string $sortBy = 'DESC',
-        array $categories = null
+        array $categories = null,
+        array $brands = null
     ) {
-        $modelSpecs = $this->searchRepository->getModelSpecificationsWithCarModels($branchIds, $sortBy, $categories);
+        $modelSpecs = $this->searchRepository->getModelSpecificationsWithCarModels($branchIds, $sortBy, $categories, $brands);
 
         return $this->processModelSpecifications($modelSpecs, $pickupDateTime, $dropoffDateTime, $minPrice, $maxPrice, $branchIds);
     }
@@ -193,8 +194,13 @@ class SearchService
      *
      * @return Collection
      */
-    public function getCategories(): Collection
+    public function getCategories()
     {
         return $this->searchRepository->getCategories();
+    }
+
+    public function getBrands()
+    {
+        return $this->searchRepository->getBrands();
     }
 }

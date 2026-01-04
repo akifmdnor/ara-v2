@@ -1,5 +1,5 @@
 {{-- Main Content Area - Matches Figma Design --}}
-<div class="flex flex-col gap-6" x-data="carListing()">
+<div class="flex flex-col gap-6" x-data="carListing">
     {{-- Results Header Callout --}}
     <div class="flex gap-2 items-start px-2 py-3 rounded-lg" style="background-color: #f0fdf4;">
         {{-- Success Icon --}}
@@ -20,7 +20,8 @@
 
             </div>
             <span class=" leading-[1px] font-light pt-3.5 px-0.5 pb-1" style="color: #18181b;">
-                We've found 48 cars of all categories near Bandar Puteri, Puchong, Selangor
+                We've found {{ $modelSpecs->count() }} cars of all categories near
+                {{ app('request')->input('pickup_location') }}
             </span>
 
         </div>
@@ -29,7 +30,11 @@
     {{-- Cars List --}}
     <div class="flex flex-col gap-8">
         @foreach ($modelSpecs ?? [] as $modelSpec)
-            @include('web.search.components.car-card', ['modelSpec' => $modelSpec])
+            @php
+                $cardId =
+                    'card-' . (isset($modelSpec) && is_object($modelSpec) ? $modelSpec->id ?? uniqid() : uniqid());
+            @endphp
+            @include('web.search.components.car-card', ['modelSpec' => $modelSpec, 'cardId' => $cardId])
         @endforeach
     </div>
 

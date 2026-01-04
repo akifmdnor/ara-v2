@@ -16,7 +16,7 @@ class SearchRepository
      * @param array|null $categories
      * @return Collection
      */
-    public function getModelSpecificationsWithCarModels(array $branchIds, string $sortBy = 'DESC', array $categories = null)
+    public function getModelSpecificationsWithCarModels(array $branchIds, string $sortBy = 'DESC', array $categories = null, array $brands = null)
     {
         $query = ModelSpecification::join('car_models', 'model_specifications.id', '=', 'car_models.model_specification_id')
             ->select('model_specifications.*', 'car_models.id as car_model_id', 'car_models.price_day')
@@ -28,16 +28,28 @@ class SearchRepository
             $query->whereIn('category', $categories);
         }
 
+        if ($brands !== null) {
+            $query->whereIn('model_specifications.brand', $brands);
+        }
+
         return $query->with(['car_model.cars', 'pictures'])->get();
     }
-
-    /**
-     * Get unique categories from car models
-     *
-     * @return Collection
-     */
     public function getCategories()
     {
-        return CarModel::get()->unique('category');
+        return CarModel::distinct()
+            ->whereNotNull('category')
+            ->pluck('category')
+            ->filter()
+            ->values();
+    }
+
+    public function getBrands()
+    {
+        return ModelSpecification::distinct()
+            ->whereNotNull('brand')
+            ->where('brand', '!=', '')
+            ->pluck('brand')
+            ->filter()
+            ->values();
     }
 }

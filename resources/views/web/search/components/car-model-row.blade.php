@@ -17,7 +17,9 @@
 
     // Prepare modal data
     $modalData = [
-        'modelName' => $carModel->name ?? ($modelSpec->model_name ?? 'Car Model'),
+        'modelName' =>
+            $carModel->name ??
+            ($modelSpec->brand . ' ' . $modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Car Model'),
         'brandLogo' => isset($modelSpec->brand_logo) ? StorageHelper::v1Url($modelSpec->brand_logo) : null,
         'pictures' => isset($carModel->pictures)
             ? $carModel->pictures
@@ -46,7 +48,7 @@
         x-transition:leave-start="opacity-100 transform translate-x-0"
         x-transition:leave-end="opacity-0 transform translate-x-[-20px]">
         <p class="text-base font-medium" style="color: #18181b; line-height: 24px;">
-            {{ $carModel->name ?? ($modelSpec->model_name ?? 'Car Model') }}
+            {{ $carModel->name ?? ($modelSpec->brand . ' ' . $modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Car Model') }}
         </p>
 
         <div style="width: 160px; height: 120px;"

@@ -16,8 +16,8 @@
         $imageUrl = StorageHelper::v1Url($modelSpec->pictures[0]->file_name);
     }
 
-    // Generate unique ID for this card
-    $cardId = 'card-' . ($modelSpec->id ?? uniqid());
+    // Use passed cardId or generate unique ID for this card
+    $cardId = $cardId ?? 'card-' . ($modelSpec->id ?? uniqid());
 @endphp
 
 <div class="overflow-hidden relative bg-white rounded-lg transition-shadow duration-200 ease-in-out cursor-pointer"
@@ -59,7 +59,7 @@
 
                     {{-- Car Name --}}
                     <span class="text-xl font-semibold shrink-0" style="color: #18181b; line-height: 30px;">
-                        {{ $modelSpec->model_name ?? 'Unknown Model' }}
+                        {{ $modelSpec->brand . ' ' . $modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Unknown Model' }}
                     </span>
 
                     {{-- Status Badges --}}
