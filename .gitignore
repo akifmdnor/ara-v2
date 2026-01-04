@@ -12,9 +12,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/public
 /storage
 
-# all inside public folder
-/public/*
-!/public/.gitignore

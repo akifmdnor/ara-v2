@@ -1,0 +1,122 @@
+/* Search Page Custom Styles */
+
+/* Range Slider Styling */
+.range-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+         appearance: none;
+    background: transparent;
+}
+
+.range-slider-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #dc2626;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.range-slider-thumb::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #dc2626;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Price range track styling */
+.range-slider-thumb::-webkit-slider-track {
+    background: #e5e7eb;
+    height: 2px;
+    border-radius: 1px;
+}
+
+.range-slider-thumb::-moz-range-track {
+    background: #e5e7eb;
+    height: 2px;
+    border-radius: 1px;
+}
+
+/* Custom checkbox styling */
+.checkbox-custom {
+    display: none;
+}
+
+.checkbox-custom + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 20px;
+}
+
+.checkbox-custom + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    background: #ffffff;
+    transition: all 0.2s;
+}
+
+.checkbox-custom:checked + label:before {
+    background: #dc2626;
+    border-color: #dc2626;
+}
+
+.checkbox-custom:checked + label:after {
+    content: '✓';
+    position: absolute;
+    left: 3px;
+    top: -1px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Filter section spacing */
+.filter-section {
+    margin-bottom: 1.5rem;
+}
+
+.filter-section h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+/* Card hover effects */
+.car-card {
+    transition: all 0.2s ease-in-out;
+}
+
+.car-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .search-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .filter-sidebar {
+        position: static;
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+}
+
