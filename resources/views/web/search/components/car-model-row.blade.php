@@ -24,8 +24,8 @@
     x-transition:leave-end="opacity-0 scale-95">
 
     {{-- Left Section: Car Model Image and Options --}}
-    <div class="flex flex-col gap-3 transition-all duration-500 ease-in-out w-[250px]"
-        style="width: 250px; {{ $isFullyBooked ? 'opacity: 0.2;' : '' }}"
+    <div class="flex flex-col gap-3 transition-all duration-500 ease-in-out w-[240px]"
+        style="width: 240px; {{ $isFullyBooked ? 'opacity: 0.2;' : '' }}"
         x-transition:enter="transition ease-out duration-500 delay-100"
         x-transition:enter-start="opacity-0 transform translate-x-[-20px]"
         x-transition:enter-end="opacity-100 transform translate-x-0"
@@ -44,10 +44,10 @@
 
         {{-- Variant Selection --}}
         <div class="flex flex-col gap-1">
-            <p class="text-[12px] font-normal" style="color: #6b6b74; line-height: 18px;">
+            <span class="text-[12px] font-normal" style="color: #6b6b74; line-height: 18px;">
                 Choose spec variant:
-            </p>
-            <div class="flex rounded-lg transition-all duration-300 ease-in-out w-[200px]"
+            </span>
+            <div class="flex rounded-lg transition-all duration-300 ease-in-out w-[240px]"
                 style="background-color: #f4f4f5;">
                 <button @click.stop="selectedVariant = 'low'" disabled
                     :class="selectedVariant === 'low' ? 'bg-red-600 shadow-sm transform scale-105' : ''"
@@ -268,7 +268,7 @@
             <button @click.stop=""
                 class="flex gap-1.5 justify-center items-center px-2.5 py-1.5 h-8 rounded-lg border transition-all duration-200 ease-in-out transform hover:opacity-90 hover:scale-105 hover:shadow-lg"
                 style="background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                <span class="text-base font-normal text-white" style="line-height: 20px;">Select this car</span>
+                <span class="text-sm font-normal text-white" style="line-height: 20px;">Select this car</span>
             </button>
         @endif
     </div>

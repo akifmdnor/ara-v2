@@ -20,14 +20,15 @@
     $cardId = 'card-' . ($modelSpec->id ?? uniqid());
 @endphp
 
-<div class="overflow-hidden relative bg-white rounded-lg transition-all duration-200 ease-in-out cursor-pointer hover:shadow-lg"
+<div class="overflow-hidden relative bg-white rounded-lg transition-shadow duration-200 ease-in-out cursor-pointer"
     @click="if ({{ $carModels->count() > 0 ? 'true' : 'false' }}) toggleCard('{{ $cardId }}')"
     style="box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.05), 0px 6px 24px 0px rgba(0,0,0,0.05);">
 
     {{-- Main Card (Always Visible) --}}
     <div class="flex relative items-start" style="height: 170px;">
         {{-- Car Image --}}
-        <div class="flex justify-center items-centershrink-0" style="width: 160px;">
+        <div class="flex justify-center items-centershrink-0" style="width: 160px;"
+            style="box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.05), 0px 6px 24px 0px rgba(0,0,0,0.05);">
             <div class="relative" style="width: 160px; height: 120px;">
                 {{-- Red Shadow for Promo Items --}}
                 @if ($isPromo)
@@ -308,7 +309,7 @@
                                 <span class="text-sm font-normal"
                                     style="color: #6b6b74; line-height: 20px;">/day</span>
                             </div>
- 
+
                         </div>
                     @else
                         {{-- Normal price --}}
