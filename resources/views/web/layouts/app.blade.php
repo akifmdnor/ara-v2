@@ -57,6 +57,9 @@
 
 <body class="@yield('body-class', 'bg-gray-100') font-['Inter'] text-sm">
     @yield('content')
+    
+    {{-- Global Modals --}}
+    @include('web.components.actual-car-image-modal')
 </body>
 
 </html>

@@ -80,75 +80,69 @@
     </div>
 
     {{-- Brand Filter --}}
-    <div class="flex flex-col gap-3">
+    {{-- <div class="flex flex-col gap-3">
         <h3 class="text-sm" style="color: #3f3f46;">Brand</h3>
         <div class="flex flex-col gap-3">
-            {{-- Proton --}}
-            <label class="flex gap-2.5 items-start">
-                <div class="flex justify-center items-center px-0 py-0.5">
-                    <input type="checkbox" value="proton" @change="toggleBrand('proton')"
-                        class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
-                        style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); focus:ring-color: #ec2028;">
-                </div>
-                <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full text-sm" style="color: #18181b;">Proton</span>
-                </div>
-            </label>
-
-            {{-- Perodua --}}
-            <label class="flex gap-2.5 items-start">
-                <div class="flex justify-center items-center px-0 py-0.5">
-                    <input type="checkbox" value="perodua" @change="toggleBrand('perodua')"
-                        class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
-                        style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                </div>
-                <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full text-sm" style="color: #18181b;">Perodua</span>
-                </div>
-            </label>
-
-            {{-- Mercedes --}}
-            <label class="flex gap-2.5 items-start">
-                <div class="flex justify-center items-center px-0 py-0.5">
-                    <input type="checkbox" value="mercedes" @change="toggleBrand('mercedes')"
-                        class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
-                        style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                </div>
-                <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full text-sm" style="color: #18181b;">Mercedes</span>
-                </div>
-            </label>
-
-            {{-- BMW --}}
-            <label class="flex gap-2.5 items-start">
-                <div class="flex justify-center items-center px-0 py-0.5">
-                    <input type="checkbox" value="bmw" @change="toggleBrand('bmw')"
-                        class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
-                        style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                </div>
-                <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full text-sm" style="color: #18181b;">BMW</span>
-                </div>
-            </label>
-
-            {{-- Volvo --}}
-            <label class="flex gap-2.5 items-start">
-                <div class="flex justify-center items-center px-0 py-0.5">
-                    <input type="checkbox" value="volvo" @change="toggleBrand('volvo')"
-                        class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
-                        style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                </div>
-                <div class="flex flex-col flex-1 justify-center items-center">
-                    <span class="w-full text-sm" style="color: #18181b;">Volvo</span>
-                </div>
-            </label>
-
-            {{-- Show All Button --}}
-            <button class="flex gap-1.5 items-center rounded-lg" @click="showBrandDropdown = !showBrandDropdown">
-                <span class="text-sm" style="color: #ec2028;">Show All</span>
-            </button>
+    <label class="flex gap-2.5 items-start">
+        <div class="flex justify-center items-center px-0 py-0.5">
+            <input type="checkbox" value="proton" @change="toggleBrand('proton')"
+                class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
+                style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); focus:ring-color: #ec2028;">
         </div>
-    </div>
+        <div class="flex flex-col flex-1 justify-center items-center">
+            <span class="w-full text-sm" style="color: #18181b;">Proton</span>
+        </div>
+    </label>
+
+    <label class="flex gap-2.5 items-start">
+        <div class="flex justify-center items-center px-0 py-0.5">
+            <input type="checkbox" value="perodua" @change="toggleBrand('perodua')"
+                class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
+                style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
+        </div>
+        <div class="flex flex-col flex-1 justify-center items-center">
+            <span class="w-full text-sm" style="color: #18181b;">Perodua</span>
+        </div>
+    </label>
+
+    <label class="flex gap-2.5 items-start">
+        <div class="flex justify-center items-center px-0 py-0.5">
+            <input type="checkbox" value="mercedes" @change="toggleBrand('mercedes')"
+                class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
+                style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
+        </div>
+        <div class="flex flex-col flex-1 justify-center items-center">
+            <span class="w-full text-sm" style="color: #18181b;">Mercedes</span>
+        </div>
+    </label>
+
+    <label class="flex gap-2.5 items-start">
+        <div class="flex justify-center items-center px-0 py-0.5">
+            <input type="checkbox" value="bmw" @change="toggleBrand('bmw')"
+                class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
+                style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
+        </div>
+        <div class="flex flex-col flex-1 justify-center items-center">
+            <span class="w-full text-sm" style="color: #18181b;">BMW</span>
+        </div>
+    </label>
+
+    <label class="flex gap-2.5 items-start">
+        <div class="flex justify-center items-center px-0 py-0.5">
+            <input type="checkbox" value="volvo" @change="toggleBrand('volvo')"
+                class="w-4 h-4 rounded border focus:ring-1 focus:ring-offset-0"
+                style="color: #ec2028; border-color: #e4e4e7; background-color: white; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
+        </div>
+        <div class="flex flex-col flex-1 justify-center items-center">
+            <span class="w-full text-sm" style="color: #18181b;">Volvo</span>
+        </div>
+    </label>
+
+    <button class="flex gap-1.5 items-center rounded-lg" @click="showBrandDropdown = !showBrandDropdown">
+        <span class="text-sm" style="color: #ec2028;">Show All</span>
+    </button>
+</div>
+</div> --}}
 
     {{-- Category Filter --}}
     <div class="flex flex-col gap-3">

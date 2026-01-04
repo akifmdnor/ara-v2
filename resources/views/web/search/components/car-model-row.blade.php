@@ -14,6 +14,19 @@
 
     // Generate unique ID for spec variant selector
     $variantId = 'variant-' . ($carModel->id ?? uniqid());
+
+    // Prepare modal data
+    $modalData = [
+        'modelName' => $carModel->name ?? ($modelSpec->model_name ?? 'Car Model'),
+        'brandLogo' => isset($modelSpec->brand_logo) ? StorageHelper::v1Url($modelSpec->brand_logo) : null,
+        'pictures' => isset($carModel->pictures)
+            ? $carModel->pictures
+                ->map(function ($pic) {
+                    return StorageHelper::v1Url($pic->file_name);
+                })
+                ->toArray()
+            : [],
+    ];
 @endphp
 
 <div class="flex relative gap-1 p-3 transition-all duration-500 ease-in-out transform"
@@ -91,7 +104,7 @@
         </div>
 
         {{-- View Image Button --}}
-        <button @click.stop=""
+        <button @click.stop="$dispatch('open-car-modal', {{ json_encode($modalData) }})"
             class="flex gap-1.5 items-center px-2.5 py-1.5 h-8 rounded-lg border transition-all duration-200 ease-in-out hover:bg-gray-50 hover:scale-105 hover:shadow-md"
             style="background-color: white; border-color: #e4e4e7; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
             <svg class="w-4 h-4" style="color: #3f3f46;" fill="none" stroke="currentColor" viewBox="0 0 24 24"
