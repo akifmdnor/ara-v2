@@ -130,11 +130,12 @@ class SearchService
                     //calculate promo percentage
                     $promoPercentage = $isPromo ? ($carModel->normal_price_per_day - $carModel->price_per_day) / $carModel->normal_price_per_day * 100 : 0;
                     $carModel->promo_percentage = $promoPercentage;
+                    $carModel->normal_price_perday = $carModel->normal_price_per_day;
                 } else {
                     $carModel->is_promo = false;
+                    $carModel->promo_percentage = 0;
+                    $carModel->normal_price_perday = $carModel->normal_price_per_day;
                 }
-
-
 
                 // Check availability
                 $carModel->unavailable = $this->availabilityService->checkCarModelUnavailable($carModel, $pickupDateTime, $dropoffDateTime);
@@ -158,6 +159,11 @@ class SearchService
 
             // Check if ANY car model is promo
             $modelSpec->is_promo = $processedCarModels->contains('is_promo', true);
+            // model spec promo the highest promo percentage
+            $modelSpec->promo_percentage = $processedCarModels->max('promo_percentage');
+
+            // get the normal_price_perday for this model spec
+            $modelSpec->normal_price_perday = $processedCarModels->min('normal_price_perday');
 
             // Check if ALL car models are unavailable
             $modelSpec->unavailable = $processedCarModels->every('unavailable', true);

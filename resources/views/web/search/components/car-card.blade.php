@@ -20,18 +20,18 @@
     $cardId = 'card-' . ($modelSpec->id ?? uniqid());
 @endphp
 
-<div class="bg-white rounded-lg overflow-hidden relative cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg"
+<div class="overflow-hidden relative bg-white rounded-lg transition-all duration-200 ease-in-out cursor-pointer hover:shadow-lg"
     @click="if ({{ $carModels->count() > 0 ? 'true' : 'false' }}) toggleCard('{{ $cardId }}')"
     style="box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.05), 0px 6px 24px 0px rgba(0,0,0,0.05);">
 
     {{-- Main Card (Always Visible) --}}
-    <div class="flex gap-3 items-start p-3 relative" style="height: 146px;">
+    <div class="flex relative items-start" style="height: 170px;">
         {{-- Car Image --}}
-        <div class="flex items-center justify-center shrink-0" style="width: 140px;">
-            <div class="relative" style="width: 140px;">
+        <div class="flex justify-center items-centershrink-0" style="width: 160px;">
+            <div class="relative" style="width: 160px; height: 120px;">
                 {{-- Red Shadow for Promo Items --}}
                 @if ($isPromo)
-                    <div class="absolute left-0 right-0 bottom-0 h-8 pointer-events-none"
+                    <div class="absolute right-0 bottom-0 left-0 h-8 pointer-events-none"
                         style="background: radial-gradient(ellipse 80% 100% at 50% 100%, rgba(236, 32, 40, 0.35) 0%, transparent 70%); filter: blur(6px); z-index: 0;">
                     </div>
                 @endif
@@ -43,23 +43,23 @@
         </div>
 
         {{-- Car Details --}}
-        <div class="flex-1 flex flex-col justify-between"">
+        <div class="flex flex-col flex-1 justify-between px-[16px] py-3">
             {{-- Header --}}
-            <div class="flex flex-col gap-1">
-                <div class="flex items-center gap-2">
+            <div class="flex flex-col">
+                <div class="flex gap-2 items-center">
                     {{-- Brand Logo --}}
-                    <div class="flex items-center justify-center shrink-0"
+                    <div class="flex justify-center items-center shrink-0"
                         style="width: 24px; height: 24px; background-color: #e5e7eb; border-radius: 4px; overflow: hidden;">
                         @if (isset($modelSpec->brand_logo))
                             <img src="{{ StorageHelper::v1Url($modelSpec->brand_logo) }}"
-                                alt="{{ $modelSpec->brand_logo ?? 'Brand' }}" class="w-full h-full object-cover">
+                                alt="{{ $modelSpec->brand_logo ?? 'Brand' }}" class="object-cover w-full h-full">
                         @endif
                     </div>
 
                     {{-- Car Name --}}
-                    <h3 class="text-xl font-semibold shrink-0" style="color: #18181b; line-height: 30px;">
+                    <span class="text-xl font-semibold shrink-0" style="color: #18181b; line-height: 30px;">
                         {{ $modelSpec->model_name ?? 'Unknown Model' }}
-                    </h3>
+                    </span>
 
                     {{-- Status Badges --}}
                     @if (!$isLimitedStock)
@@ -89,20 +89,20 @@
                 </div>
 
                 {{-- Category Tags --}}
-                <div class="flex gap-1 flex-wrap">
+                <div class="flex flex-wrap gap-1">
                     @if (isset($modelSpec->group))
-                        <span class="px-2 py-0.5 text-[12px] font-medium rounded-full border shrink-0"
+                        <span class="px-2 py-0.5 text-[12px] font-normal rounded-full border shrink-0"
                             style="background-color: #f4f4f5; border-color: rgba(82,82,91,0.2); color: #6b6b74; height: 22px;">
                             Group {{ $modelSpec->group }}
                         </span>
                     @endif
                     @if (isset($modelSpec->car_model->category))
-                        <span class="px-2 py-0.5 text-[12px] font-medium rounded-full border shrink-0"
+                        <span class="px-2 py-0.5 text-[12px] font-normal rounded-full border shrink-0"
                             style="background-color: #f4f4f5; border-color: rgba(82,82,91,0.2); color: #6b6b74; height: 22px;">
                             {{ $modelSpec->car_model->category }}
                         </span>
                     @endif
-                    <span class="px-2 py-0.5 text-[12px] font-medium rounded-full border shrink-0"
+                    <span class="px-2 py-0.5 text-[12px] font-normal rounded-full border shrink-0"
                         style="background-color: #f4f4f5; border-color: rgba(82,82,91,0.2); color: #6b6b74; height: 22px;">
                         {{ $carModels->count() }} Branches
                     </span>
@@ -110,10 +110,10 @@
             </div>
 
             {{-- Features Icons always bottom --}}
-            <div class="flex gap-2 absolute bottom-0 p-3">
+            <div class="flex absolute bottom-0 gap-2 py-2">
                 {{-- Transmission --}}
-                <div class="flex items-center gap-0 px-0 py-1 shrink-0">
-                    <div class="flex items-center justify-center w-6 h-6">
+                <div class="flex gap-0 items-center px-0 py-1 shrink-0">
+                    <div class="flex justify-center items-center w-6 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14"
                             fill="none">
                             <circle cx="1.75" cy="1.75" r="1.75" fill="#6B6B74" />
@@ -128,13 +128,13 @@
                             <path d="M15.8477 2.03369V7.03137" stroke="#6B6B74" stroke-width="1.5" />
                         </svg>
                     </div>
-                    <span class="text-base font-normal"
+                    <span class="text-sm font-normal"
                         style="color: #18181b; line-height: 20px;">{{ $modelSpec->transmission_type ?? 'Auto' }}</span>
                 </div>
 
                 {{-- Seats --}}
-                <div class="flex items-center gap-0 px-0 py-1 shrink-0">
-                    <div class="flex items-center justify-center w-6 h-6">
+                <div class="flex gap-0 items-center px-0 py-1 shrink-0">
+                    <div class="flex justify-center items-center w-6 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20"
                             fill="none">
                             <path
@@ -147,14 +147,14 @@
                                 stroke-linecap="round" />
                         </svg>
                     </div>
-                    <span class="text-base font-normal"
+                    <span class="text-sm font-normal"
                         style="color: #18181b; line-height: 20px;">{{ $modelSpec->seats ?? '4' }}
                         Seats</span>
                 </div>
 
                 {{-- Doors --}}
-                <div class="flex items-center gap-0 px-0 py-1 shrink-0">
-                    <div class="flex items-center justify-center w-6 h-6">
+                <div class="flex gap-0 items-center px-0 py-1 shrink-0">
+                    <div class="flex justify-center items-center w-6 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18"
                             fill="none">
                             <path
@@ -169,14 +169,14 @@
                                 stroke-linecap="round" />
                         </svg>
                     </div>
-                    <span class="text-base font-normal"
+                    <span class="text-sm font-normal"
                         style="color: #18181b; line-height: 20px;">{{ $modelSpec->doors ?? '4' }}
                         Doors</span>
                 </div>
 
                 {{-- Luggage --}}
-                <div class="flex items-center gap-0 px-0 py-1 shrink-0">
-                    <div class="flex items-center justify-center w-6 h-6">
+                <div class="flex gap-0 items-center px-0 py-1 shrink-0">
+                    <div class="flex justify-center items-center w-6 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="22" viewBox="0 0 15 22"
                             fill="none">
                             <rect x="0.75" y="6.29053" width="13" height="13.1097" rx="1.75"
@@ -190,14 +190,14 @@
                                 stroke-width="1.5" stroke-linecap="round" />
                         </svg>
                     </div>
-                    <span class="text-base font-normal"
+                    <span class="text-sm font-normal"
                         style="color: #18181b; line-height: 20px;">{{ $modelSpec->luggage ?? '2' }}
                         Luggage</span>
                 </div>
 
                 {{-- Engine --}}
-                <div class="flex items-center gap-0 px-0 py-1 shrink-0">
-                    <div class="flex items-center justify-center w-6 h-6">
+                <div class="flex gap-0 items-center px-0 py-1 shrink-0">
+                    <div class="flex justify-center items-center w-6 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17"
                             fill="none">
                             <path d="M15.7667 1.85889H6.78516" stroke="#6B6B74" stroke-width="1.5"
@@ -239,14 +239,14 @@
                             <circle cx="7.60547" cy="8.44727" r="1.60938" stroke="#6B6B74" />
                         </svg>
                     </div>
-                    <span class="text-base font-normal"
+                    <span class="text-sm font-normal"
                         style="color: #18181b; line-height: 20px;">{{ $modelSpec->fuel_tank ?? '1.5' }}
                         L</span>
                 </div>
 
                 {{-- Fuel --}}
-                <div class="flex items-center gap-0 px-0 py-1 shrink-0">
-                    <div class="flex items-center justify-center w-6 h-6">
+                <div class="flex gap-0 items-center px-0 py-1 shrink-0">
+                    <div class="flex justify-center items-center w-6 h-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 16 19"
                             fill="none">
                             <circle cx="13.166" cy="5.55811" r="1.20898" fill="#6B6B74" />
@@ -262,7 +262,7 @@
                                 stroke="#6B6B74" stroke-width="3" mask="url(#path-4-inside-1_523_2918)" />
                         </svg>
                     </div>
-                    <span class="text-base font-normal"
+                    <span class="text-sm font-normal"
                         style="color: #18181b; line-height: 20px;">{{ $modelSpec->fuel_type ?? 'Petrol' }}</span>
                 </div>
             </div>
@@ -270,51 +270,46 @@
 
         {{-- Vertical Divider (hidden for limited stock) --}}
         @if (!$isLimitedStock && $carModels->count() > 0)
-            <div class="h-full w-0 border-r self-stretch" style="border-color: #e4e4e7;"></div>
+            <div class="self-stretch w-0 h-full border-r" style="border-color: #e4e4e7;"></div>
         @endif
 
         {{-- Price Section --}}
-        <div class="flex flex-col gap-3 items-end shrink-0" style="width: 200px;">
+        <div class="flex relative flex-col gap-1 items-end px-3 py-2 h-full shrink-0" style="width: 230px;">
             @if (!$isLimitedStock)
                 {{-- Normal or Sale State --}}
                 @if ($isPromo)
                     {{-- Sale Tags --}}
-                    <div class="flex items-start justify-end">
-                        <div class="flex items-center gap-0">
+                    <div class="flex justify-end items-start">
+                        <div class="flex gap-0 items-center">
                             <div class="flex items-center px-2 py-0.5 text-[12px] font-medium border"
                                 style="height: 22px; background-color: #fff4ed; border-color: #ff9960; color: #fe7439; border-radius: 6px 0 0 6px; padding-right: 12px; margin-right: -8px; z-index: 1;">
                                 SALE
                             </div>
                             <div class="flex items-center px-2 py-0.5 text-[12px] font-medium"
-                                style="height: 22px; background-color: #fe7439; color: #fff4ed; border-radius: 6px; padding-left: 8px; margin-right: -8px;">
-                                10% OFF TODAY
+                                style="height: 22px; background-color: #fe7439; color: #fff4ed; border-radius: 6px; padding-left: 8px; margin-right: -8px; margin-left:8px">
+                                {{ $modelSpec->promo_percentage }}% OFF TODAY
                             </div>
                         </div>
                     </div>
                 @endif
 
                 {{-- Price Display --}}
-                <div class="flex flex-col items-end justify-center" style="width: 200px;">
-                    <p class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
+                <div class="flex flex-col justify-start items-end h-full" style="width: 200px;">
+                    <span class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</span>
 
-                    @if (
-                        $isPromo &&
-                            isset($modelSpec->normal_price_perday) &&
-                            $modelSpec->normal_price_perday > $modelSpec->total_price_perday)
-                        {{-- Show crossed out original price --}}
-                        <p class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">RM
-                            {{ number_format($modelSpec->normal_price_perday, 2) }}</p>
+                    @if ($isPromo)
+                        {{-- Show crossed out original price using strike through --}}
+                        <span class="text-sm font-normal line-through" style="color: #6b6b74; line-height: 20px; ">RM
+                            {{ number_format($modelSpec->normal_price_perday, 2) }}</span>
                         <div class="relative">
                             <div class="flex items-baseline">
                                 <span class="text-2xl font-semibold" style="color: #18181b; line-height: 32px;">RM
                                     {{ number_format($modelSpec->total_price_perday, 2) }}</span>
-                                <span class="text-base font-normal"
+                                <span class="text-sm font-normal"
                                     style="color: #6b6b74; line-height: 20px;">/day</span>
                             </div>
                             {{-- Strike through line --}}
-                            <div class="absolute h-0.5 w-full"
-                                style="background-color: #6b6b74; top: -18px; right: -1px;">
-                            </div>
+
                         </div>
                     @else
                         {{-- Normal price --}}
@@ -325,21 +320,21 @@
                         </div>
                     @endif
 
-                    <p class="text-base font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
-                        {{ number_format($modelSpec->total_price ?? 0, 2) }}</p>
+                    <span class="text-sm font-normal" style="color: #3f3f46; line-height: 20px;">Total RM
+                        {{ number_format($modelSpec->total_price ?? 0, 2) }}</span>
                 </div>
 
                 {{-- Expand/Collapse Button (only show if there are car models) --}}
                 @if ($carModels->count() > 0)
                     <button @click.stop="toggleCard('{{ $cardId }}')"
-                        class="flex items-center justify-center p-1.5 rounded-lg border transition-colors hover:bg-gray-50"
+                        class="flex absolute right-3 bottom-[10px] justify-center items-center p-1.5 rounded-lg border transition-colors hover:bg-gray-50"
                         style="width: 32px; height: 32px; background-color: #fafafa; border-color: #d4d4d8; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                        <svg class="w-4 h-4 transition-transform"
-                            :class="isExpanded('{{ $cardId }}') ? 'rotate-180' : ''" style="color: #18181b;"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            class="transition-transform duration-500"
+                            :class="!isExpanded('{{ $cardId }}') ? 'rotate-180' : ''" fill="none">
+                            <path
+                                d="M5.002 5.6001C4.1111 5.6001 3.66493 6.67724 4.2949 7.3072L7.32921 10.3415C7.71974 10.732 8.3529 10.732 8.74343 10.3415L11.7777 7.30721C12.4077 6.67724 11.9615 5.6001 11.0706 5.6001H5.002Z"
+                                fill="#18181B" />
                         </svg>
                     </button>
                 @endif
@@ -347,9 +342,9 @@
                 {{-- Limited Stock State --}}
                 <div class="flex flex-col gap-3 items-end" style="width: 200px;">
                     {{-- Request Availability Button --}}
-                    <div class="flex items-center justify-end">
+                    <div class="flex justify-end items-center">
                         <button @click.stop=""
-                            class="flex items-center justify-center px-2.5 py-1.5 rounded-lg border transition-colors hover:bg-gray-50 whitespace-nowrap"
+                            class="flex justify-center items-center px-2.5 py-1.5 whitespace-nowrap rounded-lg border transition-colors hover:bg-gray-50"
                             style="height: 32px; background-color: white; border-color: #ffc6c8; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                             <span class="text-base font-medium" style="color: #ec2028; line-height: 20px;">Request
                                 Availability</span>
@@ -357,7 +352,7 @@
                     </div>
 
                     {{-- Price Range Display --}}
-                    <div class="flex flex-col items-end flex-1" style="width: 200px;">
+                    <div class="flex flex-col flex-1 items-end" style="width: 200px;">
                         <p class="text-base font-normal" style="color: #6b6b74; line-height: 20px;">Prices from</p>
                         <div class="flex items-baseline">
                             <span class="text-2xl font-semibold" style="color: #18181b; line-height: 32px;">RM
@@ -376,7 +371,10 @@
     {{-- Expandable Car Models Section (only if not limited stock and has car models) --}}
     @if (!$isLimitedStock && $carModels->count() > 0)
         {{-- Add dividers and car model rows here --}}
-        <template x-if="isExpanded('{{ $cardId }}')">
+        <template x-if="isExpanded('{{ $cardId }}')" x-transition:enter="transition ease-out duration-1000"
+            x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
+            x-transition:leave="transition ease-in duration-700" x-transition:leave-start="opacity-100 max-h-screen"
+            x-transition:leave-end="opacity-0 max-h-0">
             <div>
                 @foreach ($carModels as $carModelIndex => $carModel)
                     @include('web.search.components.car-model-row', [

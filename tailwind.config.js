@@ -10,7 +10,7 @@ module.exports = {
                 manrope: ["Manrope", "sans-serif"],
             },
             fontSize: {
-                base: ["14px", { lineHeight: "1.25", fontWeight: "400" }],
+                base: ["16px", { lineHeight: "1.25", fontWeight: "400" }],
             },
         },
     },

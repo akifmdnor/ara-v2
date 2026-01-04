@@ -1,10 +1,10 @@
 {{-- Search Page Navbar - Matches Figma Design --}}
 <nav class="relative z-10 bg-white"
-    style="box-shadow: 0px 2px 4px 0px rgba(51,65,85,0.08), 0px 6px 32px 0px rgba(51,65,85,0.12);">
+    style="box-shadow: 0px 2px 4px 0px rgba(51,65,85,0.08), 0px 6px 32px 0px rgba(51,65,85,0.12); ">
     <div class="mx-auto max-w-[1280px] ">
-        <div class="flex justify-between items-center h-[60px]  ">
+        <div class="flex justify-between items-center h-[60px]">
             {{-- Logo & Navigation --}}
-            <div class="flex flex-1 gap-3 items-center">
+            <div class="flex flex-1 gap-3 items-center py-5">
                 {{-- Logo --}}
                 <a href="{{ route('web.index') }}" class="flex items-center" style="width: 145px;">
                     <img src="{{ asset('images/web/ara-logo-new.jpg') }}" alt="ARA Car Rental" class="w-auto h-full">

@@ -13,7 +13,7 @@
 
             <div class="flex gap-3">
                 {{-- Sidebar Filter --}}
-                <div class="flex-shrink-0" style="width: 265px;">
+                <div class="flex-shrink-0" style="width: 300px;">
                     @include('web.search.components.sidebar-filter')
                 </div>
 

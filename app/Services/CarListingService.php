@@ -136,6 +136,8 @@ class CarListingService
             //calculate promo percentage
             $promoPercentage = $isPromo ? ($carModel->normal_price_per_day - $carModel->price_per_day) / $carModel->normal_price_per_day * 100 : 0;
             $carModel->promo_percentage = $promoPercentage;
+        } else {
+            $carModel->promo_percentage = 0;
         }
 
         // Check availability

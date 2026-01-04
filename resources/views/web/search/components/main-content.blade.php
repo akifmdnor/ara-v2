@@ -1,7 +1,7 @@
 {{-- Main Content Area - Matches Figma Design --}}
 <div class="flex flex-col gap-6" x-data="carListing()">
     {{-- Results Header Callout --}}
-    <div class="flex gap-2 items-start px-2 py-2.5 rounded-lg" style="background-color: #f0fdf4;">
+    <div class="flex gap-2 items-start px-2 py-3 rounded-lg" style="background-color: #f0fdf4;">
         {{-- Success Icon --}}
         <div class="flex justify-center items-start shrink-0">
             <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,23 +12,23 @@
         </div>
 
         {{-- Text Content --}}
-        <div class="flex flex-col flex-1 ">
-            <div class="flex items-center ">
-                <p class="text-base font-medium leading-[20px]" style="color: #15803d;">
+        <div class="flex flex-col flex-1">
+            <div class="flex items-center">
+                <span class="text-base font-medium leading-[20px]" style="color: #15803d;">
                     Success!
-                </p>
+                </span>
 
             </div>
-            <p class="text-base leading-[1px] font-light" style="color: #18181b;">
+            <span class=" leading-[1px] font-light pt-3.5 px-0.5 pb-1" style="color: #18181b;">
                 We've found 48 cars of all categories near Bandar Puteri, Puchong, Selangor
-            </p>
+            </span>
 
         </div>
     </div>
 
     {{-- Cars List --}}
     <div class="flex flex-col gap-8">
-        @foreach($modelSpecs ?? [] as $modelSpec)
+        @foreach ($modelSpecs ?? [] as $modelSpec)
             @include('web.search.components.car-card', ['modelSpec' => $modelSpec])
         @endforeach
     </div>
