@@ -3,7 +3,7 @@
 @section('content')
     <div class="w-full min-h-screen" style="background-color: #fff;">
         {{-- Navigation --}}
-        @include('web.search.components.navbar')
+        @include('web.components.navbar')
 
 
         {{-- Main Content --}}

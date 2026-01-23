@@ -280,11 +280,24 @@
             </div>
 
             {{-- Select Button --}}
-            <button @click.stop=""
+            <a href="{{ route('web.addon', [
+                    'car_model_id' => $carModel->id,
+                    'model_spec_id' => $modelSpec->id,
+                    'pickup_location' => request('pickup_location'),
+                    'pickup_latitude' => request('pickup_latitude'),
+                    'pickup_longitude' => request('pickup_longitude'),
+                    'pickup_date' => request('pickup_date'),
+                    'pickup_time' => request('pickup_time'),
+                    'return_location' => request('return_location'),
+                    'return_latitude' => request('return_latitude'),
+                    'return_longitude' => request('return_longitude'),
+                    'return_date' => request('return_date'),
+                    'return_time' => request('return_time'),
+                ]) }}"
                 class="flex gap-1.5 justify-center items-center px-2.5 py-1.5 h-8 rounded-lg border transition-all duration-200 ease-in-out transform hover:opacity-90 hover:scale-105 hover:shadow-lg"
-                style="background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
+                style="background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); text-decoration: none;">
                 <span class="text-sm font-normal text-white" style="line-height: 20px;">Select this car</span>
-            </button>
+            </a>
         @endif
     </div>
 </div>

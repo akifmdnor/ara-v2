@@ -28,6 +28,7 @@ Route::name('web.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Web\IndexController::class, 'index'])->name('index');
     //web.listing
     Route::get('/search', [\App\Http\Controllers\Web\SearchController::class, 'index'])->name('search');
+    Route::get('/addon/{id?}', [\App\Http\Controllers\Web\AddOnController::class, 'index'])->name('addon');
 });
 
 

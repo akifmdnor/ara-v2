@@ -282,7 +282,7 @@
                     {{-- Sale Tags --}}
                     <div class="flex justify-end items-start">
                         <div class="flex gap-0 items-center">
-                            <div class="flex items-center px-2 py-0.5 text-[12px] font-medium border"
+                            <div class="flex items-center px-2 py-0.5 text-[12px] font-medium border-1 border-[#ff9960]"
                                 style="height: 22px; background-color: #fff4ed; border-color: #ff9960; color: #fe7439; border-radius: 6px 0 0 6px; padding-right: 12px; margin-right: -8px; z-index: 1;">
                                 SALE
                             </div>
