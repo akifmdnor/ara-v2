@@ -24,8 +24,8 @@
                 {{-- Main Content --}}
                 <div class="flex flex-col flex-1 w-[968px] gap-3">
                     {{-- Start & Return Location Card --}}
-                    <div class="flex flex-col bg-white rounded-lg border border-[#e4e4e7] p-6"
-                        style="box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.05), 0px 6px 24px 0px rgba(0,0,0,0.05);">
+                    <div class="flex flex-col p-6 bg-white rounded-lg"
+                        style="border-radius: var(--Radius-Medium, 8px); background: var(--Background-bg-dialog, #FFF); box-shadow: 0 2px 4px 0 rgba(51, 65, 85, 0.10), 0 6px 32px 0 rgba(51, 65, 85, 0.10);">
                         <p class="text-sm font-semibold text-[#6b6b74] leading-5 mb-6">
                             Start & return location
                         </p>
@@ -64,7 +64,7 @@
                                                 <span class="text-sm font-medium text-[#3f3f46] leading-5">Charge</span>
                                                 <span class="text-sm font-normal text-[#3f3f46] leading-5">:</span>
                                             </div>
-                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM 1.80/km)</span>
+                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM {{ number_format($carDetails['price_per_km'] ?? 1.80, 2) }}/km)</span>
                                         </div>
                                         <span class="text-sm font-medium text-[#18181b] leading-5">
                                             RM {{ number_format($carDetails['pickup_charge'] ?? 18.0, 2) }}
@@ -139,7 +139,7 @@
                                                 <span class="text-sm font-medium text-[#3f3f46] leading-5">Charge</span>
                                                 <span class="text-sm font-normal text-[#3f3f46] leading-5">:</span>
                                             </div>
-                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM 1.80/km)</span>
+                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM {{ number_format($carDetails['price_per_km'] ?? 1.80, 2) }}/km)</span>
                                         </div>
                                         <span class="text-sm font-medium text-[#18181b] leading-5">
                                             RM {{ number_format($carDetails['return_charge'] ?? 18.0, 2) }}
@@ -169,18 +169,14 @@
                         </div>
                     </div>
 
-                    {{-- Add-ons Card --}}
-                    <div class="flex flex-col bg-white rounded-lg border border-[#e4e4e7]"
-                        style="box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.05), 0px 6px 24px 0px rgba(0,0,0,0.05);">
-                        <div class="px-6 pt-6">
-                            <p class="text-sm font-semibold text-[#6b6b74] leading-5">Choose add-on</p>
-                        </div>
+                    {{-- Add-ons Section --}}
+                    <div class="flex flex-col gap-3 p-6 bg-white rounded-lg"
+                        style="border-radius: var(--Radius-Medium, 8px); background: var(--Background-bg-dialog, #FFF); box-shadow: 0 2px 4px 0 rgba(51, 65, 85, 0.10), 0 6px 32px 0 rgba(51, 65, 85, 0.10);">
+                        <p class="text-sm font-semibold text-[#6b6b74] leading-5">Choose add-on</p>
 
-                        <div class="flex flex-col p-6">
-                            @foreach ($addOns as $addon)
-                                @include('web.addon.components.addon-card', ['addon' => $addon])
-                            @endforeach
-                        </div>
+                        @foreach ($addOns as $addon)
+                            @include('web.addon.components.addon-card', ['addon' => $addon])
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -216,4 +212,96 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const basePrice = {{ $carDetails['rental_price'] ?? 0 }};
+            const deliveryCharge = {{ $carDetails['door_to_door_delivery'] ?? 0 }};
+            const pickupCharge = {{ $carDetails['door_to_door_pickup'] ?? 0 }};
+            const taxRate = 0.06; // 6% SST
+            const securityDeposit = {{ $carDetails['security_deposit'] ?? 0 }};
+
+            const rentalDays = {{ $carDetails['rental_days'] ?? 1 }};
+            const totalPriceElement = document.querySelector('.text-xl.font-semibold.text-right.text-\\[\\#ff6a0c\\]');
+
+            function calculateTotal() {
+                let addonTotal = 0;
+
+                // Calculate checkbox add-on costs
+                document.querySelectorAll('input[type="checkbox"][name^="addon_"]:checked').forEach(function(checkbox) {
+                    const addonId = checkbox.name.replace('addon_', '');
+                    const addonCard = checkbox.closest('.flex.gap-3.items-center');
+                    const priceText = addonCard.querySelector('.text-base.font-semibold');
+                    const priceMatch = priceText.textContent.match(/RM ([\d.]+)/);
+                    if (priceMatch) {
+                        const dailyPrice = parseFloat(priceMatch[1]);
+                        addonTotal += dailyPrice * rentalDays;
+                    }
+                });
+
+                // Calculate quantity add-on costs
+                document.querySelectorAll('input[name^="addon_quantity_"]').forEach(function(input) {
+                    const quantity = parseInt(input.value) || 0;
+                    if (quantity > 0) {
+                        const addonCard = input.closest('.flex.gap-3.items-center');
+                        const priceText = addonCard.querySelector('.text-base.font-semibold');
+                        const priceMatch = priceText.textContent.match(/RM ([\d.]+)/);
+                        if (priceMatch) {
+                            const dailyPrice = parseFloat(priceMatch[1]);
+                            addonTotal += (dailyPrice * quantity) * rentalDays;
+                        }
+                    }
+                });
+
+                // Calculate subtotal (rental + delivery + add-ons)
+                const subtotal = basePrice + deliveryCharge + pickupCharge + addonTotal;
+
+                // Add tax
+                const tax = subtotal * taxRate;
+
+                // Total = subtotal + tax + security deposit
+                const total = subtotal + tax + securityDeposit;
+
+                // Update display
+                if (totalPriceElement) {
+                    totalPriceElement.textContent = 'RM ' + total.toFixed(2);
+                }
+            }
+
+            // Listen for checkbox and quantity changes
+            document.addEventListener('change', function(e) {
+                if ((e.target.type === 'checkbox' && e.target.name.startsWith('addon_')) ||
+                    (e.target.type === 'number' && e.target.name.startsWith('addon_quantity_'))) {
+                    calculateTotal();
+                }
+            });
+
+            // Listen for quantity button clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.quantity-btn')) {
+                    const button = e.target.closest('.quantity-btn');
+                    const addonId = button.dataset.addonId;
+                    const action = button.dataset.action;
+                    const input = document.querySelector(`input[name="addon_quantity_${addonId}"]`);
+
+                    if (input) {
+                        let currentValue = parseInt(input.value) || 0;
+
+                        if (action === 'increase') {
+                            input.value = currentValue + 1;
+                        } else if (action === 'decrease' && currentValue > 0) {
+                            input.value = currentValue - 1;
+                        }
+
+                        // Trigger change event
+                        const event = new Event('change', { bubbles: true });
+                        input.dispatchEvent(event);
+                    }
+                }
+            });
+
+            // Initial calculation
+            calculateTotal();
+        });
+    </script>
 @endsection

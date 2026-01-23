@@ -1,16 +1,16 @@
 {{-- Add-On Card Component --}}
 @php
     $addon = $addon ?? [];
-    $isQuantity = ($addon['type'] ?? 'checkbox') === 'quantity';
 @endphp
 
-<div class="flex gap-3 items-center p-3 bg-white" style="border-bottom: 1px solid #e4e4e7;" x-data="{ quantity: 0 }">
+<div class="flex gap-3 items-center px-6 py-4 bg-white rounded-lg border border-[#e4e4e7]">
 
     {{-- Icon/Picture --}}
     <div class="flex overflow-hidden justify-center items-center shrink-0"
         style="width: 50px; height: 50px; background-color: #f4f4f5; border-radius: 8px;">
         @if (!empty($addon['picture']))
-            <img src="{{ $addon['picture'] }}" alt="{{ $addon['name'] ?? 'Add-on' }}" class="object-cover w-full h-full">
+            <img src="{{ $addon['picture'] }}" alt="{{ $addon['name'] ?? 'Add-on' }}"
+                class="object-cover w-full h-full rounded-lg">
         @else
             {{-- Fallback icon if no picture --}}
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,64 +21,50 @@
     </div>
 
     {{-- Content --}}
-    <div class="flex flex-col flex-1 gap-1">
-        <p class="text-base font-semibold" style="color: #18181b; line-height: 24px;">
+    <div class="flex flex-col flex-1 gap-0.5" style="min-width: 0;">
+        <span class="text-base font-semibold" style="color: #18181b; line-height: 24px;">
             {{ $addon['name'] ?? 'Add-on Name' }}
-        </p>
-        <p class="text-sm font-normal" style="color: #6b6b74; line-height: 18px; white-space: pre-line;">
-            {{ $addon['description'] ?? 'Description' }}
-        </p>
+        </span>
+        <span class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">
+            {!! $addon['description'] ?? 'Description' !!}
+        </span>
     </div>
 
     {{-- Price --}}
-    <div class="text-right shrink-0" style="min-width: 96px;">
-        <div class="flex gap-1 justify-end items-baseline">
-            <span class="text-base font-semibold" style="color: #18181b; line-height: 20px;">
+    <div class="text-right shrink-0">
+        <div class="flex gap-1 justify-end items-baseline whitespace-nowrap">
+            <span class="text-base font-semibold" style="color: #18181b; line-height: 24px;">
                 RM {{ number_format($addon['price'] ?? 0, 2) }}
             </span>
             <span class="text-sm font-normal" style="color: #6b6b74; line-height: 20px;">/day</span>
         </div>
     </div>
 
-    {{-- Action Buttons --}}
-    <div class="shrink-0" style="min-width: 105px;">
-        @if ($isQuantity)
-            {{-- Quantity Controls --}}
-            <div class="flex gap-2 items-center">
-                {{-- Minus Button --}}
-                <button @click="if(quantity > 0) quantity--"
-                    class="flex justify-center items-center rounded-lg border transition-colors"
-                    style="width: 32px; height: 32px; background-color: white; border-color: #e4e4e7; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);"
-                    :disabled="quantity === 0">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M12.5 8H3.5" stroke="#ff9ea2" stroke-width="1.5" stroke-linecap="round" />
+    {{-- Input (Checkbox or Quantity) --}}
+    <div class="flex justify-end items-center shrink-0">
+        @if(($addon['type'] ?? 'checkbox') === 'quantity')
+            <div class="flex items-center gap-2">
+                <button type="button" class="quantity-btn flex justify-center items-center w-6 h-6 rounded border border-[#e4e4e7] text-[#6b6b74] hover:border-[#ec2028] hover:text-[#ec2028] transition-colors"
+                    data-action="decrease" data-addon-id="{{ $addon['id'] ?? 0 }}">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 6H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </button>
-
-                {{-- Quantity Display --}}
-                <span class="text-base font-normal text-center"
-                    style="color: #18181b; line-height: 24px; min-width: 25px;" x-text="quantity">
-                    0
-                </span>
-
-                {{-- Plus Button --}}
-                <button @click="quantity++"
-                    class="flex justify-center items-center rounded-lg border transition-colors hover:opacity-90"
-                    style="width: 32px; height: 32px; background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 3.5V12.5M12.5 8H3.5" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                <input type="number" min="0" value="0" class="quantity-input w-12 h-8 text-center border border-[#e4e4e7] rounded text-sm font-medium"
+                    name="addon_quantity_{{ $addon['id'] ?? 0 }}" data-addon-id="{{ $addon['id'] ?? 0 }}">
+                <button type="button" class="quantity-btn flex justify-center items-center w-6 h-6 rounded border border-[#e4e4e7] text-[#6b6b74] hover:border-[#ec2028] hover:text-[#ec2028] transition-colors"
+                    data-action="increase" data-addon-id="{{ $addon['id'] ?? 0 }}">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 2V10M2 6H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </button>
             </div>
         @else
-            {{-- Checkbox --}}
-            <div class="flex justify-center">
-                <label class="flex items-center cursor-pointer">
-                    <input type="checkbox" class="rounded border-2 transition-colors form-checkbox"
-                        style="width: 20px; height: 20px; border-color: #e4e4e7; color: #ec2028;"
-                        name="addon_{{ $addon['id'] ?? 0 }}">
-                </label>
-            </div>
+            <label class="flex items-center cursor-pointer">
+                <input type="checkbox" class="rounded border-2 transition-colors cursor-pointer"
+                    style="width: 20px; height: 20px; border-color: #e4e4e7; color: #ec2028; accent-color: #ec2028;"
+                    name="addon_{{ $addon['id'] ?? 0 }}">
+            </label>
         @endif
     </div>
 </div>

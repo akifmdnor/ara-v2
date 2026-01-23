@@ -94,6 +94,9 @@ class AddOnController extends Controller
             $isPromo = false;
         }
 
+        // Get price per km from branch
+        $pricePerKm = $carModel->branch->price_per_km ?? 1.80;
+
         // Calculate pickup distance and charge
         $pickupDistance = $this->distanceCalculationService->calculateBranchDistance(
             $carModel->branch_id,
@@ -103,7 +106,7 @@ class AddOnController extends Controller
         );
         $pickupCharge = $this->distanceCalculationService->calculateDistanceCharge(
             $pickupDistance,
-            $carModel->branch->price_per_km ?? 1.80
+            $pricePerKm
         );
 
         // Calculate return distance and charge
@@ -115,7 +118,7 @@ class AddOnController extends Controller
         );
         $returnCharge = $this->distanceCalculationService->calculateDistanceCharge(
             $returnDistance,
-            $carModel->branch->price_per_km ?? 1.80
+            $pricePerKm
         );
 
         // Calculate discount if promo is active
@@ -151,6 +154,7 @@ class AddOnController extends Controller
             'pickup_charge' => $pickupCharge,
             'return_distance' => $returnDistance,
             'return_charge' => $returnCharge,
+            'price_per_km' => $pricePerKm,
             'rental_days' => $rentalDays,
             'rental_price' => $totalPrice,
             'door_to_door_delivery' => $pickupCharge,

@@ -2025,6 +2025,11 @@ video {
   border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
 }
 
+.hover\:border-\[\#ec2028\]:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(236 32 40 / var(--tw-border-opacity, 1));
+}
+
 .hover\:bg-\[\#EC2028\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(236 32 40 / var(--tw-bg-opacity, 1));
@@ -2093,6 +2098,11 @@ video {
 .hover\:text-gray-800:hover {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-\[\#ec2028\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(236 32 40 / var(--tw-text-opacity, 1));
 }
 
 .hover\:opacity-90:hover {
