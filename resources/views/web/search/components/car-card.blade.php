@@ -50,7 +50,7 @@
                 <div class="flex gap-2 items-center">
                     {{-- Brand Logo --}}
                     <div class="flex justify-center items-center shrink-0"
-                        style="width: 24px; height: 24px; background-color: #e5e7eb; border-radius: 4px; overflow: hidden;">
+                        style="width: 24px; height: 24px; border-radius: 4px; overflow: hidden;">
                         @if (isset($modelSpec->brand_logo))
                             <img src="{{ StorageHelper::v1Url($modelSpec->brand_logo) }}"
                                 alt="{{ $modelSpec->brand_logo ?? 'Brand' }}" class="object-cover w-full h-full">
