@@ -11,14 +11,14 @@
         <div class="w-full bg-white">
             {{-- Stepper --}}
             <div class="mx-auto max-w-[1280px] pt-12">
-                @include('web.components.stepper')
+                @include('web.components.stepper', ['currentStep' => 2])
             </div>
 
             {{-- Content Area --}}
             <div class="flex mx-auto max-w-[1280px] gap-3 pt-12 pb-[148px]">
                 {{-- Sidebar --}}
                 <div class="shrink-0 w-[300px]">
-                    @include('web.addon.components.sidebar-details', ['carDetails' => $carDetails])
+                    @include('web.components.booking-sidebar', ['carDetails' => $carDetails])
                 </div>
 
                 {{-- Main Content --}}
@@ -203,7 +203,7 @@
                         </p>
                     </div>
 
-                    <a href="#"
+                    <a href="{{ route('web.customer-info.index') }}"
                         class="flex justify-center items-center h-8 px-[10px] py-[6px] gap-[6px] font-medium text-sm leading-5 text-white bg-[#ec2028] border border-[#ec2028] rounded-lg transition-colors hover:opacity-90 no-underline"
                         style="box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                         Save & Continue

@@ -1,25 +1,30 @@
 {{-- Booking Stepper Component --}}
 @php
+    $currentStep = $currentStep ?? 2; // Default to step 2 (Choose add-ons)
     $steps = [
         [
+            'number' => 1,
             'title' => 'Select Car',
             'icon' => 'car',
-            'status' => 'completed', // completed, active, inactive
+            'status' => $currentStep > 1 ? 'completed' : ($currentStep == 1 ? 'active' : 'inactive'),
         ],
         [
+            'number' => 2,
             'title' => 'Choose add-ons',
             'icon' => 'add-on',
-            'status' => 'active',
+            'status' => $currentStep > 2 ? 'completed' : ($currentStep == 2 ? 'active' : 'inactive'),
         ],
         [
+            'number' => 3,
             'title' => "Enter driver's info",
             'icon' => 'id-card',
-            'status' => 'inactive',
+            'status' => $currentStep > 3 ? 'completed' : ($currentStep == 3 ? 'active' : 'inactive'),
         ],
         [
+            'number' => 4,
             'title' => 'Make payment',
             'icon' => 'money',
-            'status' => 'inactive',
+            'status' => $currentStep > 4 ? 'completed' : ($currentStep == 4 ? 'active' : 'inactive'),
         ],
     ];
 @endphp

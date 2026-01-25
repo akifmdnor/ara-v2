@@ -29,6 +29,10 @@ Route::name('web.')->group(function () {
     //web.listing
     Route::get('/search', [\App\Http\Controllers\Web\SearchController::class, 'index'])->name('search');
     Route::get('/addon/{id?}', [\App\Http\Controllers\Web\AddOnController::class, 'index'])->name('addon');
+    Route::get('/customer-info', [\App\Http\Controllers\Web\CustomerInfoController::class, 'index'])->name('customer-info.index');
+    Route::post('/customer-info', [\App\Http\Controllers\Web\CustomerInfoController::class, 'store'])->name('customer-info.store');
+    Route::get('/api/countries', [\App\Http\Controllers\Web\CustomerInfoController::class, 'getCountries'])->name('api.countries');
+    Route::get('/api/states/{countryCode}', [\App\Http\Controllers\Web\CustomerInfoController::class, 'getStates'])->name('api.states');
 });
 
 
