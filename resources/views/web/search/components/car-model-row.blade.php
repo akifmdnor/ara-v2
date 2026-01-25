@@ -154,7 +154,7 @@
                     </path>
                 </svg>
                 <span class="flex-1 text-base font-normal" style="color: #3f3f46; line-height: 24px;">
-                    Opening Hours : {{ $carModel->branch->opening_hours ?? '09:00 AM - 05:00 PM' }}
+                    Opening Hours : {{ $carModel->branch->opening_hours ?? '09:00 AM - 11:00 PM' }}
                 </span>
             </div>
         </div>
@@ -169,16 +169,16 @@
                     }
                 @endphp
                 @foreach ($includedItems as $item)
-                    <div class="flex gap-1.5 items-center">
+                    <div class="flex gap-1.5 items-start">
                         <svg width="18" height="18" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
+                            class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M7 11.2143L8.12645 12.5116C8.55869 13.0095 9.34594 12.9601 9.71261 12.4122L13 7.5M17.25 10C17.25 14.0041 14.0041 17.25 10 17.25C5.99594 17.25 2.75 14.0041 2.75 10C2.75 5.99594 5.99594 2.75 10 2.75C14.0041 2.75 17.25 5.99594 17.25 10Z"
                                 stroke="#15803D" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
                         <span class="text-base font-normal"
-                            style="color: #6b6b74; line-height: 20px;">{{ $item }}</span>
+                            style="color: #6b6b74; line-height: 20px;">{!! $item !!}</span>
                     </div>
                 @endforeach
             </div>
@@ -215,6 +215,22 @@
         x-transition:leave-start="opacity-100 transform translate-x-0"
         x-transition:leave-end="opacity-0 transform translate-x-[20px]">
         @if ($isFullyBooked)
+            {{-- Sale Tags (show even for fully booked if promo available) --}}
+            @if ($carModel->is_promo)
+                <div class="flex justify-end items-start">
+                    <div class="flex gap-0 items-center">
+                        <div class="flex items-center px-2 py-0.5 text-[12px] font-medium border"
+                            style="height: 22px; background-color: #fff4ed; border-color: #ff9960; color: #fe7439; border-radius: 6px 0 0 6px; padding-right: 12px; margin-right: -8px; z-index: 1;">
+                            SALE
+                        </div>
+                        <div class="flex items-center px-2 py-0.5 text-[12px] font-medium"
+                            style="height: 22px; background-color: #fe7439; color: #fff4ed; border-radius: 6px; padding-left: 8px; margin-right: -8px; margin-left:8px">
+                            {{ $carModel->promo_percentage }}% OFF TODAY
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             {{-- Fully Booked Badge --}}
             <div class="flex items-center px-2 py-0.5 text-[24px] font-medium rounded border"
                 style="background-color: #fff1f2; border-color: #ff9ea2; color: #ec2028; height: auto; line-height: 32px;">
@@ -281,19 +297,19 @@
 
             {{-- Select Button --}}
             <a href="{{ route('web.addon', [
-                    'car_model_id' => $carModel->id,
-                    'model_spec_id' => $modelSpec->id,
-                    'pickup_location' => request('pickup_location'),
-                    'pickup_latitude' => request('pickup_latitude'),
-                    'pickup_longitude' => request('pickup_longitude'),
-                    'pickup_date' => request('pickup_date'),
-                    'pickup_time' => request('pickup_time'),
-                    'return_location' => request('return_location'),
-                    'return_latitude' => request('return_latitude'),
-                    'return_longitude' => request('return_longitude'),
-                    'return_date' => request('return_date'),
-                    'return_time' => request('return_time'),
-                ]) }}"
+                'car_model_id' => $carModel->id,
+                'model_spec_id' => $modelSpec->id,
+                'pickup_location' => request('pickup_location'),
+                'pickup_latitude' => request('pickup_latitude'),
+                'pickup_longitude' => request('pickup_longitude'),
+                'pickup_date' => request('pickup_date'),
+                'pickup_time' => request('pickup_time'),
+                'return_location' => request('return_location'),
+                'return_latitude' => request('return_latitude'),
+                'return_longitude' => request('return_longitude'),
+                'return_date' => request('return_date'),
+                'return_time' => request('return_time'),
+            ]) }}"
                 class="flex gap-1.5 justify-center items-center px-2.5 py-1.5 h-8 rounded-lg border transition-all duration-200 ease-in-out transform hover:opacity-90 hover:scale-105 hover:shadow-lg"
                 style="background-color: #ec2028; border-color: #ec2028; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07); text-decoration: none;">
                 <span class="text-sm font-normal text-white" style="line-height: 20px;">Select this car</span>

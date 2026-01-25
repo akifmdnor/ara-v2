@@ -64,7 +64,8 @@
                                                 <span class="text-sm font-medium text-[#3f3f46] leading-5">Charge</span>
                                                 <span class="text-sm font-normal text-[#3f3f46] leading-5">:</span>
                                             </div>
-                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM {{ number_format($carDetails['price_per_km'] ?? 1.80, 2) }}/km)</span>
+                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM
+                                                {{ number_format($carDetails['price_per_km'] ?? 1.8, 2) }}/km)</span>
                                         </div>
                                         <span class="text-sm font-medium text-[#18181b] leading-5">
                                             RM {{ number_format($carDetails['pickup_charge'] ?? 18.0, 2) }}
@@ -139,7 +140,8 @@
                                                 <span class="text-sm font-medium text-[#3f3f46] leading-5">Charge</span>
                                                 <span class="text-sm font-normal text-[#3f3f46] leading-5">:</span>
                                             </div>
-                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM {{ number_format($carDetails['price_per_km'] ?? 1.80, 2) }}/km)</span>
+                                            <span class="text-xs font-normal text-[#6b6b74] leading-3">(RM
+                                                {{ number_format($carDetails['price_per_km'] ?? 1.8, 2) }}/km)</span>
                                         </div>
                                         <span class="text-sm font-medium text-[#18181b] leading-5">
                                             RM {{ number_format($carDetails['return_charge'] ?? 18.0, 2) }}
@@ -222,13 +224,15 @@
             const securityDeposit = {{ $carDetails['security_deposit'] ?? 0 }};
 
             const rentalDays = {{ $carDetails['rental_days'] ?? 1 }};
-            const totalPriceElement = document.querySelector('.text-xl.font-semibold.text-right.text-\\[\\#ff6a0c\\]');
+            const totalPriceElement = document.querySelector(
+                '.text-xl.font-semibold.text-right.text-\\[\\#ff6a0c\\]');
 
             function calculateTotal() {
                 let addonTotal = 0;
 
                 // Calculate checkbox add-on costs
-                document.querySelectorAll('input[type="checkbox"][name^="addon_"]:checked').forEach(function(checkbox) {
+                document.querySelectorAll('input[type="checkbox"][name^="addon_"]:checked').forEach(function(
+                    checkbox) {
                     const addonId = checkbox.name.replace('addon_', '');
                     const addonCard = checkbox.closest('.flex.gap-3.items-center');
                     const priceText = addonCard.querySelector('.text-base.font-semibold');
@@ -294,7 +298,9 @@
                         }
 
                         // Trigger change event
-                        const event = new Event('change', { bubbles: true });
+                        const event = new Event('change', {
+                            bubbles: true
+                        });
                         input.dispatchEvent(event);
                     }
                 }
