@@ -192,6 +192,52 @@
                     x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
                     class="w-full h-0 border-t border-dashed" style="border-color: #d4d4d8;"></div>
 
+                {{-- Add-Ons Section --}}
+                @if (isset($addons) && count($addons) > 0)
+                    <div x-show="expanded" x-transition:enter="transition ease-out duration-500"
+                        x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
+                        x-transition:leave="transition ease-in duration-500"
+                        x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
+                        class="flex flex-col gap-3 w-full">
+
+                        <div class="flex overflow-hidden flex-col justify-center h-5 text-sm font-semibold whitespace-nowrap"
+                            style="color: #6b6b74; line-height: 20px;">
+                            <span>Add-Ons</span>
+                        </div>
+
+                        @foreach ($addons as $addon)
+                            <div class="flex gap-5 justify-between items-start w-full" style="line-height: 20px;">
+                                <div class="flex flex-col flex-1" style="min-width: 0;">
+                                    <span class="text-sm font-medium" style="color: #18181b; line-height: 20px;">
+                                        {{ $addon['name'] ?? 'Add-on' }}
+                                    </span>
+                                    <div class="flex flex-col text-sm font-light"
+                                        style="color: #6b6b74; line-height: 20px;">
+                                        @if (isset($addon['price']))
+                                            <span>RM
+                                                {{ number_format($addon['price'], 2) }}/{{ $addon['unit'] ?? 'pcs' }}</span>
+                                        @endif
+                                        @if (isset($addon['quantity']) && $addon['quantity'] > 1)
+                                            <span>Total {{ $addon['quantity'] }} {{ $addon['unit'] ?? 'pcs' }}</span>
+                                        @endif
+                                        <span>(RM {{ number_format($addon['price'] * ($addon['quantity'] ?? 1), 2) }}/day)
+                                            x {{ $carDetails['rental_days'] ?? 1 }} Day</span>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-semibold shrink-0" style="color: #18181b; line-height: 20px; text-align: right;">
+                                    RM {{ number_format($addon['total_price'] ?? 0, 2) }}
+                                </span>
+                            </div>
+
+                            @if (!$loop->last)
+                                <div class="w-full h-0 border-t border-dashed" style="border-color: #d4d4d8;"></div>
+                            @endif
+                        @endforeach
+
+                        <div class="w-full h-0 border-t border-dashed" style="border-color: #d4d4d8;"></div>
+                    </div>
+                @endif
+
                 @if (isset($carDetails['is_promo']) && $carDetails['is_promo'])
                     {{-- Discount --}}
                     <div x-show="expanded" x-transition:enter="transition ease-out duration-500"
@@ -319,7 +365,7 @@
                 </span>
             </div>
             <span class="text-sm font-semibold" style="color: #18181b; line-height: 20px;">
-                RM {{ number_format($carDetails['security_deposit'] ?? 300.00, 2) }}
+                RM {{ number_format($carDetails['security_deposit'] ?? 300.0, 2) }}
             </span>
         </div>
 

@@ -157,4 +157,51 @@ class BookingRepository
 
         return $sign . number_format($growth, 1) . '%';
     }
+
+    /**
+     * Create a new booking with all related data
+     *
+     * @param array $bookingData
+     * @return Booking
+     */
+    public function createBooking(array $bookingData): Booking
+    {
+        return Booking::create($bookingData);
+    }
+
+    /**
+     * Save addon bookings for a booking
+     *
+     * @param int $bookingId
+     * @param array $addons
+     * @return void
+     */
+    public function saveAddons(int $bookingId, array $addons): void
+    {
+        foreach ($addons as $addonId => $amount) {
+            if ($amount > 0) {
+                \App\Models\AddOnBookings::create([
+                    'booking_id' => $bookingId,
+                    'addon_id' => $addonId,
+                    'amount' => $amount,
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Save pictures for a booking
+     *
+     * @param int $bookingId
+     * @param string $fileName
+     * @return void
+     */
+    public function savePicture(int $bookingId, string $fileName): void
+    {
+        \App\Models\Picture::create([
+            'model_id' => $bookingId,
+            'model_name' => 'booking',
+            'file_name' => $fileName
+        ]);
+    }
 }

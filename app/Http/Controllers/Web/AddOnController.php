@@ -192,6 +192,44 @@ class AddOnController extends Controller
     }
 
     /**
+     * Store selected addons and redirect to customer info with URL parameters
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
+    {
+        // Build URL parameters array with car and location details
+        $params = [
+            'car_model_id' => $request->car_model_id,
+            'model_spec_id' => $request->model_spec_id,
+            'pickup_location' => $request->pickup_location,
+            'pickup_latitude' => $request->pickup_latitude,
+            'pickup_longitude' => $request->pickup_longitude,
+            'pickup_date' => $request->pickup_date,
+            'pickup_time' => $request->pickup_time,
+            'return_location' => $request->return_location,
+            'return_latitude' => $request->return_latitude,
+            'return_longitude' => $request->return_longitude,
+            'return_date' => $request->return_date,
+            'return_time' => $request->return_time,
+        ];
+
+        // Add selected addons to URL parameters
+        // Expected format: addons[addon_id] = quantity
+        if ($request->has('addons') && is_array($request->addons)) {
+            foreach ($request->addons as $addonId => $quantity) {
+                if ($quantity > 0) {
+                    $params["addons[{$addonId}]"] = $quantity;
+                }
+            }
+        }
+
+        // Redirect to customer-info with all parameters
+        return redirect()->route('web.customer-info.index', $params);
+    }
+
+    /**
      * Get icon name for add-on based on title
      *
      * @param string $title

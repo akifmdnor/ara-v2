@@ -9,6 +9,20 @@
 
         {{-- Main Content --}}
         <div class="w-full bg-white">
+            {{-- Error Messages --}}
+            @if ($errors->any())
+                <div class="mx-auto max-w-[1280px] pt-6">
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <span class="text-sm font-semibold text-red-800 block mb-2">Please fix the following errors:</span>
+                        <ul class="list-disc list-inside space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li class="text-sm text-red-700">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             {{-- Stepper --}}
             <div class="mx-auto max-w-[1280px] pt-12">
                 @include('web.components.stepper', ['currentStep' => 3])
@@ -18,13 +32,34 @@
             <div class="flex mx-auto max-w-[1280px] gap-2.5 pt-12 pb-[148px]">
                 {{-- Sidebar --}}
                 <div class="shrink-0 w-[300px]">
-                    @include('web.components.booking-sidebar', ['carDetails' => $carDetails])
+                    @include('web.components.booking-sidebar', ['carDetails' => $carDetails, 'addons' => $addons ?? []])
                 </div>
 
                 {{-- Main Content --}}
                 <div class="flex flex-col flex-1 w-[968px] gap-2.5">
-                    <form id="customer-info-form" action="{{ route('web.customer-info.store') }}" method="POST">
+                    <form id="customer-info-form" action="{{ route('web.customer-info.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+
+                        {{-- Hidden inputs for booking parameters --}}
+                        <input type="hidden" name="car_model_id" value="{{ $bookingParams['car_model_id'] ?? '' }}">
+                        <input type="hidden" name="model_spec_id" value="{{ $bookingParams['model_spec_id'] ?? '' }}">
+                        <input type="hidden" name="pickup_location" value="{{ $bookingParams['pickup_location'] ?? '' }}">
+                        <input type="hidden" name="pickup_latitude" value="{{ $bookingParams['pickup_latitude'] ?? '' }}">
+                        <input type="hidden" name="pickup_longitude" value="{{ $bookingParams['pickup_longitude'] ?? '' }}">
+                        <input type="hidden" name="pickup_date" value="{{ $bookingParams['pickup_date'] ?? '' }}">
+                        <input type="hidden" name="pickup_time" value="{{ $bookingParams['pickup_time'] ?? '' }}">
+                        <input type="hidden" name="return_location" value="{{ $bookingParams['return_location'] ?? '' }}">
+                        <input type="hidden" name="return_latitude" value="{{ $bookingParams['return_latitude'] ?? '' }}">
+                        <input type="hidden" name="return_longitude" value="{{ $bookingParams['return_longitude'] ?? '' }}">
+                        <input type="hidden" name="return_date" value="{{ $bookingParams['return_date'] ?? '' }}">
+                        <input type="hidden" name="return_time" value="{{ $bookingParams['return_time'] ?? '' }}">
+
+                        {{-- Hidden inputs for addons --}}
+                        @if(isset($bookingParams['addons']) && is_array($bookingParams['addons']))
+                            @foreach($bookingParams['addons'] as $addonId => $quantity)
+                                <input type="hidden" name="addons[{{ $addonId }}]" value="{{ $quantity }}">
+                            @endforeach
+                        @endif
 
                         {{-- Customer Information Card --}}
                         <div class="flex flex-col p-6 bg-white rounded-lg gap-8"
@@ -377,6 +412,14 @@
     {{-- File Upload Script --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Debug form submission
+            const form = document.getElementById('customer-info-form');
+            form.addEventListener('submit', function(e) {
+                console.log('Form submitting...');
+                console.log('Form action:', form.action);
+                console.log('Form method:', form.method);
+            });
+
             // File upload handlers
             setupFileUpload('ic_passport_upload', 'ic_passport_preview');
             setupFileUpload('license_upload', 'license_preview');

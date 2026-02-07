@@ -15,8 +15,27 @@ class CustomerInfoController extends Controller
      */
     public function index(Request $request)
     {
+        // Pass all URL parameters to the view
+        $bookingParams = [
+            'car_model_id' => $request->car_model_id,
+            'model_spec_id' => $request->model_spec_id,
+            'pickup_location' => $request->pickup_location,
+            'pickup_latitude' => $request->pickup_latitude,
+            'pickup_longitude' => $request->pickup_longitude,
+            'pickup_date' => $request->pickup_date,
+            'pickup_time' => $request->pickup_time,
+            'return_location' => $request->return_location,
+            'return_latitude' => $request->return_latitude,
+            'return_longitude' => $request->return_longitude,
+            'return_date' => $request->return_date,
+            'return_time' => $request->return_time,
+            'addons' => $request->addons ?? [],
+        ];
+
+        // Get car model for accurate details
+        $carModel = \App\Models\CarModel::findOrFail($request->car_model_id);
+        
         // Get car details from session or request
-        // For now, we'll use dummy data similar to AddOnController
         $carDetails = [
             'id' => $request->car_model_id ?? 1,
             'name' => 'Perodua Myvi 1.5H',
@@ -40,7 +59,31 @@ class CustomerInfoController extends Controller
             'promo_percentage' => 0,
         ];
 
-        return view('web.customer-info.index', compact('carDetails'));
+        // Format addons for sidebar display
+        $addons = [];
+        if ($request->has('addons') && is_array($request->addons)) {
+            foreach ($request->addons as $addonId => $quantity) {
+                if ($quantity > 0) {
+                    $addonCar = \App\Models\AddOnCars::where('car_model_id', $carModel->id)
+                        ->where('addon_id', $addonId)
+                        ->with('addon')
+                        ->first();
+                    
+                    if ($addonCar) {
+                        $addons[] = [
+                            'id' => $addonId,
+                            'name' => $addonCar->addon->title,
+                            'price' => $addonCar->addon_price,
+                            'quantity' => $quantity,
+                            'unit' => $addonCar->addon->type === 'quantity' ? 'pcs' : 'day',
+                            'total_price' => $addonCar->addon_price * $quantity * $carDetails['rental_days'],
+                        ];
+                    }
+                }
+            }
+        }
+
+        return view('web.customer-info.index', compact('carDetails', 'bookingParams', 'addons'));
     }
 
     /**
@@ -372,23 +415,59 @@ class CustomerInfoController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'country_code' => 'required|string|max:5',
-            'phone' => 'required|string|max:20',
-            'id_number' => 'required|string|max:50',
-            'address' => 'required|string|max:500',
-            'city' => 'required|string|max:100',
-            'state' => 'required|string|max:100',
-            'postal_code' => 'required|string|max:20',
-            'country' => 'required|string|max:100',
-        ]);
+        try {
+            $validated = $request->validate([
+                // Booking parameters
+                'car_model_id' => 'required|exists:car_models,id',
+                'model_spec_id' => 'required|exists:model_specifications,id',
+                'pickup_location' => 'required|string',
+                'pickup_latitude' => 'required|numeric',
+                'pickup_longitude' => 'required|numeric',
+                'pickup_date' => 'required|string',
+                'pickup_time' => 'required|string',
+                'return_location' => 'required|string',
+                'return_latitude' => 'required|numeric',
+                'return_longitude' => 'required|numeric',
+                'return_date' => 'required|string',
+                'return_time' => 'required|string',
 
-        // Store customer info in session
-        session(['customer_info' => $validated]);
+                // Customer information
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'country' => 'required|string|max:100',
+                'age' => 'required|integer|min:18|max:100',
+                'country_code' => 'required|string|max:10',
+                'phone' => 'required|string|max:20',
+                'address' => 'required|string|max:500',
+                'postal_code' => 'required|string|max:20',
+                'city' => 'required|string|max:100',
+                'state' => 'required|string|max:100',
+                'company_name' => 'nullable|string|max:255',
+                'notes' => 'nullable|string|max:1000',
+                'different_driver' => 'nullable',
+                'driver_id_number' => 'required|string|max:50',
 
-        // Redirect to payment page
-        return redirect()->route('payment.index');
+                // Files
+                'ic_passport' => 'required|array',
+                'ic_passport.*' => 'file|mimes:jpg,jpeg,png,pdf|max:25600',
+                'license' => 'required|array',
+                'license.*' => 'file|mimes:jpg,jpeg,png,pdf|max:25600',
+
+                // Terms
+                'accept_terms' => 'required|accepted',
+
+                // Addons
+                'addons' => 'nullable|array',
+                'addons.*' => 'integer|min:0',
+            ]);
+
+            // Redirect to booking controller to create booking
+            return app(\App\Http\Controllers\Web\BookingController::class)->createBooking($request);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->withErrors($e->validator)->withInput();
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred: ' . $e->getMessage())->withInput();
+        }
     }
 }

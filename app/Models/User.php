@@ -6,14 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Cashier\Billable;
-
 
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
-    use Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -30,8 +27,10 @@ class User extends Authenticatable
         'gender',
         'nric',
         'phone_number',
+        'phone',
         'address',
         'city',
+        'state',
         'postal_code',
         'country',
         'password',

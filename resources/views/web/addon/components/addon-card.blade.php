@@ -51,7 +51,7 @@
                     </svg>
                 </button>
                 <input type="number" min="0" value="0" class="quantity-input w-12 h-8 text-center border border-[#e4e4e7] rounded text-sm font-medium"
-                    name="addon_quantity_{{ $addon['id'] ?? 0 }}" data-addon-id="{{ $addon['id'] ?? 0 }}">
+                    name="addons[{{ $addon['id'] ?? 0 }}]" data-addon-id="{{ $addon['id'] ?? 0 }}">
                 <button type="button" class="quantity-btn flex justify-center items-center w-6 h-6 rounded border border-[#e4e4e7] text-[#6b6b74] hover:border-[#ec2028] hover:text-[#ec2028] transition-colors"
                     data-action="increase" data-addon-id="{{ $addon['id'] ?? 0 }}">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -61,9 +61,9 @@
             </div>
         @else
             <label class="flex items-center cursor-pointer">
-                <input type="checkbox" class="rounded border-2 transition-colors cursor-pointer"
+                <input type="checkbox" value="1" class="addon-checkbox rounded border-2 transition-colors cursor-pointer"
                     style="width: 20px; height: 20px; border-color: #e4e4e7; color: #ec2028; accent-color: #ec2028;"
-                    name="addon_{{ $addon['id'] ?? 0 }}">
+                    name="addons[{{ $addon['id'] ?? 0 }}]" data-addon-id="{{ $addon['id'] ?? 0 }}">
             </label>
         @endif
     </div>

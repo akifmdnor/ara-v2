@@ -18,11 +18,26 @@
             <div class="flex mx-auto max-w-[1280px] gap-3 pt-12 pb-[148px]">
                 {{-- Sidebar --}}
                 <div class="shrink-0 w-[300px]">
-                    @include('web.components.booking-sidebar', ['carDetails' => $carDetails])
+                    @include('web.components.booking-sidebar', ['carDetails' => $carDetails, 'addons' => []])
                 </div>
 
                 {{-- Main Content --}}
-                <div class="flex flex-col flex-1 w-[968px] gap-3">
+                <form id="addon-form" action="{{ route('web.addon.store') }}" method="POST" class="flex flex-col flex-1 w-[968px] gap-3">
+                    @csrf
+
+                    {{-- Hidden inputs for booking parameters --}}
+                    <input type="hidden" name="car_model_id" value="{{ request('car_model_id') }}">
+                    <input type="hidden" name="model_spec_id" value="{{ request('model_spec_id') }}">
+                    <input type="hidden" name="pickup_location" value="{{ request('pickup_location') }}">
+                    <input type="hidden" name="pickup_latitude" value="{{ request('pickup_latitude') }}">
+                    <input type="hidden" name="pickup_longitude" value="{{ request('pickup_longitude') }}">
+                    <input type="hidden" name="pickup_date" value="{{ request('pickup_date') }}">
+                    <input type="hidden" name="pickup_time" value="{{ request('pickup_time') }}">
+                    <input type="hidden" name="return_location" value="{{ request('return_location') }}">
+                    <input type="hidden" name="return_latitude" value="{{ request('return_latitude') }}">
+                    <input type="hidden" name="return_longitude" value="{{ request('return_longitude') }}">
+                    <input type="hidden" name="return_date" value="{{ request('return_date') }}">
+                    <input type="hidden" name="return_time" value="{{ request('return_time') }}">
                     {{-- Start & Return Location Card --}}
                     <div class="flex flex-col p-6 bg-white rounded-lg"
                         style="border-radius: var(--Radius-Medium, 8px); background: var(--Background-bg-dialog, #FFF); box-shadow: 0 2px 4px 0 rgba(51, 65, 85, 0.10), 0 6px 32px 0 rgba(51, 65, 85, 0.10);">
@@ -205,15 +220,16 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('web.customer-info.index') }}"
-                        class="flex justify-center items-center h-8 px-[10px] py-[6px] gap-[6px] font-medium text-sm leading-5 text-white bg-[#ec2028] border border-[#ec2028] rounded-lg transition-colors hover:opacity-90 no-underline"
+                    <button type="submit"
+                        class="flex justify-center items-center h-8 px-[10px] py-[6px] gap-[6px] font-medium text-sm leading-5 text-white bg-[#ec2028] border border-[#ec2028] rounded-lg transition-colors hover:opacity-90 cursor-pointer"
                         style="box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);">
                         Save & Continue
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+                </form>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -274,8 +290,8 @@
 
             // Listen for checkbox and quantity changes
             document.addEventListener('change', function(e) {
-                if ((e.target.type === 'checkbox' && e.target.name.startsWith('addon_')) ||
-                    (e.target.type === 'number' && e.target.name.startsWith('addon_quantity_'))) {
+                if ((e.target.type === 'checkbox' && e.target.classList.contains('addon-checkbox')) ||
+                    (e.target.type === 'number' && e.target.classList.contains('quantity-input'))) {
                     calculateTotal();
                 }
             });
@@ -286,7 +302,7 @@
                     const button = e.target.closest('.quantity-btn');
                     const addonId = button.dataset.addonId;
                     const action = button.dataset.action;
-                    const input = document.querySelector(`input[name="addon_quantity_${addonId}"]`);
+                    const input = document.querySelector(`input[name="addons[${addonId}]"]`);
 
                     if (input) {
                         let currentValue = parseInt(input.value) || 0;
