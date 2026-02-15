@@ -8,8 +8,8 @@
 
     // Get car image
     $carImageUrl = asset('images/web/homepage/car_undercover.png');
-    if (isset($carModel->featured_image) && count($carModel->featured_image) > 0) {
-        $carImageUrl = StorageHelper::v1Url($carModel->featured_image);
+    if (isset($carModel->feature_picture) && count($carModel->feature_picture) > 0) {
+        $carImageUrl = StorageHelper::v1Url($carModel->feature_picture);
     }
 
     // Generate unique ID for spec variant selector
