@@ -8,8 +8,11 @@
 
     // Get car image
     $carImageUrl = asset('images/web/homepage/car_undercover.png');
-    if (isset($carModel->featured_pictures) && count($carModel->featured_pictures) > 0) {
-        $carImageUrl = StorageHelper::v1Url($carModel->featured_pictures[0]->file_name);
+    if (
+        isset($carModel->model_specification->featured_pictures) &&
+        count($carModel->model_specification->featured_pictures) > 0
+    ) {
+        $carImageUrl = StorageHelper::v1Url($carModel->model_specification->featured_pictures[0]->file_name);
     }
 
     // Generate unique ID for spec variant selector
@@ -46,7 +49,7 @@
         x-transition:leave-start="opacity-100 transform translate-x-0"
         x-transition:leave-end="opacity-0 transform translate-x-[-20px]">
         <p class="text-base font-medium" style="color: #18181b; line-height: 24px;">
-            {{ $carModel->name ?? ($modelSpec->brand . ' ' . $modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Car Model') }}
+            {{ $carModel->name ?? ($modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Car Model') }}
         </p>
 
         <div style="width: 160px; height: 120px;"
