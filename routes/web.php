@@ -32,9 +32,24 @@ Route::name('web.')->group(function () {
     Route::post('/addon', [\App\Http\Controllers\Web\AddOnController::class, 'store'])->name('addon.store');
     Route::get('/customer-info', [\App\Http\Controllers\Web\CustomerInfoController::class, 'index'])->name('customer-info.index');
     Route::post('/customer-info', [\App\Http\Controllers\Web\CustomerInfoController::class, 'store'])->name('customer-info.store');
-    Route::get('/booking', [\App\Http\Controllers\Web\BookingController::class, 'index'])->name('booking.index');
+    Route::get('/booking/{booking}', [\App\Http\Controllers\Web\BookingController::class, 'index'])->name('booking.index');
+    Route::get('/booking/{booking}/second-payment', [\App\Http\Controllers\Web\BookingController::class, 'secondPayment'])->name('booking.second-payment');
     Route::post('/booking', [\App\Http\Controllers\Web\BookingController::class, 'store'])->name('booking.store');
-    Route::get('/booking/{booking}/confirmation', [\App\Http\Controllers\Web\BookingController::class, 'confirmation'])->name('booking.confirmation');
+Route::get('/booking/{booking}/confirmation', [\App\Http\Controllers\Web\BookingController::class, 'confirmation'])->name('booking.confirmation');
+Route::get('/booking/{booking}/success', [\App\Http\Controllers\Web\BookingController::class, 'success'])->name('booking.success');
+Route::get('/booking/{booking}/failed', [\App\Http\Controllers\Web\BookingController::class, 'failed'])->name('booking.failed');
+
+// Payment Gateway Routes
+Route::get('/stripe-process/{booking}', [\App\Http\Controllers\Web\BookingController::class, 'stripeProcess'])->name('stripe.process');
+Route::get('/stripe-return/{booking}', [\App\Http\Controllers\Web\BookingController::class, 'stripeReturn'])->name('stripe.return');
+Route::post('/billplz-process/{booking}', [\App\Http\Controllers\Web\BookingController::class, 'billplzProcess'])->name('billplz.process');
+Route::get('/billplz-success/{booking}', [\App\Http\Controllers\Web\BookingController::class, 'billplzSuccess'])->name('billplz.success');
+Route::post('/billplz-callback/{paymentType}/{bookingId}', [\App\Http\Controllers\Web\BookingController::class, 'billplzCallback'])->name('billplz.callback');
+Route::post('/callback/billplz/first-payment/{bookingId}', [\App\Http\Controllers\Web\BookingController::class, 'billplzCallbackV1'])->name('billplz.callback.v1');
+Route::post('/callback/billplz/second-payment/{bookingId}', [\App\Http\Controllers\Web\BookingController::class, 'billplzCallbackV1'])->name('billplz.callback.v2');
+Route::post('/payment/process/stripe', [\App\Http\Controllers\Web\BookingController::class, 'processStripePayment'])->name('payment.process.stripe');
+Route::post('/stripe-webhook', [\App\Http\Controllers\Web\BookingController::class, 'stripeWebhook'])->name('stripe.webhook');
+
     Route::get('/api/countries', [\App\Http\Controllers\Web\CustomerInfoController::class, 'getCountries'])->name('api.countries');
     Route::get('/api/states/{countryCode}', [\App\Http\Controllers\Web\CustomerInfoController::class, 'getStates'])->name('api.states');
 });

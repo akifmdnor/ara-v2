@@ -23,7 +23,7 @@ class SearchController extends Controller
     /**
      * Display the web index page with homepage data.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function index(Request $request)
     {
@@ -81,15 +81,34 @@ class SearchController extends Controller
             $dropoffDateTime,
             $minPrice,
             $maxPrice,
-            //asc
-            $request->get('sort_by') ?? 'DESC',
+            // Default ASC because SearchService reverses the collection (ASC reversed = high to low)
+            $request->get('sort_by') ?? 'ASC',
             $request->get('category'),
             $request->get('brand')
         );
 
         $categories = $this->searchService->getCategories();
         $brands = $this->searchService->getBrands();
-        return view('web.search.index', compact('modelSpecs', 'categories', 'brands'));
+
+        // Calculate rental days
+        $rentalDays = 2; // Default value
+        if ($request->get('pickup_date') && $request->get('return_date')) {
+            try {
+                $pickupDate = \Carbon\Carbon::createFromFormat('d/m/Y', str_replace('-', '/', $request->get('pickup_date')));
+                $returnDate = \Carbon\Carbon::createFromFormat('d/m/Y', str_replace('-', '/', $request->get('return_date')));
+                $rentalDays = $pickupDate->diffInDays($returnDate);
+
+                // Ensure minimum 1 day
+                if ($rentalDays < 1) {
+                    $rentalDays = 1;
+                }
+
+            } catch (\Exception $e) {
+                $rentalDays = 2; // Fallback to default if date parsing fails
+            }
+        }
+
+        return view('web.search.index', compact('modelSpecs', 'categories', 'brands', 'rentalDays'));
 
     }
 }

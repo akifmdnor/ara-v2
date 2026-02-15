@@ -30,4 +30,22 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'stripe' => [
+        'model' => App\Models\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook' => [
+            'secret' => env('STRIPE_WEBHOOK_SECRET'),
+            'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
+        ],
+    ],
+
+    'billplz' => [
+        'collection_id' => env('BILLPLZ_COLLECTION_ID'),
+        'api_key' => env('BILLPLZ_API_KEY'),
+        'api_url' => env('BILLPLZ_API_URL', 'https://www.billplz.com/api'),
+        'api_version' => env('BILLPLZ_API_VERSION', 'v3'),
+        'use_ssl' => false,
+    ],
+
 ];

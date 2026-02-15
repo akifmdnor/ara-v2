@@ -35,7 +35,7 @@ class SearchService
      * @param string $dropoffDateTime
      * @param float $minPrice
      * @param float $maxPrice
-     * @param string $sortBy
+     * @param string $sortBy Default 'ASC' (reversed to show high to low)
      * @param array|null $categories
      * @return Collection
      */
@@ -45,13 +45,13 @@ class SearchService
         string $dropoffDateTime,
         float $minPrice = 0,
         float $maxPrice = 1500,
-        string $sortBy = 'DESC',
+        string $sortBy = 'ASC',
         array $categories = null,
         array $brands = null
     ) {
         $modelSpecs = $this->searchRepository->getModelSpecificationsWithCarModels($branchIds, $sortBy, $categories, $brands);
 
-        return $this->processModelSpecifications($modelSpecs, $pickupDateTime, $dropoffDateTime, $minPrice, $maxPrice, $branchIds);
+        return $this->processModelSpecifications($modelSpecs, $pickupDateTime, $dropoffDateTime, $minPrice, $maxPrice, $branchIds, $sortBy);
     }
 
     /**
@@ -63,6 +63,7 @@ class SearchService
      * @param float $minPrice
      * @param float $maxPrice
      * @param array $branchIds
+     * @param string $sortBy Sort direction for car models
      * @return Collection
      */
     private function processModelSpecifications(
@@ -71,7 +72,8 @@ class SearchService
         string $dropoffDateTime,
         float $minPrice,
         float $maxPrice,
-        array $branchIds
+        array $branchIds,
+        string $sortBy = 'ASC'
     ) {
         $processedModelSpecs = collect();
         $processedModelSpecIds = [];
@@ -169,7 +171,17 @@ class SearchService
             // Check if ALL car models are unavailable
             $modelSpec->unavailable = $processedCarModels->every('unavailable', true);
 
-            // Attach processed car models to model spec
+            // Sort car models by price_per_day (already includes discount/promo pricing)
+            // Note: sortBy direction will be reversed later, so we sort in opposite direction
+            if ($sortBy === 'ASC') {
+                // ASC will be reversed to show high to low, so sort descending
+                $processedCarModels = $processedCarModels->sortByDesc('price_per_day')->values();
+            } else {
+                // DESC will be reversed to show low to high, so sort ascending
+                $processedCarModels = $processedCarModels->sortBy('price_per_day')->values();
+            }
+
+            // Attach processed and sorted car models to model spec
             $modelSpec->car_models = $processedCarModels;
 
             // Process included field (add-ons) into array

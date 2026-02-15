@@ -59,7 +59,7 @@
 
                     {{-- Car Name --}}
                     <span class="text-xl font-semibold shrink-0" style="color: #18181b; line-height: 30px;">
-                        {{ $modelSpec->brand . ' ' . $modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Unknown Model' }}
+                        {{ $modelSpec->brand . ' ' . $modelSpec->model_name }}
                     </span>
 
                     {{-- Status Badges --}}

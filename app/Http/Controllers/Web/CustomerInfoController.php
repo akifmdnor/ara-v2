@@ -5,9 +5,29 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\CarModel as CarModelModel;
+use App\Models\ModelSpecification;
+use App\Services\StorageHelper;
+use App\Services\DistanceCalculationService;
+use App\Services\PriceCalculationService;
+use App\Services\DateTimeService;
 
 class CustomerInfoController extends Controller
 {
+    protected $distanceCalculationService;
+    protected $priceCalculationService;
+    protected $dateTimeService;
+
+    public function __construct(
+        DistanceCalculationService $distanceCalculationService,
+        PriceCalculationService $priceCalculationService,
+        DateTimeService $dateTimeService
+    ) {
+        $this->distanceCalculationService = $distanceCalculationService;
+        $this->priceCalculationService = $priceCalculationService;
+        $this->dateTimeService = $dateTimeService;
+    }
+
     /**
      * Display the customer information form.
      *
@@ -32,35 +52,121 @@ class CustomerInfoController extends Controller
             'addons' => $request->addons ?? [],
         ];
 
-        // Get car model for accurate details
-        $carModel = \App\Models\CarModel::findOrFail($request->car_model_id);
-        
-        // Get car details from session or request
+        // Get car model and model specification with proper relationships
+        $carModel = CarModelModel::with(['pictures', 'branch', 'addoncars.addon'])->findOrFail($request->car_model_id);
+        $modelSpec = ModelSpecification::findOrFail($request->model_spec_id);
+
+        // Get car image
+        $carImageUrl = asset('images/ara-logo.png');
+        if ($carModel->pictures && count($carModel->pictures) > 0) {
+            $carImageUrl = StorageHelper::v1Url($carModel->pictures[0]->file_name);
+        }
+
+        // Get brand logo
+        $brandLogoUrl = null;
+        if ($modelSpec->brand_logo) {
+            $brandLogoUrl = StorageHelper::v1Url($modelSpec->brand_logo);
+        }
+
+        // Build car name
+        $carName = $modelSpec->brand . ' ' . $modelSpec->model_name . ' ' . $modelSpec->model_code;
+
+        // Calculate rental days and hours
+        // Convert date format from d-m-Y to d/m/Y (DateTimeService expects slashes)
+        $pickupDate = str_replace('-', '/', $request->pickup_date) . ' ' . $request->pickup_time;
+        $returnDate = str_replace('-', '/', $request->return_date) . ' ' . $request->return_time;
+        $rentalDays = $this->dateTimeService->getDays($pickupDate, $returnDate);
+        $rentalHours = $this->dateTimeService->getHours($pickupDate, $returnDate);
+
+        // Calculate pricing using PriceCalculationService
+        $totalPrice = $this->priceCalculationService->calculateCarModelPrice($carModel, $pickupDate, $returnDate);
+        $pricePerDay = $rentalDays > 0 ? $totalPrice / $rentalDays : 0;
+
+        // Check if pickup and return dates fall within a promo period
+        $isPromo = $this->priceCalculationService->checkIsPickupAndReturnIsPromo($carModel, $pickupDate, $returnDate);
+        $normalPricePerDay = $this->priceCalculationService->calculatePrice($carModel, $rentalDays, $rentalHours) / ($rentalDays ?: 1);
+
+        // Calculate promo percentage if applicable
+        $promoPercentage = 0;
+        if ($isPromo && $normalPricePerDay > $pricePerDay) {
+            $promoPercentage = (($normalPricePerDay - $pricePerDay) / $normalPricePerDay) * 100;
+        } else {
+            $isPromo = false;
+        }
+
+        // Get price per km from branch
+        $pricePerKm = $carModel->branch->price_per_km ?? 1.80;
+
+        // Calculate pickup distance and charge
+        $pickupDistance = $this->distanceCalculationService->calculateBranchDistance(
+            $carModel->branch_id,
+            $request->pickup_latitude,
+            $request->pickup_longitude,
+            $request->pickup_location
+        );
+        $pickupCharge = $this->distanceCalculationService->calculateDistanceCharge(
+            $pickupDistance,
+            $pricePerKm
+        );
+
+        // Calculate return distance and charge
+        $returnDistance = $this->distanceCalculationService->calculateBranchDistance(
+            $carModel->branch_id,
+            $request->return_latitude,
+            $request->return_longitude,
+            $request->return_location
+        );
+        $returnCharge = $this->distanceCalculationService->calculateDistanceCharge(
+            $returnDistance,
+            $pricePerKm
+        );
+
+        // Calculate discount if promo is active
+        $discount = 0.00;
+        if ($isPromo && $normalPricePerDay > $pricePerDay) {
+            $normalTotalPrice = $normalPricePerDay * $rentalDays;
+            $discount = $normalTotalPrice - $totalPrice;
+        }
+
+        // Calculate total with delivery charges (add-ons will be added later)
+        $doorToDoorTotal = $pickupCharge + $returnCharge;
+        $subtotal = $totalPrice + $doorToDoorTotal;
+
+        // Get security deposit from car model
+        $securityDeposit = $carModel->security_deposit ?? 300.00;
+
+        // Build car details array
         $carDetails = [
-            'id' => $request->car_model_id ?? 1,
-            'name' => 'Perodua Myvi 1.5H',
-            'brand_logo' => asset('images/ara-logo.png'),
-            'image' => asset('images/ara-logo.png'),
-            'group' => 'A',
-            'category' => 'Compact',
-            'pickup_location' => $request->pickup_location ?? 'Bandar Puteri, Puchong, Selangor',
-            'return_location' => $request->return_location ?? 'Subang Jaya',
-            'pickup_date' => $request->pickup_date ?? '05-05-2024, 9:00 AM',
-            'return_date' => $request->return_date ?? '07-05-2024, 9:00 AM',
-            'rental_days' => 2,
-            'rental_price' => 400.00,
-            'door_to_door_delivery' => 18.00,
-            'door_to_door_pickup' => 18.00,
-            'discount' => 0.00,
-            'total_price' => 436.00,
-            'tax_amount' => 26.16,
-            'security_deposit' => 300.00,
-            'is_promo' => false,
-            'promo_percentage' => 0,
+            'id' => $carModel->id,
+            'name' => $carName,
+            'brand_logo' => $brandLogoUrl ?? asset('images/ara-logo.png'),
+            'image' => $carImageUrl,
+            'group' => $modelSpec->group ?? 'A',
+            'category' => $carModel->category ?? 'Compact',
+            'pickup_location' => $request->pickup_location,
+            'return_location' => $request->return_location,
+            'pickup_date' => $request->pickup_date . ', ' . $request->pickup_time,
+            'return_date' => $request->return_date . ', ' . $request->return_time,
+            'pickup_distance' => $pickupDistance,
+            'pickup_charge' => $pickupCharge,
+            'return_distance' => $returnDistance,
+            'return_charge' => $returnCharge,
+            'price_per_km' => $pricePerKm,
+            'rental_days' => $rentalDays,
+            'rental_price' => $totalPrice,
+            'door_to_door_delivery' => $pickupCharge,
+            'door_to_door_pickup' => $returnCharge,
+            'discount' => $discount,
+            'total_price' => $subtotal,
+            'tax_amount' => 0, // Will be calculated after add-ons
+            'security_deposit' => $securityDeposit,
+            'is_promo' => $isPromo,
+            'promo_percentage' => round($promoPercentage),
         ];
 
         // Format addons for sidebar display
         $addons = [];
+        $totalAddonPrice = 0;
         if ($request->has('addons') && is_array($request->addons)) {
             foreach ($request->addons as $addonId => $quantity) {
                 if ($quantity > 0) {
@@ -68,20 +174,33 @@ class CustomerInfoController extends Controller
                         ->where('addon_id', $addonId)
                         ->with('addon')
                         ->first();
-                    
+
                     if ($addonCar) {
+                        $addonTotalPrice = $addonCar->addon_price * $quantity * $carDetails['rental_days'];
                         $addons[] = [
                             'id' => $addonId,
                             'name' => $addonCar->addon->title,
                             'price' => $addonCar->addon_price,
                             'quantity' => $quantity,
                             'unit' => $addonCar->addon->type === 'quantity' ? 'pcs' : 'day',
-                            'total_price' => $addonCar->addon_price * $quantity * $carDetails['rental_days'],
+                            'total_price' => $addonTotalPrice,
                         ];
+                        $totalAddonPrice += $addonTotalPrice;
                     }
                 }
             }
         }
+
+        // Calculate final totals including add-ons
+        $grandTotal = $subtotal + $totalAddonPrice;
+        $taxAmount = $grandTotal * 0.06;
+
+        // Calculate final amount including tax and security deposit
+        $finalTotal = $grandTotal + $taxAmount + $securityDeposit;
+
+        // Update car details with final totals
+        $carDetails['total_price'] = $finalTotal;
+        $carDetails['tax_amount'] = $taxAmount;
 
         return view('web.customer-info.index', compact('carDetails', 'bookingParams', 'addons'));
     }

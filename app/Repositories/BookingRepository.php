@@ -7,6 +7,34 @@ use App\Models\Booking;
 class BookingRepository
 {
     /**
+     * Find booking by ID with full details
+     *
+     * @param int $id
+     * @return Booking
+     */
+    public function findWithDetails($id)
+    {
+        return Booking::with([
+            'car_model.pictures',
+            'car_model.model_specification',
+            'addonbookings.addon',
+            'user',
+            'branch'
+        ])->findOrFail($id);
+    }
+
+    /**
+     * Find booking by ID
+     *
+     * @param int $id
+     * @return Booking
+     */
+    public function find($id)
+    {
+        return Booking::findOrFail($id);
+    }
+
+    /**
      * Get bookings for a specific sales affiliate.
      */
     public function getBookingsForAgent($agentId)

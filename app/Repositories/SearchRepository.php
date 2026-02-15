@@ -16,7 +16,7 @@ class SearchRepository
      * @param array|null $categories
      * @return Collection
      */
-    public function getModelSpecificationsWithCarModels(array $branchIds, string $sortBy = 'DESC', array $categories = null, array $brands = null)
+    public function getModelSpecificationsWithCarModels(array $branchIds, string $sortBy = 'ASC', array $categories = null, array $brands = null)
     {
         $query = ModelSpecification::join('car_models', 'model_specifications.id', '=', 'car_models.model_specification_id')
             ->select('model_specifications.*', 'car_models.id as car_model_id', 'car_models.price_day')

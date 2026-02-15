@@ -1,7 +1,7 @@
 <script>
     function initialize() {
         distance();
-        // distance2();
+        distance2();
         distance3();
         // initMap();
     }

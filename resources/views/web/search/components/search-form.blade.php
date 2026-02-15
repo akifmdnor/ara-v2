@@ -38,7 +38,7 @@
                     </svg>
                 </div>
                 <input type="text" name="pickup_date" id="InputStartDate"
-                    value="{{ app('request')->input('pickup_date') ? str_replace('-', '/', app('request')->input('pickup_date')) : '05/05/2024' }}"
+                    value="{{ app('request')->input('pickup_date') ? str_replace('-', '/', app('request')->input('pickup_date')) : now()->format('d/m/Y') }}"
                     class="block py-1.5 pr-3 pl-9 w-full rounded-lg border focus:outline-none focus:ring-1"
                     style="height: 32px; background-color: white; border-color: #e4e4e7; color: #18181b; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);"
                     placeholder="DD/MM/YYYY" required>
@@ -141,10 +141,10 @@
                 </svg>
 
                 {{-- Badge --}}
-                <span
+                <span id="rental-days-badge"
                     class="px-2 py-0.5 text-[11px] whitespace-nowrap rounded-full border-1 border-[#EC2028] leading-[18px]""
                     style="background-color: #fff1f2; border-color: #ec202866; color: #ec2028;">
-                    2 Days
+                    {{ isset($rentalDays) ? $rentalDays : 2 }} {{ isset($rentalDays) && $rentalDays == 1 ? 'Day' : 'Days' }}
                 </span>
 
                 {{-- Solid arrow on right --}}
@@ -193,7 +193,7 @@
                     </svg>
                 </div>
                 <input type="text" name="return_date" id="InputReturnDate"
-                    value="{{ app('request')->input('return_date') ? str_replace('-', '/', app('request')->input('return_date')) : '07/05/2024' }}"
+                    value="{{ app('request')->input('return_date') ? str_replace('-', '/', app('request')->input('return_date')) : now()->addDays(2)->format('d/m/Y') }}"
                     class="block py-1.5 pr-3 pl-9 w-full rounded-lg border focus:outline-none focus:ring-1"
                     style="height: 32px; background-color: white; border-color: #e4e4e7; color: #18181b; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);"
                     placeholder="DD/MM/YYYY">
@@ -346,7 +346,7 @@
                     </svg>
                 </div>
                 <input type="text" name="return_date" id="InputReturnDateAlt"
-                    value="{{ app('request')->input('return_date') ? str_replace('-', '/', app('request')->input('return_date')) : '07/05/2024' }}"
+                    value="{{ app('request')->input('return_date') ? str_replace('-', '/', app('request')->input('return_date')) : now()->addDays(2)->format('d/m/Y') }}"
                     class="block py-1.5 pr-3 pl-9 w-full rounded-lg border focus:outline-none focus:ring-1"
                     style="height: 32px; background-color: white; border-color: #e4e4e7; color: #18181b; box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.07);"
                     placeholder="DD/MM/YYYY">
@@ -437,9 +437,18 @@
 
         const pickupTimeSelect = document.getElementById("InputStartTime");
 
+        // Get the input element value to preserve URL parameter dates
+        const startDateInput = document.getElementById("InputStartDate");
+        const startDateValue = startDateInput ? startDateInput.value : null;
+        
+        console.log('Start date from input:', startDateValue);
+        console.log('Pickup date URL param:', '{{ app("request")->input("pickup_date") }}');
+
         const pickupDatePicker = flatpickr("#InputStartDate", {
             minDate: minPickupDate,
             dateFormat: "d/m/Y",
+            defaultDate: startDateValue || minPickupDate,
+            allowInput: true,
             onChange: function(selectedDates, dateStr, instance) {
                 const pickupDate = selectedDates[0];
                 if (pickupDate) {
@@ -465,15 +474,31 @@
 
                 // Handle time availability based on selected date
                 handleTimeAvailability(selectedDates[0]);
+                
+                // Update rental days badge
+                updateRentalDaysBadge();
             },
             onOpen: function(selectedDates, dateStr, instance) {
                 handleTimeAvailability(selectedDates[0]);
             },
         });
 
+        // Get the return date input element value to preserve URL parameter dates
+        const returnDateInput = document.getElementById("InputReturnDate");
+        const returnDateValue = returnDateInput ? returnDateInput.value : null;
+        
+        console.log('Return date from input:', returnDateValue);
+        console.log('Return date URL param:', '{{ app("request")->input("return_date") }}');
+
         const returnDatePicker = flatpickr("#InputReturnDate", {
             minDate: returnMinDate,
             dateFormat: "d/m/Y",
+            defaultDate: returnDateValue || returnMinDate,
+            allowInput: true,
+            onChange: function(selectedDates, dateStr, instance) {
+                // Update rental days badge when return date changes
+                updateRentalDaysBadge();
+            },
         });
 
         function blockRestricted() {
@@ -498,26 +523,33 @@
                         return dateObj >= checkDate;
                     });
 
-                    for (let i = 0; i < datearray.length; i++) {
-                        var date = datearray[i];
-                        var dateObj = new Date(date.split("-").reverse().join("-"));
+                    // Only update dates if no URL parameters exist (first time loading)
+                    const hasPickupDateParam = '{{ app("request")->input("pickup_date") }}';
+                    const hasReturnDateParam = '{{ app("request")->input("return_date") }}';
+                    
+                    if (!hasPickupDateParam || !hasReturnDateParam) {
+                        for (let i = 0; i < datearray.length; i++) {
+                            var date = datearray[i];
+                            var dateObj = new Date(date.split("-").reverse().join("-"));
 
-                        if (dateObj < checkDate) {
-                            continue;
+                            if (dateObj < checkDate) {
+                                continue;
+                            }
+                            if (dateFns.isSameDay(dateObj, checkDate)) {
+                                console.log("today is restricted");
+                                checkDate.setDate(checkDate.getDate() + 1);
+                                pickupDatePicker.setDate(checkDate);
+                                pickupDatePicker.set("minDate", checkDate);
+                                returnDatePicker.set(
+                                    "minDate",
+                                    dateFns.addDays(checkDate, 1)
+                                );
+                                returnDatePicker.setDate(dateFns.addDays(checkDate, 1));
+                            }
                         }
-                        if (dateFns.isSameDay(dateObj, checkDate)) {
-                            console.log("today is restricted");
-                            checkDate.setDate(checkDate.getDate() + 1);
-                            pickupDatePicker.setDate(checkDate);
-                            pickupDatePicker.set("minDate", checkDate);
-                            returnDatePicker.set(
-                                "minDate",
-                                dateFns.addDays(checkDate, 1)
-                            );
-                            returnDatePicker.setDate(dateFns.addDays(checkDate, 1));
-                        }
-                        //else add this do datepickjer bloick date
                     }
+                    
+                    // Always set disabled dates
                     pickupDatePicker.set("disable", datearray);
                     returnDatePicker.set("disable", datearray);
                 })
@@ -641,8 +673,30 @@
             return `${adjustedHours}:${formattedMinutes} ${modifier}`;
         }
 
-        handleTimeAvailability(today);
+        // Function to update rental days badge
+        function updateRentalDaysBadge() {
+            const badge = document.getElementById('rental-days-badge');
+            if (!badge) return;
+
+            const pickupDate = pickupDatePicker.selectedDates[0];
+            const returnDate = returnDatePicker.selectedDates[0];
+
+            if (pickupDate && returnDate) {
+                const days = Math.max(1, dateFns.differenceInDays(returnDate, pickupDate));
+                badge.textContent = `${days} ${days === 1 ? 'Day' : 'Days'}`;
+            }
+        }
+
+        // Only run time availability check on the selected date if it exists, otherwise use today
+        const selectedPickupDate = pickupDatePicker.selectedDates[0] || today;
+        handleTimeAvailability(selectedPickupDate);
+        
         blockRestricted();
+        
+        // Initialize rental days badge
+        setTimeout(() => {
+            updateRentalDaysBadge();
+        }, 100);
     });
 
 
@@ -684,95 +738,6 @@
 
 <script>
     (function() {
-        // Initialize datepickers for search form
-        function initializeDatepickers() {
-            try {
-                console.log('Initializing datepickers...');
-
-                const startDateInput = document.getElementById("InputStartDate");
-                const returnDateInput = document.getElementById("InputReturnDate");
-                const returnDateAltInput = document.getElementById("InputReturnDateAlt");
-
-                console.log('InputStartDate element:', startDateInput);
-                console.log('InputReturnDate element:', returnDateInput);
-                console.log('InputReturnDateAlt element:', returnDateAltInput);
-
-                if (startDateInput) {
-                    const startPicker = flatpickr("#InputStartDate", {
-                        dateFormat: "d-m-Y",
-                        minDate: "today",
-                        clickOpens: true,
-                        onReady: function() {
-                            console.log('Start date picker ready');
-                        },
-                        onOpen: function() {
-                            console.log('Start date picker opened');
-                        }
-                    });
-                    console.log('Start date picker initialized:', startPicker);
-
-                    // Add click event listener as fallback
-                    startDateInput.addEventListener('click', function() {
-                        console.log('Start date input clicked');
-                        if (startPicker) {
-                            startPicker.open();
-                        }
-                    });
-                }
-
-                if (returnDateInput) {
-                    const returnPicker = flatpickr("#InputReturnDate", {
-                        dateFormat: "d-m-Y",
-                        minDate: "today",
-                        clickOpens: true,
-                        onReady: function() {
-                            console.log('Return date picker ready');
-                        },
-                        onOpen: function() {
-                            console.log('Return date picker opened');
-                        }
-                    });
-                    console.log('Return date picker initialized:', returnPicker);
-
-                    // Add click event listener as fallback
-                    returnDateInput.addEventListener('click', function() {
-                        console.log('Return date input clicked');
-                        if (returnPicker) {
-                            returnPicker.open();
-                        }
-                    });
-                }
-
-                if (returnDateAltInput) {
-                    const returnAltPicker = flatpickr("#InputReturnDateAlt", {
-                        dateFormat: "d-m-Y",
-                        minDate: "today",
-                        clickOpens: true,
-                        onReady: function() {
-                            console.log('Return alt date picker ready');
-                        },
-                        onOpen: function() {
-                            console.log('Return alt date picker opened');
-                        }
-                    });
-                    console.log('Return alt date picker initialized:', returnAltPicker);
-
-                    // Add click event listener as fallback
-                    returnDateAltInput.addEventListener('click', function() {
-                        console.log('Return alt date input clicked');
-                        if (returnAltPicker) {
-                            returnAltPicker.open();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.log('Datepicker initialization error:', error);
-            }
-        }
-
-        // Initialize datepickers immediately since this script is loaded at the end
-        initializeDatepickers();
-
         // Ensure Google Maps autocomplete is initialized for search form
         function initializeSearchFormAutocomplete() {
             if (typeof google !== 'undefined' && google.maps && google.maps.places) {

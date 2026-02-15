@@ -35,7 +35,9 @@
                 showCategoryDropdown: false,
                 selectedBrands: [],
                 selectedCategories: [],
-                sortBy: '{{ request('sort_by') === 'ASC' ? 'low-to-high' : 'high-to-low' }}',
+                // Note: ASC/DESC are swapped because SearchService reverses the collection
+                // Default is ASC which gets reversed to show high to low
+                sortBy: '{{ request('sort_by', 'ASC') === 'DESC' ? 'low-to-high' : 'high-to-low' }}',
 
                 // Price slider
                 minprice: {{ request('min_price', 0) }},
@@ -91,7 +93,8 @@
 
                     if (minPriceInput) minPriceInput.value = this.minprice;
                     if (maxPriceInput) maxPriceInput.value = this.maxprice;
-                    if (sortByInput) sortByInput.value = this.sortBy === 'low-to-high' ? 'ASC' : 'DESC';
+                    // Note: ASC/DESC are swapped because SearchService reverses the collection
+                    if (sortByInput) sortByInput.value = this.sortBy === 'low-to-high' ? 'DESC' : 'ASC';
 
                     // Submit the filter form
                     const form = document.querySelector('form[action*="web.search"]');

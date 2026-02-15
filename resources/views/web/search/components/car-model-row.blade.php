@@ -7,19 +7,17 @@
     $isPromo = isset($carModel->is_promo) && $carModel->is_promo;
 
     // Get car image
-    $carImageUrl = asset('images/ara-logo.png');
-    if (isset($carModel->pictures) && count($carModel->pictures) > 0) {
-        $carImageUrl = StorageHelper::v1Url($carModel->pictures[0]->file_name);
+    $carImageUrl = asset('images/web/homepage/car_undercover.png');
+    if (isset($carModel->featured_image) && count($carModel->featured_image) > 0) {
+        $carImageUrl = StorageHelper::v1Url($carModel->featured_image);
     }
 
     // Generate unique ID for spec variant selector
-    $variantId = 'variant-' . ($carModel->id ?? uniqid());
+    $variantId = 'variant-  ' . ($carModel->id ?? uniqid());
 
     // Prepare modal data
     $modalData = [
-        'modelName' =>
-            $carModel->name ??
-            ($modelSpec->brand . ' ' . $modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Car Model'),
+        'modelName' => $carModel->name ?? ($modelSpec->model_name . ' ' . $modelSpec->model_code ?? 'Car Model'),
         'brandLogo' => isset($modelSpec->brand_logo) ? StorageHelper::v1Url($modelSpec->brand_logo) : null,
         'pictures' => isset($carModel->pictures)
             ? $carModel->pictures

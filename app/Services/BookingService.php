@@ -88,7 +88,7 @@ class BookingService
             'user_id' => $user->id,
             'duration_days' => $rentalDays,
             'duration_hours' => $rentalHours,
-            'amount' => $amount['total'],
+            'amount' => $amount['grandTotal'],
             'notes' => $request->notes,
             'driver_IC' => $request->get('driver_id_number'),
             'driver_name' => $request->get('name'),
@@ -110,7 +110,7 @@ class BookingService
             'amount_rent_per_day' => $pricePerDay,
             'duration_days_real' => $rentalDays,
             'duration_hours_real' => $rentalHours,
-            'amount_sst' => $amount['sst'] ?? 0,
+            'amount_sst' => $amount['taxAmount'] ?? 0,
             'booking_status' => 'Pending',
             'payment_status' => 'Pending',
         ];
